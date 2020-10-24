@@ -1,0 +1,36 @@
+.container {
+  position: absolute;
+  top: 30%;
+  left: 10px;
+}
+
+.container h2 {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.main {
+  margin: 30px;
+  font-size: 1rem;
+}
+
+.article li {
+  list-style: unset;
+}
+
+.footer {
+  text-align: center;
+  font-size: 3rem;
+}
+
+.dropBox {
+  padding: 30px;
+  border: 1px dashed #dddddd;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.placeholder {
+  color: #999999;
+}

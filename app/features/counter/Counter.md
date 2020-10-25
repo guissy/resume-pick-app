@@ -1,3 +1,4 @@
+```
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -9,7 +10,7 @@ import {
   incrementIfOdd,
   incrementAsync,
   selectCount,
-} from './counterSlice';
+} from './counterSlice.md';
 
 export default function Counter() {
   const dispatch = useDispatch();
@@ -69,3 +70,5 @@ export default function Counter() {
     </div>
   );
 }
+
+```

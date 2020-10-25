@@ -17,7 +17,6 @@ module.exports = (api) => {
   // See docs about api at https://babeljs.io/docs/en/config-files#apicache
 
   const development = api.env(developmentEnvironments);
-
   return {
     presets: [
       // @babel/preset-env will automatically target our browserslist targets

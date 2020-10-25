@@ -206,6 +206,7 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/react-test-renderer": "^16.9.3",
     "@types/redux-logger": "^3.0.8",
+    "@types/textract": "^2.4.0",
     "@types/webpack": "^4.41.21",
     "@types/webpack-env": "^1.15.2",
     "@typescript-eslint/eslint-plugin": "^3.6.1",
@@ -283,15 +284,18 @@
     "electron-log": "^4.2.4",
     "electron-updater": "^4.3.4",
     "history": "^4.7.2",
+    "pdf2json": "^1.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.12.0",
+    "react-dropzone": "^11.2.1",
     "react-hot-loader": "^4.12.21",
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "regenerator-runtime": "^0.13.5",
-    "source-map-support": "^0.5.19"
+    "source-map-support": "^0.5.19",
+    "textract": "^2.5.0"
   },
   "devEngines": {
     "node": ">=7.x",

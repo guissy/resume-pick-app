@@ -15,6 +15,8 @@ import { app, BrowserWindow } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
+import parseResume from './features/parseResume';
+import { MyApp } from './features/type';
 
 export default class AppUpdater {
   constructor() {
@@ -131,3 +133,5 @@ app.on('activate', () => {
   // dock icon is clicked and there are no other windows open.
   if (mainWindow === null) createWindow();
 });
+
+(app as MyApp).parseResume = parseResume;

@@ -1,4 +1,5 @@
 import * as Electron from 'electron';
+import configDefault from './configDefault.json';
 
 export type DocFile = { name: string; path: string };
 export type Keyword = {
@@ -14,5 +15,8 @@ export type ParseResumeFn = (
   keywords: Keyword[]
 ) => void;
 export type MyApp = Electron.App & {
-  parseResume: (path: string, fn: ParseResumeFn) => void;
+  parseResume: (path: string, config: Config, fn: ParseResumeFn) => void;
 };
+
+export type Config = typeof configDefault;
+export type ConfigFile = Record<string, Config>;

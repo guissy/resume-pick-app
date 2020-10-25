@@ -8,8 +8,15 @@ const scoreSlice = createSlice({
   initialState: { nameScore: [] as ScoreFile[] },
   reducers: {
     updateNameScore: (state, action) => {
-      // state.nameScore = [...state.nameScore, action.payload];
-      state.nameScore.push(action.payload);
+      const nameScore = action.payload;
+      const index = state.nameScore.findIndex(
+        (it) => it.path === nameScore.path
+      );
+      if (index >= 0) {
+        state.nameScore[index] = nameScore;
+      } else {
+        state.nameScore.push(nameScore);
+      }
       state.nameScore.sort((a, b) => b.score - a.score);
     },
   },

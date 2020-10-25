@@ -1,0 +1,12 @@
+.container {
+  overflow: auto;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.back {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}

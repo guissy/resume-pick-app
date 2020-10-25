@@ -1,4 +1,5 @@
 {
   "WELCOME": "/",
-  "SINGLE": "/single"
+  "SINGLE": "/single",
+  "SETTING": "/setting"
 }

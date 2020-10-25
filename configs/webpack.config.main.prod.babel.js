@@ -29,6 +29,12 @@ export default merge(baseConfig, {
   },
 
   optimization: {
+    splitChunks: {
+      cacheGroups: {
+        default: false,
+      },
+    },
+    runtimeChunk: false,
     minimizer: process.env.E2E_BUILD
       ? []
       : [
@@ -61,6 +67,9 @@ export default merge(baseConfig, {
       DEBUG_PROD: false,
       START_MINIMIZED: false,
       E2E_BUILD: false,
+    }),
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 1,
     }),
   ],
 

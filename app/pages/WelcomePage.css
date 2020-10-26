@@ -1,5 +1,5 @@
 .container {
-  overflow: scroll;
+  overflow: auto;
   height: 100vh;
 }
 
@@ -9,7 +9,11 @@
 }
 
 .main {
-  margin: 30px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 30px;
+  box-sizing: border-box;
   font-size: 1rem;
 }
 

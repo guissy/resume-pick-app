@@ -9,6 +9,7 @@ const ScoreList: React.FC<unknown> = () => {
     <table className={styles.table}>
       <thead>
         <tr>
+          <td className={styles.td}>序号</td>
           <td className={styles.td}>文件</td>
           <td className={styles.td}>分数</td>
           <td colSpan={3} className={styles.td} style={{ width: '60%' }}>
@@ -17,8 +18,9 @@ const ScoreList: React.FC<unknown> = () => {
         </tr>
       </thead>
       <tbody>
-        {scores.map((v) => (
+        {scores.map((v, i) => (
           <tr key={v.name}>
+            <td className={styles.td}>{i + 1}</td>
             <td className={styles.td}>{v.name}</td>
             <td className={styles.score}>{v.score?.toFixed(2)}</td>
             {v.keywords.map((k) => (

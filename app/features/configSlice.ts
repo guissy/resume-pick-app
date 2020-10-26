@@ -19,14 +19,28 @@ const configSlice = createSlice({
     saveConfig: (state) => {
       saveFile(state.configs);
     },
+    resetConfig: (state, action) => {
+      state.configs = action.payload;
+    },
   },
 });
 
-export const { updateConfig, buildConfig, saveConfig } = configSlice.actions;
+export const {
+  updateConfig,
+  buildConfig,
+  saveConfig,
+  resetConfig,
+} = configSlice.actions;
 
-export const initConfig = (): AppThunk => (dispatch) =>
+export const initConfigAsync = (): AppThunk => (dispatch) =>
   initFile()
     .then((data) => dispatch(buildConfig(data)))
+    // eslint-disable-next-line no-console
+    .catch((e) => console.error(e));
+
+export const resetConfigAsync = (): AppThunk => (dispatch) =>
+  initFile()
+    .then((data) => dispatch(resetConfig(data)))
     // eslint-disable-next-line no-console
     .catch((e) => console.error(e));
 

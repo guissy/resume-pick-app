@@ -9,7 +9,7 @@ import DropZone from '../features/DropZone';
 import ScoreList from '../features/ScoreList';
 import { DocFile, MyApp, ScoreFile } from '../features/type';
 import { selectNameScore, updateNameScore } from '../features/scoreSlice';
-import { initConfig, selectConfig } from '../features/configSlice';
+import { initConfigAsync, selectConfig } from '../features/configSlice';
 
 function useNameScore() {
   const nameScore = useSelector(selectNameScore);
@@ -22,7 +22,7 @@ export default function SingleFilePage(): JSX.Element {
   const dispatch = useDispatch();
   const config = useSelector(selectConfig);
   React.useEffect(() => {
-    dispatch(initConfig());
+    dispatch(initConfigAsync());
   }, [dispatch]);
   // config 更改后，重新计算
   const nameScoreRef = useNameScore();
@@ -75,13 +75,13 @@ export default function SingleFilePage(): JSX.Element {
       <main className={styles.main}>
         <ScoreList />
         <DropZone onDrop={onDrop} accept={['.doc', '.docx', '.txt', '.pdf']} />
-        <Link className={styles.back} to={routes.WELCOME}>
-          返回
-        </Link>
-        <Link className={styles.setting} to={routes.SETTING}>
-          设置
-        </Link>
       </main>
+      <Link className={styles.back} to={routes.WELCOME}>
+        返回
+      </Link>
+      <Link className={styles.setting} to={routes.SETTING}>
+        设置
+      </Link>
     </div>
   );
 }

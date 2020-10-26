@@ -17,7 +17,7 @@ const DropZone = ({ onDrop, accept }: Partial<DropzoneProps>) => {
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
-    <div {...getRootProps()} style={{ width: '100%', height: '80vh' }}>
+    <div {...getRootProps()} className={styles.mainBox}>
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <input className="dropzone-input" {...getInputProps()} />
       <div className={styles.dropBox}>

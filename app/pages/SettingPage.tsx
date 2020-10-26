@@ -8,7 +8,8 @@ import {
   selectConfig,
   updateConfig,
   saveConfig,
-  initConfig,
+  initConfigAsync,
+  resetConfigAsync,
 } from '../features/configSlice';
 import styles from './SettingPage.css';
 import routes from '../constants/routes.json';
@@ -19,15 +20,24 @@ const SettingPage: React.FC<unknown> = () => {
   const config = useSelector(selectConfig);
   const dispatch = useDispatch();
   React.useEffect(() => {
-    dispatch(initConfig());
+    dispatch(initConfigAsync());
   }, [dispatch]);
   const onChange = React.useCallback(
-    (_key: string, _value: unknown, _parent: unknown, data: Config) => {
-      dispatch(updateConfig({ default: data }));
+    (
+      _key: string,
+      _value: unknown,
+      _parent: unknown,
+      data: Config | { root: Config }
+    ) => {
+      const cfg = (data as { root: Config }).root || data;
+      dispatch(updateConfig({ default: cfg }));
       dispatch(saveConfig());
     },
     [dispatch]
   );
+  const onClick = React.useCallback(() => {
+    dispatch(resetConfigAsync());
+  }, [dispatch]);
   return (
     <div className={styles.container}>
       <JSONEditor
@@ -37,6 +47,9 @@ const SettingPage: React.FC<unknown> = () => {
         onChange={onChange}
         styles={settingPageStyle}
       />
+      <a className={styles.reset} onClick={onClick} href="#reset">
+        重置
+      </a>
       <Link className={styles.back} to={routes.SINGLE}>
         返回
       </Link>

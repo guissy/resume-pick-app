@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
 import { AppThunk, RootState } from '../store';
 import { ConfigFile } from './type';
-import initFile, { saveFile } from './configUtil';
+import initFile, { initDefaultFile, saveFile } from './configUtil';
 
 const configSlice = createSlice({
   name: 'config',
@@ -21,6 +21,7 @@ const configSlice = createSlice({
     },
     resetConfig: (state, action) => {
       state.configs = action.payload;
+      saveFile(state.configs);
     },
   },
 });
@@ -39,7 +40,7 @@ export const initConfigAsync = (): AppThunk => (dispatch) =>
     .catch((e) => console.error(e));
 
 export const resetConfigAsync = (): AppThunk => (dispatch) =>
-  initFile()
+  initDefaultFile()
     .then((data) => dispatch(resetConfig(data)))
     // eslint-disable-next-line no-console
     .catch((e) => console.error(e));

@@ -41,3 +41,15 @@
   text-align: left;
   flex: 1;
 }
+
+.link {
+  border: 0;
+  background: none;
+  font-size: 14px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.link:hover {
+  color: #4141ff;
+}

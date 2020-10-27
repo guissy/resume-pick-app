@@ -8,11 +8,16 @@ export type Keyword = {
   children: Keyword[];
   gained: number;
 };
-export type ScoreFile = DocFile & { score: number; keywords: Keyword[] };
+export type ScoreFile = DocFile & {
+  score: number;
+  keywords: Keyword[];
+  text: string;
+};
 export type ParseResumeFn = (
   p: string,
   score: number,
-  keywords: Keyword[]
+  keywords: Keyword[],
+  text: string
 ) => void;
 export type MyApp = Electron.App & {
   parseResume: (path: string, config: Config, fn: ParseResumeFn) => void;

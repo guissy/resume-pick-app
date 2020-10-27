@@ -12,6 +12,10 @@ function initFile(): Promise<Record<string, Config>> {
   });
 }
 
+export function initDefaultFile(): Promise<Record<string, Config>> {
+  return Promise.resolve({ default: configDefault });
+}
+
 export function saveFile(configs: Record<string, Config>) {
   return storage.set('keywords.json', configs).catch((err: unknown) => {
     // eslint-disable-next-line no-console

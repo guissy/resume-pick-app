@@ -3,7 +3,11 @@ import { useSelector } from 'react-redux';
 import styles from './ScoreList.css';
 import { selectNameScore } from './scoreSlice';
 
-const ScoreList: React.FC<unknown> = () => {
+type Props = {
+  onClickResume: (resume: string) => void;
+};
+
+const ScoreList: React.FC<Props> = ({ onClickResume }) => {
   const scores = useSelector(selectNameScore);
   return scores.length > 0 ? (
     <table className={styles.table}>
@@ -21,7 +25,15 @@ const ScoreList: React.FC<unknown> = () => {
         {scores.map((v, i) => (
           <tr key={v.name}>
             <td className={styles.td}>{i + 1}</td>
-            <td className={styles.td}>{v.name}</td>
+            <td className={styles.td}>
+              <button
+                type="button"
+                className={styles.link}
+                onClick={() => onClickResume(v.text)}
+              >
+                {v.name}
+              </button>
+            </td>
             <td className={styles.score}>{v.score?.toFixed(2)}</td>
             {v.keywords.map((k) => (
               <td className={styles.td} key={k.name}>

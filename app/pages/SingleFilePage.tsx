@@ -10,6 +10,7 @@ import ScoreList from '../features/ScoreList';
 import { DocFile, MyApp, ScoreFile } from '../features/type';
 import { selectNameScore, updateNameScore } from '../features/scoreSlice';
 import { initConfigAsync, selectConfig } from '../features/configSlice';
+import ResumeView from '../features/ResumeView';
 
 function useNameScore() {
   const nameScore = useSelector(selectNameScore);
@@ -20,6 +21,15 @@ function useNameScore() {
 
 export default function SingleFilePage(): JSX.Element {
   const dispatch = useDispatch();
+  const [showDialog, setShowDialog] = React.useState(false);
+  const [resume, setResume] = React.useState<string>('');
+  const onOpenResume = React.useCallback((content: string) => {
+    setShowDialog(true);
+    setResume(content);
+  }, []);
+  const onCloseResume = React.useCallback(() => {
+    setShowDialog(false);
+  }, []);
   const config = useSelector(selectConfig);
   React.useEffect(() => {
     dispatch(initConfigAsync());
@@ -33,13 +43,14 @@ export default function SingleFilePage(): JSX.Element {
         (remote.app as MyApp).parseResume(
           f.path,
           config,
-          (_p, score, keywords) => {
+          (_p, score, keywords, text) => {
             dispatch(
               updateNameScore({
                 name: f.name,
                 path: f.path,
                 score,
                 keywords: cloneDeep(keywords),
+                text,
               })
             );
           }
@@ -54,13 +65,14 @@ export default function SingleFilePage(): JSX.Element {
           (remote.app as MyApp).parseResume(
             f.path,
             config,
-            (_p, score, keywords) => {
+            (_p, score, keywords, text) => {
               dispatch(
                 updateNameScore({
                   name: f.name,
                   path: f.path,
                   score,
                   keywords: cloneDeep(keywords),
+                  text,
                 })
               );
             }
@@ -73,8 +85,11 @@ export default function SingleFilePage(): JSX.Element {
   return (
     <div className={styles.container} data-tid="container">
       <main className={styles.main}>
-        <ScoreList />
+        <ScoreList onClickResume={onOpenResume} />
         <DropZone onDrop={onDrop} accept={['.doc', '.docx', '.txt', '.pdf']} />
+        <dialog open={showDialog} style={{ padding: 0, zIndex: 100 }}>
+          <ResumeView resume={resume} onClose={onCloseResume} />
+        </dialog>
       </main>
       <Link className={styles.back} to={routes.WELCOME}>
         返回

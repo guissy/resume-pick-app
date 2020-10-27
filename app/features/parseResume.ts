@@ -11,14 +11,19 @@ import { Config, Keyword } from './type';
 function parseResumeText(
   path: string,
   config: Config,
-  callback: (path: string, score: number, keywords: Keyword[]) => void,
-  data: string
+  callback: (
+    path: string,
+    score: number,
+    keywords: Keyword[],
+    text: string
+  ) => void,
+  text: string
 ) {
-  if (data && data.length > 0) {
-    const { score, keywords: kw } = timeContent.calcTotal(data, config);
-    callback(path, score, kw.items);
+  if (text && text.length > 0) {
+    const { score, keywords: kw } = timeContent.calcTotal(text, config);
+    callback(path, score, kw.items, text);
   } else {
-    callback(path, 0, []);
+    callback(path, 0, [], text);
   }
 }
 
@@ -28,7 +33,12 @@ export default function parseResume(
   this: unknown,
   path: string,
   config: Config,
-  callback: (path: string, score: number, keywords: Keyword[]) => void
+  callback: (
+    path: string,
+    score: number,
+    keywords: Keyword[],
+    text: string
+  ) => void
 ) {
   if (path.endsWith('.pdf')) {
     fs.readFile(path, (_e, buffer) => {

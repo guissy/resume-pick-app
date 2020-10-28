@@ -14,14 +14,28 @@ const LazySettingPage = React.lazy(
   () => import(/* webpackChunkName: "SettingPage" */ './pages/SettingPage')
 );
 
+const Loading = () => (
+  <div
+    style={{
+      width: '100vw',
+      height: '100vh',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}
+  >
+    <h3>Loading...</h3>
+  </div>
+);
+
 const SingleFilePage = (props: Record<string, unknown>) => (
-  <React.Suspense fallback={<h1>Loading...</h1>}>
+  <React.Suspense fallback={<Loading />}>
     <LazySingleFilePage {...props} />
   </React.Suspense>
 );
 
 const SettingPage = (props: Record<string, unknown>) => (
-  <React.Suspense fallback={<h1>Loading...</h1>}>
+  <React.Suspense fallback={<Loading />}>
     <LazySettingPage {...props} />
   </React.Suspense>
 );

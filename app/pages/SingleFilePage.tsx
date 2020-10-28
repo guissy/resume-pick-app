@@ -29,6 +29,7 @@ export default function SingleFilePage(): JSX.Element {
   }, []);
   const onCloseResume = React.useCallback(() => {
     setShowDialog(false);
+    setResume('');
   }, []);
   const config = useSelector(selectConfig);
   React.useEffect(() => {
@@ -84,12 +85,15 @@ export default function SingleFilePage(): JSX.Element {
   );
   return (
     <div className={styles.container} data-tid="container">
+      <dialog
+        open={showDialog}
+        style={{ padding: 0, zIndex: 100, width: '70vw', top: 10 }}
+      >
+        <ResumeView resume={resume} onClose={onCloseResume} />
+      </dialog>
       <main className={styles.main}>
-        <ScoreList onClickResume={onOpenResume} />
+        <ScoreList onClickResume={onOpenResume} onClickTable={onCloseResume} />
         <DropZone onDrop={onDrop} accept={['.doc', '.docx', '.txt', '.pdf']} />
-        <dialog open={showDialog} style={{ padding: 0, zIndex: 100 }}>
-          <ResumeView resume={resume} onClose={onCloseResume} />
-        </dialog>
       </main>
       <Link className={styles.back} to={routes.WELCOME}>
         返回

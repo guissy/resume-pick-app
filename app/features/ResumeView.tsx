@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 type Props = {
   resume: string;
   onClose: () => void;
 };
 const ResumeView: React.FC<Props> = ({ resume, onClose }) => {
+  const topElmRef = React.useRef<HTMLParagraphElement>(null);
+  useEffect(() => {
+    if (resume && topElmRef.current) {
+      topElmRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [resume]);
   return (
     <div
       style={{
@@ -25,7 +31,15 @@ const ResumeView: React.FC<Props> = ({ resume, onClose }) => {
           padding: 20,
         }}
       >
-        {resume}
+        {(resume || '').split('\n').map((content, i) => (
+          <p
+            key={String(i)}
+            style={{ marginBlockStart: 5, marginBlockEnd: 5 }}
+            ref={i === 0 ? topElmRef : undefined}
+          >
+            {content}
+          </p>
+        ))}
       </article>
     </div>
   );

@@ -5,7 +5,7 @@
     "children": [
       {
         "name": "RN",
-        "alias": ["react native", "flutter", "dart", "rn"],
+        "alias": ["react native", "flutter", "dart", "rn", "weex"],
         "score": 2.5
       },
       {
@@ -57,6 +57,7 @@
           "nodejs",
           "express",
           "keo",
+          "egg",
           "next",
           "typeorm",
           "pm2",
@@ -72,6 +73,7 @@
           "saga",
           "mobx",
           "vuex",
+          "vuetify",
           "dva",
           "事件总线",
           "eventBus",
@@ -92,6 +94,11 @@
           "ecmascript"
         ],
         "score": 0.5
+      },
+      {
+        "name": "w3c",
+        "score": 0.5,
+        "alias": ["mdn"]
       },
       {
         "name": "css3",
@@ -229,15 +236,16 @@
         "score": 0.5
       },
       {
+        "name": "scala",
+        "score": 0.5
+      },
+      {
         "name": "mysql",
         "score": 0.5
       },
       {
-        "name": "linux",
-        "score": 0.5
-      },
-      {
-        "name": "shell",
+        "name": "devops",
+        "alias": ["shell", "nginx", "linux", "cicd"],
         "score": 0.5
       },
       {
@@ -245,8 +253,22 @@
         "score": 0.5
       },
       {
-        "name": "devops",
+        "name": "ssr",
         "score": 0.5
+      },
+      {
+        "name": "bi",
+        "score": 0.5,
+        "alias": ["可视化", "大屏", "echarts", "d3"]
+      },
+      {
+        "name": "three.js",
+        "score": 0.5
+      },
+      {
+        "name": "postman",
+        "score": 0.5,
+        "alias": ["charles", "fiddler"]
       },
       {
         "name": "flash",

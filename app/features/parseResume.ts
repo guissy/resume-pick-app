@@ -51,8 +51,12 @@ export default function parseResume(
         });
     });
   } else {
-    textract.fromFileWithPath(path, (_err: unknown, docText: string) => {
-      parseResumeText(path, config, callback, docText);
-    });
+    textract.fromFileWithPath(
+      path,
+      { preserveLineBreaks: true },
+      (_err: unknown, docText: string) => {
+        parseResumeText(path, config, callback, docText);
+      }
+    );
   }
 }

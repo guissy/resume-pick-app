@@ -1,6 +1,7 @@
 .mainBox {
   flex: 1;
-  width: 100%;
+
+  /* width: 100%; */
   min-height: 90px;
   margin-top: 20px;
   border: 1px dashed #ddd;

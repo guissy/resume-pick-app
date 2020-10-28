@@ -19,7 +19,7 @@ const DropZone = ({ onDrop, accept }: Partial<DropzoneProps>) => {
     // eslint-disable-next-line react/jsx-props-no-spreading
     <div {...getRootProps()} className={styles.mainBox}>
       {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-      <input className="dropzone-input" {...getInputProps()} />
+      <input {...getInputProps()} />
       <div className={styles.dropBox}>
         <section className={styles.placeholder}>
           {isDragActive ? (
@@ -27,7 +27,9 @@ const DropZone = ({ onDrop, accept }: Partial<DropzoneProps>) => {
           ) : (
             <p className={styles.textCenter}>
               {/* eslint-disable-next-line react/no-unescaped-entities */}
-              拖拽文件到这里
+              拖拽简历文件到这里（或者点击弹窗选择）
+              <br />
+              <span>支持 doc 和 pdf</span>
             </p>
           )}
         </section>

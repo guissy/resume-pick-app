@@ -1,9 +1,14 @@
+.tableWrap {
+  padding: 30px 20px;
+}
+
 .table {
   width: 100%;
   text-align: center;
   border-spacing: 0;
   border-top: 1px solid #ddd;
   border-left: 1px solid #ddd;
+  box-sizing: border-box;
 }
 
 .td {

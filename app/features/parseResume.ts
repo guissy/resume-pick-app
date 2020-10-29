@@ -6,24 +6,26 @@ import fs from 'fs';
 // @ts-ignore
 import pdf from 'pdf-parse/lib/pdf-parse';
 import textract from 'textract';
-import { Config, Keyword } from './type';
+import { Config, Keyword, ParseResumeFn } from './type';
+import trackWorkAge, { trackPhone } from './tractWorkAge';
 
 function parseResumeText(
   path: string,
   config: Config,
-  callback: (
-    path: string,
-    score: number,
-    keywords: Keyword[],
-    text: string
-  ) => void,
+  callback: ParseResumeFn,
   text: string
 ) {
+  const phone = trackPhone(text);
+  const workAge = trackWorkAge(text);
   if (text && text.length > 0) {
     const { score, keywords: kw } = timeContent.calcTotal(text, config);
-    callback(path, score, kw.items, text);
+    const kws = kw.items.map((k: Keyword) => ({
+      ...k,
+      children: k.children.filter((w) => w.gained !== 0),
+    }));
+    callback({ path, score, keywords: kws, text, workAge, phone });
   } else {
-    callback(path, 0, [], text);
+    callback({ path, score: 0, keywords: [], text, workAge, phone });
   }
 }
 
@@ -33,12 +35,7 @@ export default function parseResume(
   this: unknown,
   path: string,
   config: Config,
-  callback: (
-    path: string,
-    score: number,
-    keywords: Keyword[],
-    text: string
-  ) => void
+  callback: ParseResumeFn
 ) {
   if (path.endsWith('.pdf')) {
     fs.readFile(path, (_e, buffer) => {

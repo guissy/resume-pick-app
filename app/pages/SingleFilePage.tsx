@@ -4,7 +4,7 @@ import { remote } from 'electron';
 import { useDispatch, useSelector } from 'react-redux';
 import cloneDeep from 'lodash/cloneDeep';
 import routes from '../constants/routes.json';
-import styles from './WelcomePage.css';
+import styles from './SingleFilePage.css';
 import DropZone from '../features/DropZone';
 import ScoreList from '../features/ScoreList';
 import { DocFile, MyApp, ScoreFile } from '../features/type';
@@ -41,21 +41,19 @@ export default function SingleFilePage(): JSX.Element {
     const ns = nameScoreRef.current;
     if (ns) {
       ns.forEach((f) => {
-        (remote.app as MyApp).parseResume(
-          f.path,
-          config,
-          (_p, score, keywords, text) => {
-            dispatch(
-              updateNameScore({
-                name: f.name,
-                path: f.path,
-                score,
-                keywords: cloneDeep(keywords),
-                text,
-              })
-            );
-          }
-        );
+        (remote.app as MyApp).parseResume(f.path, config, (r) => {
+          dispatch(
+            updateNameScore({
+              name: f.name,
+              path: f.path,
+              score: r.score,
+              keywords: cloneDeep(r.keywords),
+              text: r.text,
+              phone: r.phone,
+              workAge: r.workAge,
+            })
+          );
+        });
       });
     }
   }, [dispatch, nameScoreRef, config]);
@@ -63,21 +61,19 @@ export default function SingleFilePage(): JSX.Element {
     (_files: DocFile[]) => {
       if (_files.length > 0) {
         _files.forEach((f) => {
-          (remote.app as MyApp).parseResume(
-            f.path,
-            config,
-            (_p, score, keywords, text) => {
-              dispatch(
-                updateNameScore({
-                  name: f.name,
-                  path: f.path,
-                  score,
-                  keywords: cloneDeep(keywords),
-                  text,
-                })
-              );
-            }
-          );
+          (remote.app as MyApp).parseResume(f.path, config, (r) => {
+            dispatch(
+              updateNameScore({
+                name: f.name,
+                path: f.path,
+                score: r.score,
+                keywords: cloneDeep(r.keywords),
+                text: r.text,
+                phone: r.phone,
+                workAge: r.workAge,
+              })
+            );
+          });
         });
       }
     },

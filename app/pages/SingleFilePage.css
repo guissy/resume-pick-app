@@ -1,0 +1,25 @@
+.container {
+  overflow: auto;
+  height: 100vh;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-size: 1rem;
+  box-sizing: border-box;
+  padding-bottom: 15px;
+}
+
+.back {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+.setting {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+}

@@ -58,3 +58,13 @@
 .link:hover {
   color: #4141ff;
 }
+
+.footer {
+  padding: 10px 0;
+  text-align: right;
+}
+
+.exportExcel {
+  background: none;
+  color: #ddd;
+}

@@ -2,13 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import routes from '../constants/routes.json';
 import styles from './WelcomePage.css';
+import packageJson from '../package.json';
 
 export default function WelcomePage(): JSX.Element {
+  const ver = packageJson.version;
+  const productName = packageJson.name;
   return (
     <div className={styles.container} data-tid="container">
-      <h2>简历关键字检索评分工具</h2>
+      <h2>职场点将</h2>
       <main className={styles.main}>
         <article className={styles.article}>
+          <p className={styles.ver}>{`${productName} v${ver}`}</p>
+          <p className={styles.desc}>简历关键字检索评分工具</p>
           <ol>
             <li>
               <p>拖动个人简历文件（支持 doc 和 pdf）到上传文件区</p>

@@ -271,6 +271,20 @@
         "alias": ["charles", "fiddler"]
       },
       {
+        "name": "leetcode",
+        "score": 0.5,
+        "alias": ["力扣", "leet code"]
+      },
+      {
+        "name": "deno",
+        "score": 0.5
+      },
+      {
+        "name": "wasm",
+        "score": 0.5,
+        "alias": ["web assembly"]
+      },
+      {
         "name": "flash",
         "alias": ["dreamweaver", "ie6", "div+css", "iframe"],
         "score": -1.5

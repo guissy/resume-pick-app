@@ -1,7 +1,7 @@
 {
   "name": "electron-react-boilerplate",
   "productName": "ResumePick",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
@@ -285,6 +285,7 @@
     "electron-log": "^4.2.4",
     "electron-storage": "^1.0.7",
     "electron-updater": "^4.3.4",
+    "excel-export": "^0.5.1",
     "history": "^4.7.2",
     "pdf-parse": "^1.1.1",
     "react": "^16.13.1",

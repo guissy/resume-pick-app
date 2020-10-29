@@ -11,3 +11,7 @@ export default function trackWorkAge(text: string) {
   }
   return years ? `${years}年` : '-';
 }
+
+export function trackPhone(text: string) {
+  return text.match(/1\d{10}/g)?.[0];
+}

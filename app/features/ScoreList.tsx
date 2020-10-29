@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styles from './ScoreList.css';
 import { selectNameScore } from './scoreSlice';
-import trackWorkAge from './tractWorkAge';
+import trackWorkAge, { trackPhone } from './tractWorkAge';
 
 type Props = {
   onClickResume: (resume: string) => void;
@@ -47,6 +47,8 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
                   }}
                 >
                   {v.name}
+                  <br />
+                  {trackPhone(v.text)}
                 </button>
               </td>
               <td className={styles.td}>{trackWorkAge(v.text)}</td>

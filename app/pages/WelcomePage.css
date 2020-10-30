@@ -23,7 +23,6 @@
 .main {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
   font-size: 1rem;
   box-sizing: border-box;
   padding-bottom: 15px;
@@ -35,6 +34,8 @@
 }
 
 .footer {
-  text-align: center;
+  margin-top: 10%;
+  text-align: right;
+  margin-right: 50px;
   font-size: 3rem;
 }

@@ -7,6 +7,11 @@ import packageJson from '../package.json';
 export default function WelcomePage(): JSX.Element {
   const ver = packageJson.version;
   const productName = packageJson.name;
+  React.useEffect(() => {
+    if (!document.title.endsWith(packageJson.version)) {
+      document.title += packageJson.version;
+    }
+  }, []);
   return (
     <div className={styles.container} data-tid="container">
       <h2>职场点将</h2>

@@ -68,3 +68,36 @@
   background: none;
   color: #ddd;
 }
+
+.sort {
+  position: relative;
+}
+
+.sortBtn {
+  display: block;
+  background: none;
+  color: #fff;
+  border: 0;
+  font-size: unset;
+}
+
+.sortBtn:not(:focus-visible) {
+  outline: none;
+}
+
+.caretInit {
+  top: 50%;
+  position: absolute;
+  display: inline-flex;
+  flex-direction: column;
+  transform: translate(2px, -50%);
+  color: #666;
+}
+
+.active {
+  color: #fff;
+}
+
+.caretInit > i {
+  line-height: 8px;
+}

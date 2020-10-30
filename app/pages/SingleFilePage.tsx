@@ -37,47 +37,37 @@ export default function SingleFilePage(): JSX.Element {
   }, [dispatch]);
   // config 更改后，重新计算
   const nameScoreRef = useNameScore();
+  const updateOne = React.useCallback(
+    (f: ScoreFile | DocFile) => {
+      (remote.app as MyApp).parseResume(f.path, config, (r) => {
+        dispatch(
+          updateNameScore({
+            name: f.name,
+            path: f.path,
+            score: r.score,
+            keywords: cloneDeep(r.keywords),
+            text: r.text,
+            phone: r.phone,
+            workAge: r.workAge,
+          })
+        );
+      });
+    },
+    [config, dispatch]
+  );
   React.useEffect(() => {
     const ns = nameScoreRef.current;
     if (ns) {
-      ns.forEach((f) => {
-        (remote.app as MyApp).parseResume(f.path, config, (r) => {
-          dispatch(
-            updateNameScore({
-              name: f.name,
-              path: f.path,
-              score: r.score,
-              keywords: cloneDeep(r.keywords),
-              text: r.text,
-              phone: r.phone,
-              workAge: r.workAge,
-            })
-          );
-        });
-      });
+      ns.forEach(updateOne);
     }
-  }, [dispatch, nameScoreRef, config]);
+  }, [updateOne, nameScoreRef]);
   const onDrop = React.useCallback(
     (_files: DocFile[]) => {
       if (_files.length > 0) {
-        _files.forEach((f) => {
-          (remote.app as MyApp).parseResume(f.path, config, (r) => {
-            dispatch(
-              updateNameScore({
-                name: f.name,
-                path: f.path,
-                score: r.score,
-                keywords: cloneDeep(r.keywords),
-                text: r.text,
-                phone: r.phone,
-                workAge: r.workAge,
-              })
-            );
-          });
-        });
+        _files.forEach(updateOne);
       }
     },
-    [dispatch, config]
+    [updateOne]
   );
   return (
     <div className={styles.container} data-tid="container">

@@ -36,7 +36,9 @@ export default function WelcomePage(): JSX.Element {
           </ol>
         </article>
         <footer className={styles.footer}>
-          <Link to={routes.SINGLE}>开始</Link>
+          <Link to={routes.SINGLE} className={styles.start}>
+            开始
+          </Link>
         </footer>
       </main>
     </div>

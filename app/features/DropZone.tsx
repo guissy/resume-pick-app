@@ -32,6 +32,9 @@ const DropZone = ({ onDrop, accept }: Partial<DropzoneProps>) => {
               <span>支持 doc 和 pdf</span>
             </p>
           )}
+          <p className={`${styles.textCenter} ${styles.upload}`}>
+            <i className="fa fa-upload fa-3x" />
+          </p>
         </section>
       </div>
     </div>

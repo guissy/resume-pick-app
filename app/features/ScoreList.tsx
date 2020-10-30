@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import fs from 'fs';
 import ExcelJS, { Column } from 'exceljs';
 import { remote } from 'electron';
+import dayjs from 'dayjs';
 import styles from './ScoreList.css';
 import { selectNameScore } from './scoreSlice';
 import trackWorkAge, { trackPhone } from './tractWorkAge';
@@ -64,9 +65,10 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
         cell.alignment = { vertical: 'middle', horizontal: 'center' };
         cell.font = { name: 'Arial', size: 14 };
       });
+    const day = dayjs().format('YYYY-MM-DD');
     const filePath = await remote.dialog
       .showSaveDialog({
-        nameFieldLabel: 'resume-score',
+        defaultPath: `简历评估 ${day}.xlsx`,
         filters: [{ name: 'xls Files', extensions: ['xlsx'] }],
         properties: [],
       })

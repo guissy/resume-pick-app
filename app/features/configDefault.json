@@ -61,7 +61,6 @@
           "next",
           "typeorm",
           "pm2",
-          "mongodb",
           "electron"
         ],
         "score": 1.5
@@ -241,6 +240,10 @@
       },
       {
         "name": "mysql",
+        "score": 0.5
+      },
+      {
+        "name": "mongodb",
         "score": 0.5
       },
       {

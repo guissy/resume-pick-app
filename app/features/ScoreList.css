@@ -1,5 +1,10 @@
 .tableWrap {
-  padding: 30px 20px;
+  padding: 0 20px 30px 20px;
+}
+
+.header {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .table {
@@ -73,6 +78,7 @@
 
 .sort {
   position: relative;
+  cursor: pointer;
 }
 
 .sortBtn {
@@ -81,6 +87,7 @@
   color: #fff;
   border: 0;
   font-size: unset;
+  cursor: pointer;
 }
 
 .sortBtn:not(:focus-visible) {
@@ -102,4 +109,21 @@
 
 .caretInit > i {
   line-height: 8px;
+}
+.icons {
+  margin-top: 10px;
+}
+.icons > li {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #eee;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+.icons img {
+  height: 80%;
 }

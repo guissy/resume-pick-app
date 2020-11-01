@@ -123,12 +123,51 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
       return '';
     });
   }, []);
+  const images = [
+    'angular.png',
+    'css3.png',
+    'graphql.png',
+    'hybird.png',
+    'node.png',
+    'RN.png',
+    'typescript.png',
+    'vue.png',
+    'wxapp.png',
+    'gayhub.png',
+    'lint.png',
+    'test.png',
+    'es6.png',
+    'java.png',
+    'go.png',
+    'mysql.png',
+    'kotlin.png',
+    'flutter.png',
+    'docker.png',
+    'python.png',
+    'git.png',
+    'linux.png',
+    'nginx.png',
+    'mongodb.png',
+  ];
+  const imgKey = images.map((img) => img.split('.').shift());
+  const [checked, setChecked] = React.useState(true);
   return scores.length > 0 ? (
     <div
       role="presentation"
       className={styles.tableWrap}
       onClick={onClickTable}
     >
+      <header className={styles.header}>
+        <label htmlFor="showFull">
+          <input
+            id="showFull"
+            type="checkbox"
+            onChange={() => setChecked(!checked)}
+            checked={checked}
+          />
+          Show Full
+        </label>
+      </header>
       <table className={styles.table}>
         <thead>
           <tr>
@@ -213,9 +252,32 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
                       onClickResume(v.text);
                     }}
                   >
-                    {v.name}
-                    <br />
-                    {trackPhone(v.text)}
+                    {checked && (
+                      <>
+                        {v.name}
+                        <br />
+                        {trackPhone(v.text)}
+                        <br />
+                      </>
+                    )}
+                    <div className={styles.icons}>
+                      {v.keywords
+                        .map((k) => k.children.map((w) => w))
+                        .flat()
+                        .filter((w) => imgKey.includes(w.name))
+                        .map((w) => (
+                          <li
+                            key={w.name}
+                            style={{ opacity: (w.gained / w.score) * 0.8 }}
+                          >
+                            <img
+                              src={`./images/${w.name}.png`}
+                              style={{ opacity: (w.gained / w.score) * 0.5 }}
+                              alt={w.name}
+                            />
+                          </li>
+                        ))}
+                    </div>
                   </button>
                 </td>
                 <td className={styles.td}>{trackWorkAge(v.text)}</td>

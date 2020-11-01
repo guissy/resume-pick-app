@@ -8,11 +8,11 @@
 .reset {
   position: fixed;
   bottom: 20px;
-  left: 20px;
+  left: 35px;
 }
 
 .back {
   position: fixed;
   bottom: 20px;
-  right: 20px;
+  right: 35px;
 }

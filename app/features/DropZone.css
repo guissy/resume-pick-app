@@ -1,7 +1,6 @@
 .mainBox {
   flex: 1;
-  min-height: 90px;
-  margin-top: 20px;
+  margin: 20px 20px 0 20px;
   border: 1px dashed #ddd;
   cursor: pointer;
 }
@@ -17,7 +16,7 @@
 
 .placeholder {
   width: 100%;
-  color: #eee;
+  color: #666;
 }
 
 .textCenter {
@@ -26,6 +25,10 @@
 
 .upload {
   color: #666;
+}
+
+.mainBox:hover .placeholder {
+  color: #aaa;
 }
 
 .mainBox:hover .upload {

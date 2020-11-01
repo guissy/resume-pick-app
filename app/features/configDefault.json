@@ -5,8 +5,13 @@
     "children": [
       {
         "name": "RN",
-        "alias": ["react native", "flutter", "dart", "rn", "weex"],
-        "score": 2.5
+        "alias": ["react native", "rn", "weex"],
+        "score": 1.5
+      },
+      {
+        "name": "flutter",
+        "alias": ["flutter", "dart"],
+        "score": 1.5
       },
       {
         "name": "hybird",
@@ -33,9 +38,9 @@
         "score": 1.5
       },
       {
-        "name": "ng",
+        "name": "angular",
         "alias": [
-          "angular",
+          "ng",
           "ng2",
           "angular2",
           "angular4",

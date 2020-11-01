@@ -1,4 +1,5 @@
 import RN_png from '../images/RN.png';
+import react_png from '../images/react.png';
 import angular_png from '../images/angular.png';
 import css3_png from '../images/css3.png';
 import docker_png from '../images/docker.png';
@@ -25,6 +26,7 @@ import wxapp_png from '../images/wxapp.png';
 
 export default {
   RN_png,
+  react_png,
   angular_png,
   css3_png,
   docker_png,

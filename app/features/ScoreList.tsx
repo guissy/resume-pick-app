@@ -131,6 +131,7 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
     'hybird.png',
     'node.png',
     'RN.png',
+    'react.png',
     'typescript.png',
     'vue.png',
     'wxapp.png',
@@ -273,7 +274,7 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
                           >
                             <img
                               src={Image[`${w.name}_png` as keyof typeof Image]}
-                              style={{ opacity: (w.gained / w.score) * 0.5 }}
+                              style={{ opacity: (w.gained / w.score) * 0.7 }}
                               alt={w.name}
                             />
                           </li>

@@ -29,3 +29,13 @@ export type MyApp = Electron.App & {
 
 export type Config = Keyword[];
 export type ConfigFile = Record<string, Config>;
+export type KeywordUtil = {
+  calc: (items: Keyword[]) => number;
+  walk: (items: Keyword[]) => void;
+  items: Keyword[];
+  walked: Keyword[];
+};
+export type KeywordCalcResult = {
+  score: number;
+  keywords: KeywordUtil;
+};

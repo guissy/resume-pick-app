@@ -252,6 +252,10 @@
         "score": 0.5
       },
       {
+        "name": "electron",
+        "score": 0.5
+      },
+      {
         "name": "devops",
         "alias": ["shell", "nginx", "linux", "cicd"],
         "score": 0.5
@@ -293,24 +297,19 @@
         "alias": ["web assembly"]
       },
       {
-        "name": "flash",
-        "alias": ["dreamweaver", "ie6", "div+css", "iframe"],
+        "name": "iframe",
+        "alias": ["flash", "dreamweaver", "div+css", "v-for", "v-if"],
         "score": -1.5
       },
       {
-        "name": "jquery",
-        "alias": [
-          "jq",
-          "zepto",
-          "ajax",
-          "jsonp",
-          "bootstrap",
-          "dom",
-          "ie6",
-          "ie7",
-          "ie8"
-        ],
+        "name": "ajax",
+        "alias": ["ajax", "jsonp", "ie6", "ie7", "ie8"],
         "score": -1
+      },
+      {
+        "name": "jquery",
+        "alias": ["jq", "zepto"],
+        "score": -0.5
       },
       {
         "name": "svn",

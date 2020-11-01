@@ -6,8 +6,19 @@ import fs from 'fs';
 // @ts-ignore
 import pdf from 'pdf-parse/lib/pdf-parse';
 import textract from 'textract';
-import { Config, Keyword, ParseResumeFn } from './type';
+import {
+  Config,
+  Keyword,
+  KeywordCalcResult,
+  KeywordUtil,
+  ParseResumeFn,
+} from './type';
 import trackWorkAge, { trackPhone } from './tractWorkAge';
+
+const cache = new Map<
+  string,
+  { text: string; workAge: string; phone: string; keywords: KeywordUtil }
+>();
 
 function parseResumeText(
   path: string,
@@ -18,7 +29,11 @@ function parseResumeText(
   const phone = trackPhone(text);
   const workAge = trackWorkAge(text);
   if (text && text.length > 0) {
-    const { score, keywords: kw } = timeContent.calcTotal(text, config);
+    const { score, keywords: kw } = timeContent.calcTotal(
+      text,
+      config
+    ) as KeywordCalcResult;
+    // cache.set(path, { keywords: kw, text, workAge, phone });
     const kws = kw.items.map((k: Keyword) => ({
       ...k,
       children: k.children.filter((w) => w.gained !== 0),
@@ -37,23 +52,41 @@ export default function parseResume(
   config: Config,
   callback: ParseResumeFn
 ) {
-  if (path.endsWith('.pdf')) {
-    fs.readFile(path, (_e, buffer) => {
-      pdf(buffer)
-        .then((data: PdfItem) => {
-          return parseResumeText(path, config, callback, data.text);
-        })
-        .catch(() => {
-          parseResumeText(path, config, callback, '');
-        });
-    });
+  const kwUtil = cache.get(path);
+  if (!kwUtil) {
+    if (path.endsWith('.pdf')) {
+      fs.readFile(path, (_e, buffer) => {
+        pdf(buffer)
+          .then((data: PdfItem) => {
+            return parseResumeText(path, config, callback, data.text);
+          })
+          .catch(() => {
+            parseResumeText(path, config, callback, '');
+          });
+      });
+    } else {
+      textract.fromFileWithPath(
+        path,
+        { preserveLineBreaks: true },
+        (_err: unknown, docText: string) => {
+          parseResumeText(path, config, callback, docText);
+        }
+      );
+    }
   } else {
-    textract.fromFileWithPath(
-      path,
-      { preserveLineBreaks: true },
-      (_err: unknown, docText: string) => {
-        parseResumeText(path, config, callback, docText);
-      }
-    );
+    const scoreMap = new Map<string, number>();
+    config.forEach((k) => k.children.map((w) => scoreMap.set(w.name, w.score)));
+    // kwUtil.keywords.walk(kwUtil.keywords.items);
+    kwUtil.keywords.walked = kwUtil.keywords.walked.map((w) => ({
+      ...w,
+      score: scoreMap.get(w.name) || 0,
+      gained: (w.gained * (scoreMap.get(w.name) || 0)) / w.score,
+    }));
+    const score = kwUtil.keywords.calc(kwUtil.keywords.items);
+    const kws = kwUtil.keywords.items.map((k: Keyword) => ({
+      ...k,
+      children: k.children.filter((w) => w.gained !== 0),
+    }));
+    callback({ ...kwUtil, path, score, keywords: kws });
   }
 }

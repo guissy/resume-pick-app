@@ -8,6 +8,7 @@ import styles from './ScoreList.css';
 import { selectNameScore } from './scoreSlice';
 import trackWorkAge, { trackPhone } from './tractWorkAge';
 import { selectConfig } from './configSlice';
+import Image from './image';
 
 type Props = {
   onClickResume: (resume: string) => void;
@@ -271,7 +272,7 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
                             style={{ opacity: (w.gained / w.score) * 0.8 }}
                           >
                             <img
-                              src={`./images/${w.name}.png`}
+                              src={Image[`${w.name}_png` as keyof typeof Image]}
                               style={{ opacity: (w.gained / w.score) * 0.5 }}
                               alt={w.name}
                             />

@@ -169,19 +169,21 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
   );
   React.useEffect(() => {
     if (Array.isArray(config)) {
-      config.forEach((k) => {
-        k.children.forEach((w) => {
-          if (optionDefault.includes(w.name)) {
-            option.set(w.name, w.score !== 0);
-            if (w.score !== 0) {
-              cacheScore.set(w.name, w.score);
+      setOption((opt) => {
+        config.forEach((k) => {
+          k.children.forEach((w) => {
+            if (optionDefault.includes(w.name)) {
+              opt.set(w.name, w.score !== 0);
+              if (w.score !== 0) {
+                cacheScore.set(w.name, w.score);
+              }
             }
-          }
+          });
         });
+        return new Map(opt);
       });
-      setOption(new Map(option));
     }
-  }, [optionDefault, cacheScore, config, option]);
+  }, [optionDefault, cacheScore, config]);
   const [checkedAll, setCheckedAll] = React.useState(true);
   const onClickOpt = React.useCallback(
     (opt: string) => {

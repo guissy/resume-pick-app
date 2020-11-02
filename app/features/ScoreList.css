@@ -133,8 +133,15 @@ ul.icons {
   display: flex;
   align-items: center;
 }
-
+header > label {
+  color: #999;
+}
 .opts > label {
+  color: #999;
+  margin-right: 10px;
+}
+header > label > input,
+.opts > label > input {
   margin-right: 10px;
 }
 

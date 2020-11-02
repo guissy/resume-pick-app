@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import fs from 'fs';
 import ExcelJS, { Column } from 'exceljs';
 import { remote } from 'electron';
@@ -7,8 +7,37 @@ import dayjs from 'dayjs';
 import styles from './ScoreList.css';
 import { selectNameScore } from './scoreSlice';
 import trackWorkAge, { trackPhone } from './tractWorkAge';
-import { selectConfig } from './configSlice';
+import { selectConfig, updateConfig } from './configSlice';
 import Image from './image';
+
+const images = [
+  'angular.png',
+  'css3.png',
+  'graphql.png',
+  'hybird.png',
+  'node.png',
+  'RN.png',
+  'react.png',
+  'typescript.png',
+  'vue.png',
+  'wxapp.png',
+  'gayhub.png',
+  'lint.png',
+  'test.png',
+  'es6.png',
+  'java.png',
+  'go.png',
+  'mysql.png',
+  'kotlin.png',
+  'flutter.png',
+  'docker.png',
+  'python.png',
+  'git.png',
+  'linux.png',
+  'nginx.png',
+  'mongodb.png',
+];
+const imgKey = images.map((img) => img.split('.').shift() || '');
 
 type Props = {
   onClickResume: (resume: string) => void;
@@ -18,6 +47,7 @@ type Props = {
 const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
   const scores = useSelector(selectNameScore);
   const config = useSelector(selectConfig);
+  const dispatch = useDispatch();
   const onClickExport = React.useCallback(async () => {
     const conf = {
       cols: [
@@ -124,35 +154,77 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
       return '';
     });
   }, []);
-  const images = [
-    'angular.png',
-    'css3.png',
-    'graphql.png',
-    'hybird.png',
-    'node.png',
-    'RN.png',
-    'react.png',
-    'typescript.png',
-    'vue.png',
-    'wxapp.png',
-    'gayhub.png',
-    'lint.png',
-    'test.png',
-    'es6.png',
-    'java.png',
-    'go.png',
-    'mysql.png',
-    'kotlin.png',
-    'flutter.png',
-    'docker.png',
-    'python.png',
-    'git.png',
-    'linux.png',
-    'nginx.png',
-    'mongodb.png',
-  ];
-  const imgKey = images.map((img) => img.split('.').shift());
+  const optionDefault = React.useMemo(() => {
+    return imgKey.filter((img) =>
+      (config || [])
+        .map((c) => c.children.map((w) => w.name))
+        .flat()
+        .includes(img)
+    );
+  }, [config]);
+  const [cacheScore] = React.useState(new Map<string, number>()); // 缓存大于0
   const [checked, setChecked] = React.useState(true);
+  const [option, setOption] = React.useState(
+    new Map(optionDefault.map((opt) => [opt, true]))
+  );
+  React.useEffect(() => {
+    if (Array.isArray(config)) {
+      config.forEach((k) => {
+        k.children.forEach((w) => {
+          if (optionDefault.includes(w.name)) {
+            option.set(w.name, w.score !== 0);
+            if (w.score !== 0) {
+              cacheScore.set(w.name, w.score);
+            }
+          }
+        });
+      });
+      setOption(new Map(option));
+    }
+  }, [optionDefault, cacheScore, config, option]);
+  const [checkedAll, setCheckedAll] = React.useState(true);
+  const onClickOpt = React.useCallback(
+    (opt: string) => {
+      option.set(opt, !option.get(opt));
+      setOption(new Map(option));
+      const configOk = config.map((k) => ({
+        ...k,
+        children: k.children.map((w) => {
+          let score = w.score || 0;
+          if (option.has(w.name)) {
+            score = option.get(w.name) ? cacheScore.get(w.name) || score : 0;
+          }
+          return {
+            ...w,
+            score,
+          };
+        }),
+      }));
+      setCheckedAll(false);
+      dispatch(updateConfig({ default: configOk }));
+    },
+    [option, config, cacheScore, dispatch]
+  );
+  const onClickCheckAll = React.useCallback(() => {
+    setCheckedAll(!checkedAll);
+    if (config) {
+      setOption(new Map(optionDefault.map((opt) => [opt, true])));
+      const configOk = config.map((k) => ({
+        ...k,
+        children: k.children.map((w) => {
+          let score = w.score || 0;
+          if (option.has(w.name)) {
+            score = !checkedAll ? cacheScore.get(w.name) || w.score : 0;
+          }
+          return {
+            ...w,
+            score,
+          };
+        }),
+      }));
+      dispatch(updateConfig({ default: configOk }));
+    }
+  }, [checkedAll, config, cacheScore, option, optionDefault, dispatch]);
   return scores.length > 0 ? (
     <div
       role="presentation"
@@ -169,6 +241,45 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
           />
           Show Full
         </label>
+        <div className={styles.opts}>
+          <label htmlFor="optCheckbox">
+            <input
+              id="optCheckbox"
+              type="checkbox"
+              onChange={onClickCheckAll}
+              checked={checkedAll}
+            />
+            全选
+          </label>
+          <ul className={styles.icons}>
+            {config
+              .map((k) => k.children.map((w) => w.name))
+              .flat()
+              .filter((w) => option.has(w))
+              .map((w) => (
+                <li
+                  key={w}
+                  style={{
+                    backgroundColor: option.get(w) ? '#eeeeee' : '#aaaaaa',
+                  }}
+                >
+                  <button
+                    type="button"
+                    onClick={() => onClickOpt(w)}
+                    className={styles.opt}
+                    style={{
+                      filter: option.get(w) ? 'unset' : 'grayscale(0.9)',
+                    }}
+                  >
+                    <img
+                      src={Image[`${w}_png` as keyof typeof Image]}
+                      alt={w}
+                    />
+                  </button>
+                </li>
+              ))}
+          </ul>
+        </div>
       </header>
       <table className={styles.table}>
         <thead>
@@ -262,11 +373,16 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
                         <br />
                       </>
                     )}
-                    <div className={styles.icons}>
+                    <ul className={styles.icons}>
                       {v.keywords
                         .map((k) => k.children.map((w) => w))
                         .flat()
-                        .filter((w) => imgKey.includes(w.name))
+                        .filter((w) =>
+                          Array.from(option.entries())
+                            .filter(([_k, b]) => _k && b)
+                            .map(([k]) => k)
+                            .includes(w.name)
+                        )
                         .map((w) => (
                           <li
                             key={w.name}
@@ -279,7 +395,7 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
                             />
                           </li>
                         ))}
-                    </div>
+                    </ul>
                   </button>
                 </td>
                 <td className={styles.td}>{trackWorkAge(v.text)}</td>

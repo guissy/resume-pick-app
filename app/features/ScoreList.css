@@ -110,7 +110,8 @@
 .caretInit > i {
   line-height: 8px;
 }
-.icons {
+ul.icons {
+  padding-left: 0;
   margin-top: 10px;
 }
 .icons > li {
@@ -126,4 +127,24 @@
 }
 .icons img {
   height: 80%;
+}
+
+.opts {
+  display: flex;
+  align-items: center;
+}
+
+.opts > label {
+  margin-right: 10px;
+}
+
+.opt {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  text-align: center;
 }

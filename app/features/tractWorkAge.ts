@@ -17,3 +17,11 @@ export default function trackWorkAge(text: string) {
 export function trackPhone(text: string) {
   return (text || '').match(/1\d{10}/g)?.[0] || '';
 }
+
+export function trackLinks(text: string) {
+  return (
+    (text || '').match(
+      /https?:\/\/(.+)\.(com|cn|io|org|net|cc|info|biz|co|ai)\/?[^\n\s]*/g
+    ) || []
+  );
+}

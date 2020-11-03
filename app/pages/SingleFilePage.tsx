@@ -49,6 +49,7 @@ export default function SingleFilePage(): JSX.Element {
             text: r.text,
             phone: r.phone,
             workAge: r.workAge,
+            links: r.links,
           })
         );
       });

@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import fs from 'fs';
 import ExcelJS, { Column } from 'exceljs';
-import { remote } from 'electron';
+import { remote, shell } from 'electron';
 import dayjs from 'dayjs';
 import styles from './ScoreList.css';
 import { selectNameScore } from './scoreSlice';
@@ -227,6 +227,10 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
       dispatch(updateConfig({ default: configOk }));
     }
   }, [checkedAll, config, cacheScore, option, optionDefault, dispatch]);
+  const onClickLink = React.useCallback((e, url) => {
+    e.preventDefault();
+    shell.openExternal(url);
+  }, []);
   return scores.length > 0 ? (
     <div
       role="presentation"
@@ -402,7 +406,7 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
                 </td>
                 <td className={styles.td}>{trackWorkAge(v.text)}</td>
                 <td className={styles.score}>{v.score?.toFixed(2)}</td>
-                {v.keywords.map((k) => (
+                {v.keywords.map((k, idx) => (
                   <td className={styles.td} key={k.name}>
                     {k.children.map((w) => (
                       <span key={w.name} className={styles.scoreItem}>
@@ -412,6 +416,17 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
                         </span>
                       </span>
                     ))}
+                    {idx === 1 &&
+                      v.links.map((l) => (
+                        <a
+                          key={l}
+                          href={l}
+                          className={styles.alink}
+                          onClick={(e) => onClickLink(e, l)}
+                        >
+                          {l}
+                        </a>
+                      ))}
                   </td>
                 ))}
               </tr>

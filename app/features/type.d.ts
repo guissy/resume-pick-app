@@ -13,6 +13,7 @@ export type ScoreFile = DocFile & {
   text: string;
   phone: string;
   workAge: string;
+  links: string[];
 };
 export type ParsedResume = {
   path: string;
@@ -21,6 +22,7 @@ export type ParsedResume = {
   phone: string;
   keywords: Keyword[];
   text: string;
+  links: string[];
 };
 export type ParseResumeFn = (resume: ParsedResume) => void;
 export type MyApp = Electron.App & {

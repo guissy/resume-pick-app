@@ -42,14 +42,14 @@
   display: inline-block;
   padding-right: 6px;
   text-align: right;
-  flex: 1;
+  flex: 3;
 }
 
 .gained {
   display: inline-block;
   padding-left: 6px;
   text-align: left;
-  flex: 1;
+  flex: 2;
 }
 
 .link {

@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
+import { shell } from 'electron';
+import { ScoreFile } from './type';
 
 type Props = {
-  resume: string;
+  resume: ScoreFile | undefined;
   onClose: () => void;
 };
 const ResumeView: React.FC<Props> = ({ resume, onClose }) => {
@@ -9,6 +11,11 @@ const ResumeView: React.FC<Props> = ({ resume, onClose }) => {
   useEffect(() => {
     if (resume && topElmRef.current) {
       topElmRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [resume]);
+  const clickOpenNative = React.useCallback(() => {
+    if (resume?.path) {
+      shell.openItem(resume.path);
     }
   }, [resume]);
   return (
@@ -19,6 +26,19 @@ const ResumeView: React.FC<Props> = ({ resume, onClose }) => {
       }}
     >
       <header style={{ textAlign: 'right' }}>
+        <button
+          type="button"
+          onClick={clickOpenNative}
+          style={{
+            background: 'none',
+            border: '1px solid #fff',
+            color: '#fff',
+            fontSize: 14,
+            cursor: 'pointer',
+          }}
+        >
+          使用本地软件打开此文件
+        </button>
         <button type="button" onClick={onClose}>
           <i className="fa fa-times fa-2x" />
         </button>
@@ -31,7 +51,7 @@ const ResumeView: React.FC<Props> = ({ resume, onClose }) => {
           padding: 20,
         }}
       >
-        {(resume || '').split('\n').map((content, i) => (
+        {(resume?.text || '').split('\n').map((content, i) => (
           <p
             key={String(i)}
             style={{ marginBlockStart: 5, marginBlockEnd: 5 }}

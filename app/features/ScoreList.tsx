@@ -9,6 +9,8 @@ import { selectNameScore } from './scoreSlice';
 import trackWorkAge, { trackPhone } from './tractWorkAge';
 import { selectConfig, updateConfig } from './configSlice';
 import Image from './image';
+import GithubView from './GithubView';
+import { ScoreFile } from './type';
 
 const images = [
   'angular.png',
@@ -40,7 +42,7 @@ const images = [
 const imgKey = images.map((img) => img.split('.').shift() || '');
 
 type Props = {
-  onClickResume: (resume: string) => void;
+  onClickResume: (resume: ScoreFile) => void;
   onClickTable?: () => void;
 };
 
@@ -368,7 +370,7 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
                     className={styles.link}
                     onClick={(e) => {
                       e.stopPropagation();
-                      onClickResume(v.text);
+                      onClickResume(v);
                     }}
                   >
                     {checked && (
@@ -417,14 +419,18 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
                       </span>
                     ))}
                     {idx === 1 &&
-                      v.links.map((l) => (
+                      v.links
+                        .filter((link) => link.includes('github'))
+                        .map((link) => <GithubView key={link} url={link} />)}
+                    {idx === 1 &&
+                      v.links.map((link) => (
                         <a
-                          key={l}
-                          href={l}
+                          key={link}
+                          href={link}
                           className={styles.alink}
-                          onClick={(e) => onClickLink(e, l)}
+                          onClick={(e) => onClickLink(e, link)}
                         >
-                          {l}
+                          {link}
                         </a>
                       ))}
                   </td>

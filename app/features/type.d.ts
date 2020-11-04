@@ -41,3 +41,15 @@ export type KeywordCalcResult = {
   score: number;
   keywords: KeywordUtil;
 };
+export type GhOpt = {
+  repos: number;
+  contrib: number;
+  calendar: string;
+};
+export type HTMLWebview = HTMLWebViewElement & {
+  executeJavaScript: (
+    js: string,
+    b: false,
+    fn?: (opt: unknown) => void
+  ) => Promise<string>;
+};

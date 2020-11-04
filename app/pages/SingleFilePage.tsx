@@ -22,14 +22,14 @@ function useNameScore() {
 export default function SingleFilePage(): JSX.Element {
   const dispatch = useDispatch();
   const [showDialog, setShowDialog] = React.useState(false);
-  const [resume, setResume] = React.useState<string>('');
-  const onOpenResume = React.useCallback((content: string) => {
+  const [resume, setResume] = React.useState<ScoreFile | undefined>();
+  const onOpenResume = React.useCallback((content: ScoreFile) => {
     setShowDialog(true);
     setResume(content);
   }, []);
   const onCloseResume = React.useCallback(() => {
     setShowDialog(false);
-    setResume('');
+    setResume(undefined);
   }, []);
   const config = useSelector(selectConfig);
   React.useEffect(() => {

@@ -231,7 +231,8 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
   }, [checkedAll, config, cacheScore, option, optionDefault, dispatch]);
   const onClickLink = React.useCallback((e, url) => {
     e.preventDefault();
-    shell.openExternal(url);
+    const urlOk = url.startsWith('http') ? url : `http://${url}`;
+    shell.openExternal(urlOk);
   }, []);
   return scores.length > 0 ? (
     <div

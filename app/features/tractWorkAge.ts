@@ -19,9 +19,9 @@ export function trackPhone(text: string) {
 }
 
 export function trackLinks(text: string) {
-  return (
+  const urls =
     (text || '').match(
-      /https?:\/\/(.+)\.(com|cn|io|org|net|cc|info|biz|co|ai)\/?[^\n\s]*/g
-    ) || []
-  );
+      /(https?:\/\/)?([@a-z0-9.]+)\.(com|cn|io|org|net|cc|info|biz|co|ai)\/?[^\n\s()]*/g
+    ) || [];
+  return urls.filter((url) => !url.includes('@'));
 }

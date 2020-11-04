@@ -128,11 +128,6 @@
     "name": "进阶",
     "children": [
       {
-        "name": "gayhub",
-        "alias": ["github.com", "gitee.com", "个人博客", "博客地址"],
-        "score": 1.5
-      },
-      {
         "name": "typescript",
         "alias": "ts",
         "score": 1.5
@@ -169,6 +164,11 @@
         "name": "review",
         "alias": ["pr", "git flow", "代码审查"],
         "score": 0.5
+      },
+      {
+        "name": "gayhub",
+        "alias": ["github.com", "gitee.com", "个人博客", "博客地址"],
+        "score": 1.5
       }
     ]
   },

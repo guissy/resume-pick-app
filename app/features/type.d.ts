@@ -44,6 +44,7 @@ export type KeywordCalcResult = {
 export type GhOpt = {
   repos: number;
   contrib: number;
+  followers: number;
   calendar: string;
 };
 export type HTMLWebview = HTMLWebViewElement & {

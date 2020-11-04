@@ -42,9 +42,9 @@ export type KeywordCalcResult = {
   keywords: KeywordUtil;
 };
 export type GhOpt = {
-  repos: number;
-  contrib: number;
-  followers: number;
+  repos: number | string;
+  contrib: number | string;
+  followers: number | string;
   calendar: string;
 };
 export type HTMLWebview = HTMLWebViewElement & {

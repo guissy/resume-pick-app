@@ -4,6 +4,7 @@ export type DocFile = { name: string; path: string };
 export type Keyword = {
   name: string;
   score: number;
+  alias: string[] | string | undefined;
   children: Keyword[];
   gained: number;
 };
@@ -13,6 +14,7 @@ export type ScoreFile = DocFile & {
   text: string;
   phone: string;
   workAge: string;
+  sentiment: number;
   links: string[];
 };
 export type ParsedResume = {
@@ -23,6 +25,7 @@ export type ParsedResume = {
   keywords: Keyword[];
   text: string;
   links: string[];
+  sentiment: number;
 };
 export type ParseResumeFn = (resume: ParsedResume) => void;
 export type MyApp = Electron.App & {

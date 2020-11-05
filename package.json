@@ -208,6 +208,7 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/react-test-renderer": "^16.9.3",
     "@types/redux-logger": "^3.0.8",
+    "@types/sentiment": "^5.0.0",
     "@types/textract": "^2.4.0",
     "@types/webpack": "^4.41.21",
     "@types/webpack-env": "^1.15.2",
@@ -301,6 +302,7 @@
     "redux-thunk": "^2.3.0",
     "regenerator-runtime": "^0.13.5",
     "resume-pick": "https://github.com/guissy/resume-pick.git",
+    "sentiment": "^5.0.2",
     "source-map-support": "^0.5.19",
     "textract": "^2.5.0"
   },

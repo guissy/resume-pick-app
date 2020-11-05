@@ -4,6 +4,7 @@ import { remote } from 'electron';
 import { useDispatch, useSelector } from 'react-redux';
 import cloneDeep from 'lodash/cloneDeep';
 import delay from 'lodash/delay';
+import dayjs from 'dayjs';
 import routes from '../constants/routes.json';
 import styles from './SingleFilePage.css';
 import DropZone from '../features/DropZone';
@@ -55,6 +56,7 @@ export default function SingleFilePage(): JSX.Element {
             phone: r.phone,
             workAge: r.workAge,
             links: r.links,
+            sentiment: r.sentiment,
           })
         );
         updateMap.set(f.path, Date.now());
@@ -79,6 +81,10 @@ export default function SingleFilePage(): JSX.Element {
     },
     [updateOne]
   );
+  const day =
+    updateMap.size > 0
+      ? dayjs([...updateMap.values()][0]).format('YYYY-MM-DD hh:mm:ss')
+      : '';
   return (
     <div className={styles.container} data-tid="container">
       <dialog
@@ -88,12 +94,20 @@ export default function SingleFilePage(): JSX.Element {
         <ResumeView resume={resume} onClose={onCloseResume} />
       </dialog>
       <main className={styles.main}>
-        {updating && (
-          <progress
-            value={[...updateMap.values()].filter(Boolean).length}
-            max={updateMap.size}
-          />
-        )}
+        <p
+          className={styles.updating}
+          style={{ position: updating ? 'fixed' : 'absolute' }}
+        >
+          {(updating || day) && (
+            <span>{updating ? 'loading...' : `Update at ${day}`}</span>
+          )}
+          {updating && (
+            <progress
+              value={[...updateMap.values()].filter(Boolean).length}
+              max={updateMap.size}
+            />
+          )}
+        </p>
         <ScoreList onClickResume={onOpenResume} onClickTable={onCloseResume} />
         <DropZone onDrop={onDrop} accept={['.doc', '.docx', '.txt', '.pdf']} />
       </main>

@@ -13,7 +13,11 @@ import {
   KeywordUtil,
   ParseResumeFn,
 } from './type';
-import trackWorkAge, { trackLinks, trackPhone } from './tractWorkAge';
+import trackWorkAge, {
+  calcSentiment,
+  trackLinks,
+  trackPhone,
+} from './tractWorkAge';
 
 const cache = new Map<
   string,
@@ -23,6 +27,7 @@ const cache = new Map<
     phone: string;
     keywords: KeywordUtil;
     links: string[];
+    sentiment: number;
   }
 >();
 
@@ -35,6 +40,7 @@ function parseResumeText(
   const phone = trackPhone(text);
   const workAge = trackWorkAge(text);
   const links = trackLinks(text);
+  const sentiment = calcSentiment(text, config);
   if (text && text.length > 0) {
     const { score, keywords: kw } = timeContent.calcTotal(
       text,
@@ -45,9 +51,27 @@ function parseResumeText(
       ...k,
       children: k.children.filter((w) => w.gained !== 0),
     }));
-    callback({ path, score, keywords: kws, text, workAge, links, phone });
+    callback({
+      path,
+      score,
+      keywords: kws,
+      text,
+      workAge,
+      links,
+      phone,
+      sentiment,
+    });
   } else {
-    callback({ path, score: 0, keywords: [], text, workAge, links, phone });
+    callback({
+      path,
+      score: 0,
+      keywords: [],
+      text,
+      workAge,
+      links,
+      phone,
+      sentiment,
+    });
   }
 }
 

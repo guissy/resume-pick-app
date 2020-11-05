@@ -1776,6 +1776,11 @@
   resolved "https://registry.npm.taobao.org/@types/semver/download/@types/semver-7.3.4.tgz?cache=0&sync_timestamp=1600115372478&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fsemver%2Fdownload%2F%40types%2Fsemver-7.3.4.tgz#43d7168fec6fa0988bb1a513a697b29296721afb"
   integrity sha1-Q9cWj+xvoJiLsaUTppeykpZyGvs=
 
+"@types/sentiment@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.npm.taobao.org/@types/sentiment/download/@types/sentiment-5.0.0.tgz#0aae9fcd84f4b59a59455aabb9f4c669839a7cc8"
+  integrity sha1-Cq6fzYT0tZpZRVqrufTGaYOafMg=
+
 "@types/source-list-map@*":
   version "0.1.2"
   resolved "https://registry.npm.taobao.org/@types/source-list-map/download/@types/source-list-map-0.1.2.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fsource-list-map%2Fdownload%2F%40types%2Fsource-list-map-0.1.2.tgz#0078836063ffaf17412349bba364087e0ac02ec9"
@@ -12931,6 +12936,11 @@ send@0.17.1:
     on-finished "~2.3.0"
     range-parser "~1.2.1"
     statuses "~1.5.0"
+
+sentiment@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.npm.taobao.org/sentiment/download/sentiment-5.0.2.tgz#01e4396d9b5b17b1176f16c9d1a8be87b16cc1d6"
+  integrity sha1-AeQ5bZtbF7EXbxbJ0ai+h7FswdY=
 
 serialize-error@^7.0.1:
   version "7.0.1"

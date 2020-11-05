@@ -126,7 +126,13 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
     }
   }, [config, scores]);
   const [sort, setSort] = React.useState<
-    '' | 'workAgeUp' | 'workAgeDown' | 'scoreUp' | 'scoreDown'
+    | ''
+    | 'workAgeUp'
+    | 'workAgeDown'
+    | 'scoreUp'
+    | 'scoreDown'
+    | 'sentimentUp'
+    | 'sentimentDown'
   >('');
   const onClickWorkAge = React.useCallback(() => {
     setSort((wa) => {
@@ -152,6 +158,20 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
       }
       if (wa === 'scoreDown') {
         return 'scoreUp';
+      }
+      return '';
+    });
+  }, []);
+  const onClickSentiment = React.useCallback(() => {
+    setSort((wa) => {
+      if (wa !== 'sentimentUp' && wa !== 'sentimentDown') {
+        return 'sentimentDown';
+      }
+      if (wa === 'sentimentUp') {
+        return '';
+      }
+      if (wa === 'sentimentDown') {
+        return 'sentimentUp';
       }
       return '';
     });
@@ -339,6 +359,27 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
                 </div>
               </button>
             </td>
+            <td className={`${styles.td} ${styles.sort}`} style={{ width: 60 }}>
+              <button
+                className={styles.sortBtn}
+                type="button"
+                onClick={onClickSentiment}
+              >
+                <span>分数+</span>
+                <div className={styles.caretInit}>
+                  <i
+                    className={`fa fa-caret-up ${
+                      sort === 'sentimentUp' ? styles.active : ''
+                    }`}
+                  />
+                  <i
+                    className={`fa fa-caret-down ${
+                      sort === 'sentimentDown' ? styles.active : ''
+                    }`}
+                  />
+                </div>
+              </button>
+            </td>
             <td colSpan={3} className={styles.td} style={{ width: '60%' }}>
               关键字
             </td>
@@ -359,6 +400,12 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
               }
               if (sort === 'scoreUp') {
                 return a.score < b.score ? -1 : 1;
+              }
+              if (sort === 'sentimentDown') {
+                return a.sentiment > b.sentiment ? -1 : 1;
+              }
+              if (sort === 'sentimentUp') {
+                return a.sentiment < b.sentiment ? -1 : 1;
               }
               return a.score > b.score ? -1 : 1;
             })
@@ -409,6 +456,9 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
                 </td>
                 <td className={styles.td}>{trackWorkAge(v.text)}</td>
                 <td className={styles.score}>{v.score?.toFixed(2)}</td>
+                <td className={styles.score}>
+                  {(v.sentiment * 100).toFixed(2)}
+                </td>
                 {v.keywords.map((k, idx) => (
                   <td className={styles.td} key={k.name}>
                     {k.children.map((w) => (

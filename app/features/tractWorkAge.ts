@@ -1,3 +1,6 @@
+import Sentiment from 'sentiment';
+import { Config } from './type';
+
 export default function trackWorkAge(text: string) {
   // 工作年限：3年
   let years = '';
@@ -24,4 +27,26 @@ export function trackLinks(text: string) {
       /(https?:\/\/)?([@a-z0-9.]+)\.(com|cn|io|org|net|cc|info|biz|co|ai)\b\/?[^\n\s()]*/g
     ) || [];
   return Array.from(new Set(urls.filter((url) => !url.includes('@'))));
+}
+
+export function getScoreMap(configs: Config) {
+  return configs
+    .map((k) =>
+      k.children.map((w) => {
+        let alias: { name: string; score: number }[] = [];
+        if (Array.isArray(w.alias)) {
+          alias = w.alias.map((a) => ({ name: a, score: w.score }));
+        } else if (typeof w.alias === 'string' && w.alias.length > 0) {
+          alias = [{ name: w.alias, score: w.score }];
+        }
+        return [{ name: w.name, score: w.score }, ...alias];
+      })
+    )
+    .flat(3)
+    .reduce((result, it) => ({ ...result, [it.name]: it.score }), {});
+}
+
+const sentiment = new Sentiment();
+export function calcSentiment(text: string, config: Config) {
+  return sentiment.analyze(text, { extras: getScoreMap(config) }).comparative;
 }

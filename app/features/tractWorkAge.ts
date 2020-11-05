@@ -23,5 +23,5 @@ export function trackLinks(text: string) {
     (text || '').match(
       /(https?:\/\/)?([@a-z0-9.]+)\.(com|cn|io|org|net|cc|info|biz|co|ai)\b\/?[^\n\s()]*/g
     ) || [];
-  return urls.filter((url) => !url.includes('@'));
+  return Array.from(new Set(urls.filter((url) => !url.includes('@'))));
 }

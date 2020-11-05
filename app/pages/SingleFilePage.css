@@ -23,3 +23,9 @@
   bottom: 20px;
   left: 35px;
 }
+
+progress {
+  position: fixed;
+  top: 10px;
+  right: 20px;
+}

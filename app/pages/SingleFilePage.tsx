@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { remote } from 'electron';
 import { useDispatch, useSelector } from 'react-redux';
 import cloneDeep from 'lodash/cloneDeep';
+import delay from 'lodash/delay';
 import routes from '../constants/routes.json';
 import styles from './SingleFilePage.css';
 import DropZone from '../features/DropZone';
@@ -32,6 +33,8 @@ export default function SingleFilePage(): JSX.Element {
     setResume(undefined);
   }, []);
   const config = useSelector(selectConfig);
+  const [updating, setUpdating] = React.useState(false);
+  const [updateMap] = React.useState(new Map<string, number>());
   React.useEffect(() => {
     dispatch(initConfigAsync());
   }, [dispatch]);
@@ -39,6 +42,8 @@ export default function SingleFilePage(): JSX.Element {
   const nameScoreRef = useNameScore();
   const updateOne = React.useCallback(
     (f: ScoreFile | DocFile) => {
+      updateMap.set(f.path, 0);
+      setUpdating(true);
       (remote.app as MyApp).parseResume(f.path, config, (r) => {
         dispatch(
           updateNameScore({
@@ -52,9 +57,13 @@ export default function SingleFilePage(): JSX.Element {
             links: r.links,
           })
         );
+        updateMap.set(f.path, Date.now());
+        if (Array.from(updateMap.values()).every((time) => !!time)) {
+          delay(() => setUpdating(false), 500);
+        }
       });
     },
-    [config, dispatch]
+    [config, dispatch, updateMap]
   );
   React.useEffect(() => {
     const ns = nameScoreRef.current;
@@ -79,6 +88,12 @@ export default function SingleFilePage(): JSX.Element {
         <ResumeView resume={resume} onClose={onCloseResume} />
       </dialog>
       <main className={styles.main}>
+        {updating && (
+          <progress
+            value={[...updateMap.values()].filter(Boolean).length}
+            max={updateMap.size}
+          />
+        )}
         <ScoreList onClickResume={onOpenResume} onClickTable={onCloseResume} />
         <DropZone onDrop={onDrop} accept={['.doc', '.docx', '.txt', '.pdf']} />
       </main>

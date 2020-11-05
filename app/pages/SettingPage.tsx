@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ReactJson from 'react-json-view';
+import { shell, remote } from 'electron';
 import {
   selectConfig,
   updateConfig,
@@ -30,8 +31,26 @@ const SettingPage: React.FC<unknown> = () => {
   const onClick = React.useCallback(() => {
     dispatch(resetConfigAsync());
   }, [dispatch]);
+  const clickOpenNative = React.useCallback(() => {
+    shell.openItem(`${remote.app.getPath('userData')}/keywords.json`);
+  }, []);
   return (
     <div className={styles.container}>
+      <header style={{ textAlign: 'right' }}>
+        <button
+          type="button"
+          onClick={clickOpenNative}
+          style={{
+            background: 'none',
+            border: '1px solid #fff',
+            color: '#fff',
+            fontSize: 14,
+            cursor: 'pointer',
+          }}
+        >
+          使用本地软件打开此文件
+        </button>
+      </header>
       <ReactJson
         src={config}
         style={{ marginLeft: 20 }}

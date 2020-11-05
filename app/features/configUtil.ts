@@ -13,14 +13,18 @@ function initFile(): Promise<Record<string, Config>> {
 }
 
 export function initDefaultFile(): Promise<Record<string, Config>> {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   return Promise.resolve({ default: configDefault });
 }
 
 export function saveFile(configs: Record<string, Config>) {
-  return storage.set('keywords.json', configs).catch((err: unknown) => {
-    // eslint-disable-next-line no-console
-    console.error(err);
-  });
+  return storage
+    .set('keywords.json', JSON.stringify(configs, null, '  '))
+    .catch((err: unknown) => {
+      // eslint-disable-next-line no-console
+      console.error(err);
+    });
 }
 
 export default initFile;

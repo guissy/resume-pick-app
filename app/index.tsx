@@ -4,18 +4,23 @@ import { AppContainer as ReactHotAppContainer } from 'react-hot-loader';
 import { history, configuredStore } from './store';
 import './app.global.css';
 import './features/configUtil';
+import { RootProps } from './containers/Root';
 
 const store = configuredStore();
 
 const AppContainer = process.env.PLAIN_HMR ? Fragment : ReactHotAppContainer;
 
-document.addEventListener('DOMContentLoaded', () => {
+let Root: React.JSXElementConstructor<RootProps>;
+const bootstrap = () => {
+  if (Root) return;
   // eslint-disable-next-line global-require
-  const Root = require('./containers/Root').default;
+  Root = require('./containers/Root').default;
   render(
     <AppContainer>
       <Root store={store} history={history} />
     </AppContainer>,
     document.getElementById('root')
   );
-});
+};
+bootstrap();
+document.addEventListener('DOMContentLoaded', bootstrap);

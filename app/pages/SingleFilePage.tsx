@@ -93,21 +93,21 @@ export default function SingleFilePage(): JSX.Element {
       >
         <ResumeView resume={resume} onClose={onCloseResume} />
       </dialog>
+      <p
+        className={styles.updating}
+        style={{ position: updating ? 'fixed' : 'absolute' }}
+      >
+        {(updating || day) && (
+          <span>{updating ? 'loading...' : `Update at ${day}`}</span>
+        )}
+        {updating && (
+          <progress
+            value={[...updateMap.values()].filter(Boolean).length}
+            max={updateMap.size}
+          />
+        )}
+      </p>
       <main className={styles.main}>
-        <p
-          className={styles.updating}
-          style={{ position: updating ? 'fixed' : 'absolute' }}
-        >
-          {(updating || day) && (
-            <span>{updating ? 'loading...' : `Update at ${day}`}</span>
-          )}
-          {updating && (
-            <progress
-              value={[...updateMap.values()].filter(Boolean).length}
-              max={updateMap.size}
-            />
-          )}
-        </p>
         <ScoreList onClickResume={onOpenResume} onClickTable={onCloseResume} />
         <DropZone onDrop={onDrop} accept={['.doc', '.docx', '.txt', '.pdf']} />
       </main>

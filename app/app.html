@@ -38,11 +38,12 @@
         }
 
         if (scripts.length) {
-          document.write(
-            scripts
-              .map((script) => `<script defer src="${script}"><\/script>`)
-              .join('')
-          );
+          scripts.forEach((script) => {
+            const scriptDom = document.createElement('script');
+            scriptDom.src = script;
+            scriptDom.defer = true;
+            document.querySelector('body').appendChild(scriptDom);
+          });
         }
       }
     </script>

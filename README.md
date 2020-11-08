@@ -1,5 +1,7 @@
 # resume pick app
 
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/guissy/resume-pick-app.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/guissy/resume-pick-app/alerts/)
+
 ## base electron
 
 ## fix

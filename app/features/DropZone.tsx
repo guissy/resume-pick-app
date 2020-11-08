@@ -29,7 +29,7 @@ const DropZone = ({ onDrop, accept }: Partial<DropzoneProps>) => {
               {/* eslint-disable-next-line react/no-unescaped-entities */}
               拖拽简历文件到这里（或者点击弹窗选择）
               <br />
-              <span>支持 doc 和 pdf</span>
+              <span>支持 doc / docx 和 pdf</span>
             </p>
           )}
           <p className={`${styles.textCenter} ${styles.upload}`}>

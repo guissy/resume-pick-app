@@ -11,6 +11,7 @@ import { selectConfig, updateConfig } from './configSlice';
 import Image from './image';
 import GithubView from './GithubView';
 import { ScoreFile } from './type';
+import TreeMap from './TreeMap';
 
 const images = [
   'angular.png',
@@ -316,7 +317,9 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
             <td className={styles.td} style={{ width: 32 }}>
               序号
             </td>
-            <td className={styles.td}>文件</td>
+            <td className={styles.td} style={{ width: 260 }}>
+              文件
+            </td>
             <td className={`${styles.td} ${styles.sort}`} style={{ width: 50 }}>
               <button
                 className={styles.sortBtn}
@@ -380,7 +383,10 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
                 </div>
               </button>
             </td>
-            <td colSpan={3} className={styles.td} style={{ width: '60%' }}>
+            <td colSpan={1} className={styles.td} style={{ width: 120 }}>
+              github
+            </td>
+            <td colSpan={1} className={styles.td} style={{ width: 'auto' }}>
               关键字
             </td>
           </tr>
@@ -407,7 +413,7 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
               if (sort === 'sentimentUp') {
                 return a.sentiment < b.sentiment ? -1 : 1;
               }
-              return a.score > b.score ? -1 : 1;
+              return a.score * a.sentiment > b.score * b.sentiment ? -1 : 1;
             })
             .map((v, i) => (
               <tr key={v.name}>
@@ -459,33 +465,26 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
                 <td className={styles.score}>
                   {(v.sentiment * 100).toFixed(2)}
                 </td>
-                {v.keywords.map((k, idx) => (
-                  <td className={styles.td} key={k.name}>
-                    {k.children.map((w) => (
-                      <span key={w.name} className={styles.scoreItem}>
-                        <span className={styles.subName}>{w.name}</span>
-                        <span className={styles.gained}>
-                          {w.gained.toFixed(1)}
-                        </span>
-                      </span>
+                <td className={styles.td}>
+                  {v.links
+                    .filter((link) => link.includes('github'))
+                    .map((link) => (
+                      <GithubView key={link} url={link} />
                     ))}
-                    {idx === 1 &&
-                      v.links
-                        .filter((link) => link.includes('github'))
-                        .map((link) => <GithubView key={link} url={link} />)}
-                    {idx === 1 &&
-                      v.links.map((link) => (
-                        <a
-                          key={link}
-                          href={link}
-                          className={styles.alink}
-                          onClick={(e) => onClickLink(e, link)}
-                        >
-                          {link}
-                        </a>
-                      ))}
-                  </td>
-                ))}
+                  {v.links.map((link) => (
+                    <a
+                      key={link}
+                      href={link}
+                      className={styles.alink}
+                      onClick={(e) => onClickLink(e, link)}
+                    >
+                      {link.replace(/https?:\/\//, '')}
+                    </a>
+                  ))}
+                </td>
+                <td className={styles.td}>
+                  <TreeMap scoreFile={v} index={i} />
+                </td>
               </tr>
             ))}
         </tbody>

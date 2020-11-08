@@ -1,7 +1,6 @@
 [
   {
     "name": "核心项",
-    "score": 10,
     "children": [
       {
         "name": "RN",

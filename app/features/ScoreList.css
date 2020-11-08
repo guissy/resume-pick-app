@@ -54,6 +54,7 @@
 
 .link {
   border: 0;
+  padding: 0;
   background: none;
   font-size: 14px;
   color: #fff;
@@ -69,7 +70,7 @@
   font-size: 14px;
   cursor: pointer;
   overflow: hidden;
-  width: 200px;
+  width: 120px;
   white-space: nowrap;
   text-overflow: ellipsis;
   margin: 0 auto;
@@ -124,6 +125,7 @@
 ul.icons {
   padding-left: 0;
   margin-top: 10px;
+  margin-bottom: 0;
 }
 .icons > li {
   display: inline-flex;
@@ -135,6 +137,9 @@ ul.icons {
   background: #eee;
   margin-right: 5px;
   margin-bottom: 5px;
+}
+.icons > li:nth-child(6n) {
+  margin-right: 0;
 }
 .icons img {
   height: 80%;

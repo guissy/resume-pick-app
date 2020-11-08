@@ -48,5 +48,7 @@ export function getScoreMap(configs: Config) {
 
 const sentiment = new Sentiment();
 export function calcSentiment(text: string, config: Config) {
-  return sentiment.analyze(text, { extras: getScoreMap(config) }).comparative;
+  const textOk = text.replace(/(\b[\w-]+\b)/g, ' $1 ');
+  const result = sentiment.analyze(textOk, { extras: getScoreMap(config) });
+  return result.comparative;
 }

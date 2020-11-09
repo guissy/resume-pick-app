@@ -27,6 +27,8 @@
 
 .updating {
   position: fixed;
+  z-index: 10;
+  top: 6px;
   right: 20px;
   display: flex;
   margin: 0;

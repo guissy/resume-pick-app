@@ -6,7 +6,11 @@ import { remote, shell } from 'electron';
 import dayjs from 'dayjs';
 import styles from './ScoreList.css';
 import { selectNameScore } from './scoreSlice';
-import trackWorkAge, { getBlogByLink, trackPhone } from './tractWorkAge';
+import trackWorkAge, {
+  getBlogByLink,
+  getGithubByLink,
+  trackPhone,
+} from './tractWorkAge';
 import { selectConfig, updateConfig } from './configSlice';
 import Image from './image';
 import GithubView from './GithubView';
@@ -448,11 +452,11 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
                         .map((w) => (
                           <li
                             key={w.name}
-                            style={{ opacity: (w.gained / w.score) * 0.8 }}
+                            style={{ opacity: w.gained / w.score }}
                           >
                             <img
                               src={Image[`${w.name}_png` as keyof typeof Image]}
-                              style={{ opacity: (w.gained / w.score) * 0.7 }}
+                              style={{ opacity: w.gained / w.score }}
                               alt={w.name}
                             />
                           </li>
@@ -466,11 +470,9 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
                   {(v.sentiment * 100).toFixed(2)}
                 </td>
                 <td className={styles.td}>
-                  {v.links
-                    .filter((link) => link.includes('github'))
-                    .map((link) => (
-                      <GithubView key={link} url={link} />
-                    ))}
+                  {getGithubByLink(v.links).map((link) => (
+                    <GithubView key={link} url={link} />
+                  ))}
                   {v.links.map((link) => (
                     <a
                       key={link}

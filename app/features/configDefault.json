@@ -13,7 +13,7 @@
         "score": 1.5
       },
       {
-        "name": "hybird",
+        "name": "h5",
         "alias": [
           "webview",
           "uni-app",
@@ -22,7 +22,7 @@
           "ionic",
           "apicloud",
           "mobile",
-          "h5"
+          "hybird"
         ],
         "score": 1.5
       },
@@ -34,6 +34,10 @@
       {
         "name": "vue",
         "alias": ["vue2", "vuejs", "vue2", "element", "vant"],
+        "score": 1.5
+      },
+      {
+        "name": "vue3",
         "score": 1.5
       },
       {
@@ -87,6 +91,7 @@
       {
         "name": "es6",
         "alias": [
+          "es5",
           "es6+",
           "es2015",
           "es2016",
@@ -128,7 +133,7 @@
     "children": [
       {
         "name": "typescript",
-        "alias": "ts",
+        "alias": ["ts"],
         "score": 1.5
       },
       {
@@ -138,7 +143,7 @@
       },
       {
         "name": "graphql",
-        "alias": "gql",
+        "alias": ["gql"],
         "score": 1.5
       },
       {

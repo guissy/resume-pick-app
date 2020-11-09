@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react';
 import { shell } from 'electron';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import Highlighter from 'react-highlight-words';
 import { ScoreFile } from './type';
+import styles from './ResumeView.css';
 
 type Props = {
   resume: ScoreFile | undefined;
@@ -18,13 +22,34 @@ const ResumeView: React.FC<Props> = ({ resume, onClose }) => {
       shell.openItem(resume.path);
     }
   }, [resume]);
+  const keywords = React.useMemo(
+    () =>
+      resume?.keywords
+        .map((k) => k.children.map((w) => [w.name, ...(w.alias || [])]))
+        .flat(2) || [],
+    [resume]
+  );
+  const keywordClassName = React.useMemo(
+    () =>
+      (
+        resume?.keywords
+          .map((k, i) =>
+            k.children.map((w) =>
+              [w.name, ...(w.alias || [])].map((n) => ({
+                [n]: `kw${i} ${w.score > 0 ? 'pos' : 'neg'}_${(
+                  w.gained / w.score
+                )
+                  .toFixed(1)
+                  .replace('.', '_')}`,
+              }))
+            )
+          )
+          .flat(2) || []
+      ).reduce((s, v) => ({ ...s, ...v }), {}),
+    [resume]
+  );
   return (
-    <div
-      style={{
-        color: '#ffffff',
-        background: '#333333',
-      }}
-    >
+    <div className={styles.wrap}>
       <header style={{ textAlign: 'right' }}>
         <button
           type="button"
@@ -43,21 +68,18 @@ const ResumeView: React.FC<Props> = ({ resume, onClose }) => {
           <i className="fa fa-times fa-2x" />
         </button>
       </header>
-      <article
-        style={{
-          height: 'calc(100vh - 120px)',
-          overflow: 'auto',
-          paddingBottom: 100,
-          padding: 20,
-        }}
-      >
+      <article className={styles.article}>
         {(resume?.text || '').split('\n').map((content, i) => (
           <p
             key={String(i)}
             style={{ marginBlockStart: 5, marginBlockEnd: 5 }}
             ref={i === 0 ? topElmRef : undefined}
           >
-            {content}
+            <Highlighter
+              highlightClassName={keywordClassName}
+              searchWords={keywords}
+              textToHighlight={content}
+            />
           </p>
         ))}
       </article>

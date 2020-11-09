@@ -20,18 +20,18 @@ function useNameScore() {
   nameScoreRef.current = React.useMemo(() => nameScore, [nameScore]);
   return nameScoreRef;
 }
-
+type File = ScoreFile | undefined;
 export default function SingleFilePage(): JSX.Element {
   const dispatch = useDispatch();
   const [showDialog, setShowDialog] = React.useState(false);
-  const [resume, setResume] = React.useState<ScoreFile | undefined>();
-  const onOpenResume = React.useCallback((content: ScoreFile) => {
+  const [resumeActive, setResumeActive] = React.useState<File>();
+  const onOpenResume = React.useCallback((scoreFile: ScoreFile) => {
     setShowDialog(true);
-    setResume(content);
+    setResumeActive(scoreFile);
   }, []);
   const onCloseResume = React.useCallback(() => {
     setShowDialog(false);
-    setResume(undefined);
+    setResumeActive(undefined);
   }, []);
   const config = useSelector(selectConfig);
   const [updating, setUpdating] = React.useState(false);
@@ -91,7 +91,7 @@ export default function SingleFilePage(): JSX.Element {
         open={showDialog}
         style={{ padding: 0, zIndex: 100, width: '70vw', top: 10 }}
       >
-        <ResumeView resume={resume} onClose={onCloseResume} />
+        <ResumeView resume={resumeActive} onClose={onCloseResume} />
       </dialog>
       <p
         className={styles.updating}

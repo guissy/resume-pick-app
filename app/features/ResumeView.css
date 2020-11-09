@@ -1,0 +1,110 @@
+.wrap {
+    color: #eeeeee;
+    background: #333333;
+}
+
+.article {
+    height: calc(100vh - 120px);
+    overflow: auto;
+    padding: 20px 20px 100px 20px;
+}
+mark {
+    border-radius: 4px;
+    padding: 0 3px;
+    display: inline-block;
+    background-color: #aaaaaa;
+}
+
+:global(.kw2) {
+    background: #ff0000;
+}
+:global(.kw1) {
+    background: #ffff00;
+}
+:global(.kw2) {
+    background: #00ff00;
+}
+:global(.kw0.pos_1_5),
+:global(.kw0.pos_1_4),
+:global(.kw0.pos_1_3),
+:global(.kw0.pos_1_2),
+:global(.kw0.pos_1_1) {
+    background: rgba(255, 0, 0, 0.8);
+}
+:global(.kw0.pos_1_0),
+:global(.kw0.pos_0_9),
+:global(.kw0.pos_0_8),
+:global(.kw0.pos_0_7),
+:global(.kw0.pos_0_6) {
+    background: rgba(255, 0, 0, 0.4);
+}
+:global(.kw0.pos_0_5),
+:global(.kw0.pos_0_4),
+:global(.kw0.pos_0_3),
+:global(.kw0.pos_0_2),
+:global(.kw0.pos_0_1) {
+    background: rgba(255, 0, 0, 0.2);
+}
+:global(.kw1.pos_1_5),
+:global(.kw1.pos_1_4),
+:global(.kw1.pos_1_3),
+:global(.kw1.pos_1_2),
+:global(.kw1.pos_1_1) {
+    background: rgba(255, 255, 0, 0.8);
+}
+:global(.kw1.pos_1_0),
+:global(.kw1.pos_0_9),
+:global(.kw1.pos_0_8),
+:global(.kw1.pos_0_7),
+:global(.kw1.pos_0_6) {
+    background: rgba(255, 255, 0, 0.4);
+}
+:global(.kw1.pos_0_5),
+:global(.kw1.pos_0_4),
+:global(.kw1.pos_0_3),
+:global(.kw1.pos_0_2),
+:global(.kw1.pos_0_1) {
+    background: rgba(255, 255, 0, 0.2);
+}
+:global(.kw2.pos_1_5),
+:global(.kw2.pos_1_4),
+:global(.kw2.pos_1_3),
+:global(.kw2.pos_1_2),
+:global(.kw2.pos_1_1) {
+    background: rgba(0, 255, 0, 0.8);
+}
+:global(.kw2.pos_1_0),
+:global(.kw2.pos_0_9),
+:global(.kw2.pos_0_8),
+:global(.kw2.pos_0_7),
+:global(.kw2.pos_0_6) {
+    background: rgba(0, 255, 0, 0.4);
+}
+:global(.kw2.pos_0_5),
+:global(.kw2.pos_0_4),
+:global(.kw2.pos_0_3),
+:global(.kw2.pos_0_2),
+:global(.kw2.pos_0_1) {
+    background: rgba(0, 255, 0, 0.2);
+}
+:global(.kw2.neg_1_5),
+:global(.kw2.neg_1_4),
+:global(.kw2.neg_1_3),
+:global(.kw2.neg_1_2),
+:global(.kw2.neg_1_1) {
+    background: rgba(200, 200, 200, 0.8);
+}
+:global(.kw2.neg_1_0),
+:global(.kw2.neg_0_9),
+:global(.kw2.neg_0_8),
+:global(.kw2.neg_0_7),
+:global(.kw2.neg_0_6) {
+    background: rgba(200, 200, 200, 0.4);
+}
+:global(.kw2.neg_0_5),
+:global(.kw2.neg_0_4),
+:global(.kw2.neg_0_3),
+:global(.kw2.neg_0_2),
+:global(.kw2.neg_0_1) {
+    background: rgba(200, 200, 200, 0.2);
+}

@@ -70,6 +70,7 @@ export function getBlogByLink(link: string) {
   // https://yq.aliyun.com/users/mgzlkjdaehkdc
   // https://jiayili.gitbooks.io/fe-study-easier/content/
   // https://github.com/guissy?tab=repositories
+  // https://github.com/guissy/cc
   const csdn = /blog\.csdn\.net\/[A-z0-9_-]+/;
   const cnblogs = /www\.cnblogs\.com\/[A-z0-9_-]+/;
   const juejin = /juejin\.im\/user\/[A-z0-9_-]+/;
@@ -104,4 +105,16 @@ export function getBlogByLink(link: string) {
     ','
   );
   return n >= 0 ? names[n] : '';
+}
+
+export function getGithubByLink(links: string[]) {
+  const github = /github\.com\/[A-z0-9_-]+/g;
+  return Array.from(
+    new Set(
+      links
+        .map((link) => link.match(github)?.[0] || '')
+        .filter(Boolean)
+        .map((link) => `https://${link}`)
+    )
+  );
 }

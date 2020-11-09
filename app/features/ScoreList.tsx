@@ -6,7 +6,7 @@ import { remote, shell } from 'electron';
 import dayjs from 'dayjs';
 import styles from './ScoreList.css';
 import { selectNameScore } from './scoreSlice';
-import trackWorkAge, { trackPhone } from './tractWorkAge';
+import trackWorkAge, { getBlogByLink, trackPhone } from './tractWorkAge';
 import { selectConfig, updateConfig } from './configSlice';
 import Image from './image';
 import GithubView from './GithubView';
@@ -476,9 +476,21 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
                       key={link}
                       href={link}
                       className={styles.alink}
+                      style={{
+                        color: getBlogByLink(link) ? '#f1f1f1' : '#999999',
+                      }}
                       onClick={(e) => onClickLink(e, link)}
                     >
-                      {link.replace(/https?:\/\//, '')}
+                      <img
+                        className={styles.blogIcon}
+                        src={
+                          Image[
+                            `${getBlogByLink(link)}_png` as keyof typeof Image
+                          ]
+                        }
+                        alt={getBlogByLink(link)}
+                      />
+                      {link.replace(/(https?:\/\/|www\.)/, '')}
                     </a>
                   ))}
                 </td>

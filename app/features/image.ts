@@ -23,6 +23,15 @@ import test_png from '../images/test.png';
 import typescript_png from '../images/typescript.png';
 import vue_png from '../images/vue.png';
 import wxapp_png from '../images/wxapp.png';
+import zhihu_png from '../images/zhihu2.png';
+import csdn_png from '../images/csdn.png';
+import cnblogs_png from '../images/cnblogs.png';
+import juejin_png from '../images/juejin.png';
+import jianshu_png from '../images/jianshu.png';
+import segmentfault_png from '../images/segmentfault.png';
+import oschina_png from '../images/oschina.png';
+import imooc_png from '../images/imooc.png';
+import cto_png from '../images/cto.png';
 
 export default {
   RN_png,
@@ -33,6 +42,7 @@ export default {
   es6_png,
   flutter_png,
   gayhub_png,
+  github_png: gayhub_png,
   git_png,
   go_png,
   graphql_png,
@@ -50,4 +60,13 @@ export default {
   typescript_png,
   vue_png,
   wxapp_png,
+  zhihu_png,
+  csdn_png,
+  cnblogs_png,
+  juejin_png,
+  jianshu_png,
+  segmentfault_png,
+  oschina_png,
+  imooc_png,
+  cto_png,
 };

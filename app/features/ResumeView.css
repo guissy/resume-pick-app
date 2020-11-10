@@ -12,99 +12,121 @@ mark {
     border-radius: 4px;
     padding: 0 3px;
     display: inline-block;
-    background-color: #aaaaaa;
+    color: #ffffff;
+    background-color: #999999;
 }
 
-:global(.kw2) {
-    background: #ff0000;
+:global(.kw0) {
+    background: #e10000;
 }
 :global(.kw1) {
-    background: #ffff00;
+    background: #e1e100;
 }
 :global(.kw2) {
-    background: #00ff00;
+    background: #00e100;
+}
+:global(.kw0.pos_2_0),
+:global(.kw0.pos_1_9),
+:global(.kw0.pos_1_8),
+:global(.kw0.pos_1_7),
+:global(.kw0.pos_1_6) {
+    background: rgba(225, 0, 0, 0.8);
 }
 :global(.kw0.pos_1_5),
 :global(.kw0.pos_1_4),
 :global(.kw0.pos_1_3),
 :global(.kw0.pos_1_2),
 :global(.kw0.pos_1_1) {
-    background: rgba(255, 0, 0, 0.8);
+    background: rgba(195, 0, 0, 0.6);
 }
 :global(.kw0.pos_1_0),
 :global(.kw0.pos_0_9),
 :global(.kw0.pos_0_8),
 :global(.kw0.pos_0_7),
 :global(.kw0.pos_0_6) {
-    background: rgba(255, 0, 0, 0.4);
+    background: rgba(165, 0, 0, 0.4);
 }
 :global(.kw0.pos_0_5),
 :global(.kw0.pos_0_4),
 :global(.kw0.pos_0_3),
 :global(.kw0.pos_0_2),
 :global(.kw0.pos_0_1) {
-    background: rgba(255, 0, 0, 0.2);
+    background: rgba(135, 0, 0, 0.2);
+}
+:global(.kw1.pos_2_0),
+:global(.kw1.pos_1_9),
+:global(.kw1.pos_1_8),
+:global(.kw1.pos_1_7),
+:global(.kw1.pos_1_6) {
+    background: rgba(225, 225, 0, 0.8);
 }
 :global(.kw1.pos_1_5),
 :global(.kw1.pos_1_4),
 :global(.kw1.pos_1_3),
 :global(.kw1.pos_1_2),
 :global(.kw1.pos_1_1) {
-    background: rgba(255, 255, 0, 0.8);
+    background: rgba(195, 195, 0, 0.6);
 }
 :global(.kw1.pos_1_0),
 :global(.kw1.pos_0_9),
 :global(.kw1.pos_0_8),
 :global(.kw1.pos_0_7),
 :global(.kw1.pos_0_6) {
-    background: rgba(255, 255, 0, 0.4);
+    background: rgba(165, 165, 0, 0.4);
 }
 :global(.kw1.pos_0_5),
 :global(.kw1.pos_0_4),
 :global(.kw1.pos_0_3),
 :global(.kw1.pos_0_2),
 :global(.kw1.pos_0_1) {
-    background: rgba(255, 255, 0, 0.2);
+    background: rgba(135, 135, 0, 0.2);
+}
+:global(.kw0.pos_2_0),
+:global(.kw0.pos_1_9),
+:global(.kw0.pos_1_8),
+:global(.kw0.pos_1_7),
+:global(.kw0.pos_1_6) {
+    background: rgba(0, 225, 0, 0.8);
 }
 :global(.kw2.pos_1_5),
 :global(.kw2.pos_1_4),
 :global(.kw2.pos_1_3),
 :global(.kw2.pos_1_2),
 :global(.kw2.pos_1_1) {
-    background: rgba(0, 255, 0, 0.8);
+    background: rgba(0, 195, 0, 0.6);
 }
 :global(.kw2.pos_1_0),
 :global(.kw2.pos_0_9),
 :global(.kw2.pos_0_8),
 :global(.kw2.pos_0_7),
 :global(.kw2.pos_0_6) {
-    background: rgba(0, 255, 0, 0.4);
+    background: rgba(0, 165, 0, 0.4);
 }
 :global(.kw2.pos_0_5),
 :global(.kw2.pos_0_4),
 :global(.kw2.pos_0_3),
 :global(.kw2.pos_0_2),
 :global(.kw2.pos_0_1) {
-    background: rgba(0, 255, 0, 0.2);
+    background: rgba(0, 135, 0, 0.2);
 }
 :global(.kw2.neg_1_5),
 :global(.kw2.neg_1_4),
 :global(.kw2.neg_1_3),
 :global(.kw2.neg_1_2),
 :global(.kw2.neg_1_1) {
-    background: rgba(200, 200, 200, 0.8);
+    background: rgba(160, 160, 160, 0.8);
 }
 :global(.kw2.neg_1_0),
 :global(.kw2.neg_0_9),
 :global(.kw2.neg_0_8),
 :global(.kw2.neg_0_7),
 :global(.kw2.neg_0_6) {
-    background: rgba(200, 200, 200, 0.4);
+    background: rgba(160, 160, 160, 0.4);
 }
 :global(.kw2.neg_0_5),
 :global(.kw2.neg_0_4),
 :global(.kw2.neg_0_3),
 :global(.kw2.neg_0_2),
 :global(.kw2.neg_0_1) {
-    background: rgba(200, 200, 200, 0.2);
+    background: rgba(160, 160, 160, 0.2);
 }

@@ -31,7 +31,7 @@ const cache = new Map<
   }
 >();
 
-function parseResumeText(
+export function parseResumeText(
   path: string,
   config: Config,
   callback: ParseResumeFn,

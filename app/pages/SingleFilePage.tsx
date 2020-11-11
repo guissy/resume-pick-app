@@ -11,8 +11,7 @@ import DropZone from '../features/DropZone';
 import ScoreList from '../features/ScoreList';
 import { DocFile, MyApp, ScoreFile } from '../features/type';
 import { selectNameScore, updateNameScore } from '../features/scoreSlice';
-import { initConfigAsync, selectConfig } from '../features/configSlice';
-import ResumeView from '../features/ResumeView';
+import { selectConfig } from '../features/configSlice';
 
 function useNameScore() {
   const nameScore = useSelector(selectNameScore);
@@ -20,25 +19,12 @@ function useNameScore() {
   nameScoreRef.current = React.useMemo(() => nameScore, [nameScore]);
   return nameScoreRef;
 }
-type File = ScoreFile | undefined;
+
 export default function SingleFilePage(): JSX.Element {
   const dispatch = useDispatch();
-  const [showDialog, setShowDialog] = React.useState(false);
-  const [resumeActive, setResumeActive] = React.useState<File>();
-  const onOpenResume = React.useCallback((scoreFile: ScoreFile) => {
-    setShowDialog(true);
-    setResumeActive(scoreFile);
-  }, []);
-  const onCloseResume = React.useCallback(() => {
-    setShowDialog(false);
-    setResumeActive(undefined);
-  }, []);
   const config = useSelector(selectConfig);
   const [updating, setUpdating] = React.useState(false);
   const [updateMap] = React.useState(new Map<string, number>());
-  React.useEffect(() => {
-    dispatch(initConfigAsync());
-  }, [dispatch]);
   // config 更改后，重新计算
   const nameScoreRef = useNameScore();
   const updateOne = React.useCallback(
@@ -81,18 +67,13 @@ export default function SingleFilePage(): JSX.Element {
     },
     [updateOne]
   );
+
   const day =
     updateMap.size > 0
       ? dayjs([...updateMap.values()][0]).format('YYYY-MM-DD hh:mm:ss')
       : '';
   return (
     <div className={styles.container} data-tid="container">
-      <dialog
-        open={showDialog}
-        style={{ padding: 0, zIndex: 100, width: '70vw', top: 10 }}
-      >
-        <ResumeView resume={resumeActive} onClose={onCloseResume} />
-      </dialog>
       <p
         className={styles.updating}
         style={{ position: updating ? 'fixed' : 'absolute' }}
@@ -108,7 +89,7 @@ export default function SingleFilePage(): JSX.Element {
         )}
       </p>
       <main className={styles.main}>
-        <ScoreList onClickResume={onOpenResume} onClickTable={onCloseResume} />
+        <ScoreList />
         <DropZone onDrop={onDrop} accept={['.doc', '.docx', '.txt', '.pdf']} />
       </main>
       <Link className={styles.back} to={routes.WELCOME}>

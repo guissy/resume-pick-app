@@ -4,7 +4,7 @@ import { AppThunk, RootState } from '../store';
 import { ConfigFile } from './type';
 import initFile, { initDefaultFile, saveFile } from './configUtil';
 
-const configSlice = createSlice({
+export const configSlice = createSlice({
   name: 'config',
   initialState: { configs: {} as ConfigFile },
   reducers: {

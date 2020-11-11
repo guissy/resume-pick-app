@@ -16,6 +16,7 @@ import Image from './image';
 import GithubView from './GithubView';
 import { ScoreFile } from './type';
 import TreeMap from './TreeMap';
+import ResumeView from './ResumeView';
 
 const images = [
   'angular.png',
@@ -46,12 +47,9 @@ const images = [
 ];
 const imgKey = images.map((img) => img.split('.').shift() || '');
 
-type Props = {
-  onClickResume: (resume: ScoreFile) => void;
-  onClickTable?: () => void;
-};
+type File = ScoreFile | undefined;
 
-const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
+const ScoreList: React.FC<unknown> = () => {
   const scores = useSelector(selectNameScore);
   const config = useSelector(selectConfig);
   const dispatch = useDispatch();
@@ -259,12 +257,25 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
     const urlOk = url.startsWith('http') ? url : `http://${url}`;
     shell.openExternal(urlOk);
   }, []);
+
+  const [showDialog, setShowDialog] = React.useState(false);
+  const [resumeActive, setResumeActive] = React.useState<File>();
+  const onOpenResume = React.useCallback((scoreFile: ScoreFile) => {
+    setShowDialog(true);
+    setResumeActive(scoreFile);
+  }, []);
+  const onCloseResume = React.useCallback(() => {
+    setShowDialog(false);
+    setResumeActive(undefined);
+  }, []);
   return scores.length > 0 ? (
-    <div
-      role="presentation"
-      className={styles.tableWrap}
-      onClick={onClickTable}
-    >
+    <div role="presentation" className={styles.tableWrap}>
+      <dialog
+        open={showDialog}
+        style={{ padding: 0, zIndex: 100, width: '80vw', top: 10 }}
+      >
+        <ResumeView resume={resumeActive} onClose={onCloseResume} />
+      </dialog>
       <header className={styles.header}>
         <label htmlFor="showFull">
           <input
@@ -428,7 +439,7 @@ const ScoreList: React.FC<Props> = ({ onClickResume, onClickTable }) => {
                     className={styles.link}
                     onClick={(e) => {
                       e.stopPropagation();
-                      onClickResume(v);
+                      onOpenResume(v);
                     }}
                   >
                     {checked && (

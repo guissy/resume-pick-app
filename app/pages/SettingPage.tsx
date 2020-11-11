@@ -7,7 +7,6 @@ import {
   selectConfig,
   updateConfig,
   saveConfig,
-  initConfigAsync,
   resetConfigAsync,
 } from '../features/configSlice';
 import styles from './SettingPage.css';
@@ -18,9 +17,6 @@ import routes from '../constants/routes.json';
 const SettingPage: React.FC<unknown> = () => {
   const config = useSelector(selectConfig);
   const dispatch = useDispatch();
-  React.useEffect(() => {
-    dispatch(initConfigAsync());
-  }, [dispatch]);
   const onChange = React.useCallback(
     ({ updated_src }) => {
       dispatch(updateConfig({ default: updated_src }));

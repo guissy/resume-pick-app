@@ -50,7 +50,7 @@ export function getScoreMap(configs: Config) {
 
 const sentiment = new Sentiment();
 export function calcSentiment(text: string, config: Config) {
-  const textOk = text.replace(/(\b[\w-]+\b)/g, ' $1 ');
+  const textOk = (text || '').replace(/(\b[\w-]+\b)/g, ' $1 ');
   const result = sentiment.analyze(textOk, { extras: getScoreMap(config) });
   return result.comparative;
 }

@@ -1,5 +1,6 @@
 {
   "WELCOME": "/",
   "SINGLE": "/single",
-  "SETTING": "/setting"
+  "SETTING": "/setting",
+  "ONLINE": "/online"
 }

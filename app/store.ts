@@ -5,6 +5,8 @@ import { createLogger } from 'redux-logger';
 import { ThunkAction } from 'redux-thunk';
 // eslint-disable-next-line import/no-cycle
 import createRootReducer from './rootReducer';
+// eslint-disable-next-line import/no-cycle
+import { initConfigAsync } from './features/configSlice';
 
 export const history = createHashHistory();
 const rootReducer = createRootReducer(history);
@@ -33,6 +35,10 @@ export const configuredStore = (initialState?: RootState) => {
     middleware,
     preloadedState: initialState,
   });
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  store.dispatch(initConfigAsync());
 
   if (process.env.NODE_ENV === 'development' && module.hot) {
     module.hot.accept(

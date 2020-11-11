@@ -13,6 +13,9 @@ const LazySingleFilePage = React.lazy(
 const LazySettingPage = React.lazy(
   () => import(/* webpackChunkName: "SettingPage" */ './pages/SettingPage')
 );
+const LazyOnlinePage = React.lazy(
+  () => import(/* webpackChunkName: "OnlinePage" */ './pages/OnlinePage')
+);
 
 const Loading = () => (
   <div
@@ -40,12 +43,19 @@ const SettingPage = (props: Record<string, unknown>) => (
   </React.Suspense>
 );
 
+const OnlinePage = (props: Record<string, unknown>) => (
+  <React.Suspense fallback={<Loading />}>
+    <LazyOnlinePage {...props} />
+  </React.Suspense>
+);
+
 export default function Routes() {
   return (
     <App>
       <Switch>
         <Route path={routes.SINGLE} component={SingleFilePage} />
         <Route path={routes.SETTING} component={SettingPage} />
+        <Route path={routes.ONLINE} component={OnlinePage} />
         <Route path={routes.WELCOME} component={WelcomePage} />
       </Switch>
     </App>

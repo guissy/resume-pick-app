@@ -35,6 +35,21 @@ export default function WelcomePage(): JSX.Element {
             </li>
           </ol>
         </article>
+        <ul className={styles.hrSites}>
+          <li>
+            <Link
+              to={{
+                pathname: routes.ONLINE,
+                state: {
+                  url:
+                    'https://easy.lagou.com/talent/search/list.htm?positionName=web前端开发',
+                },
+              }}
+            >
+              拉勾
+            </Link>
+          </li>
+        </ul>
         <footer className={styles.footer}>
           <Link to={routes.SINGLE} className={styles.start}>
             开始

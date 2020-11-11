@@ -15,7 +15,7 @@ import { app, BrowserWindow } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
-import parseResume from './features/parseResume';
+import parseResume, { parseResumeText } from './features/parseResume';
 import { MyApp } from './features/type';
 
 export default class AppUpdater {
@@ -137,3 +137,4 @@ app.on('activate', () => {
 });
 
 (app as MyApp).parseResume = parseResume;
+(app as MyApp).parseResumeText = parseResumeText;

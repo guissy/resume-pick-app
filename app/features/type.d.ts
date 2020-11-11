@@ -30,6 +30,12 @@ export type ParsedResume = {
 export type ParseResumeFn = (resume: ParsedResume) => void;
 export type MyApp = Electron.App & {
   parseResume: (path: string, config: Config, fn: ParseResumeFn) => void;
+  parseResumeText: (
+    path: string,
+    config: Config,
+    callback: ParseResumeFn,
+    text: string
+  ) => void;
 };
 
 export type Config = Keyword[];

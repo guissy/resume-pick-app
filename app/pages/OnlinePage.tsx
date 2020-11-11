@@ -51,6 +51,7 @@ export default function OnlinePage(): JSX.Element {
   const config = useSelector(selectConfig);
   const [updating, setUpdating] = React.useState(false);
   const [updateMap] = React.useState(new Map<string, number>());
+  const [scoreMap] = React.useState(new Map<string, string>());
   // config 更改后，重新计算
   const updateOne = React.useCallback(
     (f: ScoreFile) => {
@@ -74,6 +75,7 @@ export default function OnlinePage(): JSX.Element {
             })
           );
           updateMap.set(f.path, Date.now());
+          scoreMap.set(f.name, r.score.toFixed(1));
           if (Array.from(updateMap.values()).every((time) => !!time)) {
             delay(() => setUpdating(false), 500);
           }
@@ -81,7 +83,7 @@ export default function OnlinePage(): JSX.Element {
         f.text
       );
     },
-    [config, dispatch, updateMap]
+    [config, dispatch, updateMap, scoreMap]
   );
   const webviewRef = React.useRef<
     (HTMLWebview & { getURL: () => string }) | null
@@ -125,6 +127,20 @@ if (!fetch.inject) {
         }
       });
       webviewRef.current?.addEventListener('dom-ready', async () => {
+        webviewRef.current?.executeJavaScript(
+          `window.fetch = ((fetch) => {
+if (!fetch.inject) {
+  return (input, opt) => {
+    const p = fetch(input, opt).then(v => v.json());
+    p.then(v => console.log(JSON.stringify(v)));
+    return p.then(v => ({json: () => v}));
+  };
+} else {
+  return fetch;
+}
+})(window.fetch)`,
+          false
+        );
         await new Promise((resolve) => setTimeout(resolve, 1000));
         await webviewRef.current?.executeJavaScript(
           `document.querySelector("#root .talent-item-content .item-user .name")?.click();`,
@@ -179,8 +195,14 @@ if (!fetch.inject) {
           src={url}
           style={{ width: '100%', height: '100vh' }}
         />
-        <button className={styles.found} type="button" onClick={onClickShow}>
+        <button
+          key={onlineFile?.name}
+          className={styles.found}
+          type="button"
+          onClick={onClickShow}
+        >
           {onlineFile?.name}
+          {scoreMap.get(onlineFile?.name || '')}
         </button>
       </main>
       <Link className={styles.back} to={routes.WELCOME}>

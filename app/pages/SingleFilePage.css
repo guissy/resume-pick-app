@@ -62,4 +62,14 @@
   border-radius: 21px;
   background-color: rgba(33, 33, 33, 0.6);
   cursor: pointer;
+  animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

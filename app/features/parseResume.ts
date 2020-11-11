@@ -49,7 +49,16 @@ export function parseResumeText(
     // cache.set(path, { keywords: kw, text, workAge, phone });
     const kws = kw.items.map((k: Keyword) => ({
       ...k,
-      children: k.children.filter((w) => w.gained !== 0),
+      children: k.children
+        .filter((w) => w.gained !== 0)
+        .map((w) => ({
+          ...w,
+          works: w.works.map((x) => ({
+            ...x,
+            startDate: String(x.startDate),
+            endDate: String(x.endDate),
+          })),
+        })),
     }));
     callback({
       path,

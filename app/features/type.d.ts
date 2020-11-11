@@ -6,6 +6,7 @@ export type Keyword = {
   score: number;
   alias: string[] | string | undefined;
   children: Keyword[];
+  works: { startDate: string; endDate: string; workContent: string }[];
   gained: number;
 };
 export type ScoreFile = DocFile & {

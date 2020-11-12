@@ -49,20 +49,45 @@
   position: fixed;
   right: 50px;
   bottom: 50px;
-  padding: 0 14px;
-  height: 32px;
   display: flex;
   align-items: center;
   text-align: center;
   justify-content: center;
-  color: #f50000;
-  font-size: 18px;
-  font-weight: bolder;
-  text-shadow: 0 0 3px rgba(255, 215, 0, 1);
-  border-radius: 21px;
-  background-color: rgba(33, 33, 33, 0.6);
   cursor: pointer;
   animation: fadeIn 1s;
+  border: 0;
+  background-color: unset;
+  filter: drop-shadow(2px 4px 6px black);
+  opacity: 0.9;
+}
+
+.nameBig {
+  display: block;
+  margin-right: -10px;
+  padding: 0 14px;
+  height: 30px;
+  line-height: 30px;
+  color: #fffab8;
+  font-size: 16px;
+  font-weight: bolder;
+  letter-spacing: 3px;
+  border-top-left-radius: 21px;
+  border-bottom-left-radius: 21px;
+  background-color: rgba(33, 33, 33, 1);
+  border: 1px solid #8e8410;
+}
+
+.scoreBig {
+  height: 54px;
+  width: 54px;
+  line-height: 54px;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: bolder;
+  color: #fffab8;
+  text-shadow: 0 0 3px rgba(255, 215, 0, 1);
+  background-color: rgba(33, 33, 33, 1);
+  border: 1px solid #8e8410;
 }
 
 @keyframes fadeIn {

@@ -19,7 +19,11 @@ const ResumeView: React.FC<Props> = ({ resume, onClose }) => {
   }, [resume]);
   const clickOpenNative = React.useCallback(() => {
     if (resume?.path) {
-      shell.openItem(resume.path);
+      if (resume?.path.startsWith('http')) {
+        shell.openExternal(resume?.path);
+      } else {
+        shell.openItem(resume.path);
+      }
     }
   }, [resume]);
   const keywords = React.useMemo(

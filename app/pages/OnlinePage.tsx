@@ -17,17 +17,27 @@ import ScoreList from '../features/ScoreList';
 const userInfoScript = `
 window.userNameCache = new Set();
 const targetNode = document.querySelector('.resume-content');
-function printUserInfo() {
+const style = document.createElement('style');
+style.appendChild(document.createTextNode('.transform-resume-modal { opacity: 0 }')); 
+document.querySelector('head').appendChild(style);
+async function printUserInfo() {
   const userName = targetNode.querySelector('.p-name')?.textContent.trim();
   if (userName) {
     if (!userNameCache.has(userName)) {
+      document.querySelector('body').classList.add('inject');
+      await new Promise((resolve) => setTimeout(resolve, 10));
+      document.querySelector("div.opera-bar > div.opera-content > div.btn-wrapper-left > div:nth-child(2) > button")?.click();
+      await new Promise((resolve) => setTimeout(resolve, 10));
+      const link = document.querySelector(".transform-resume-modal .input-wrapper > input")?.value;
       const userInfo = {
-        path: userName,
+        path: link || userName,
         name: userName,
         workAge: targetNode.querySelector('.basic-info > p:nth-child(4)')?.textContent.trim(),
         text: targetNode.querySelector('.resume-info')?.textContent.trim(),
       }
       console.log(JSON.stringify(userInfo));
+      document.querySelector(".transform-resume-modal button")?.click();
+      document.querySelector('body').classList.remove('inject');
     }
     userNameCache.add(userName);
   }
@@ -96,22 +106,6 @@ export default function OnlinePage(): JSX.Element {
   const isFirstMount = useFirstMountState();
   React.useEffect(() => {
     if (isFirstMount) {
-      webviewRef.current?.addEventListener('did-navigate', async () => {
-        webviewRef.current?.executeJavaScript(
-          `window.fetch = ((fetch) => {
-if (!fetch.inject) {
-  return (input, opt) => {
-    const p = fetch(input, opt).then(v => v.json());
-    p.then(v => console.log(JSON.stringify(v)));
-    return p.then(v => ({json: () => v}));
-  };
-} else {
-  return fetch;
-}
-})(window.fetch)`,
-          false
-        );
-      });
       webviewRef.current?.addEventListener('console-message', (evt) => {
         const e = evt as Event & { sourceId: string; message: string };
         if (e.sourceId === '') {
@@ -127,20 +121,6 @@ if (!fetch.inject) {
         }
       });
       webviewRef.current?.addEventListener('dom-ready', async () => {
-        webviewRef.current?.executeJavaScript(
-          `window.fetch = ((fetch) => {
-if (!fetch.inject) {
-  return (input, opt) => {
-    const p = fetch(input, opt).then(v => v.json());
-    p.then(v => console.log(JSON.stringify(v)));
-    return p.then(v => ({json: () => v}));
-  };
-} else {
-  return fetch;
-}
-})(window.fetch)`,
-          false
-        );
         await new Promise((resolve) => setTimeout(resolve, 1000));
         await webviewRef.current?.executeJavaScript(
           `document.querySelector("#root .talent-item-content .item-user .name")?.click();`,
@@ -200,9 +180,15 @@ if (!fetch.inject) {
           className={styles.found}
           type="button"
           onClick={onClickShow}
+          style={{
+            opacity: onlineFile?.name ? 1 : 0.3,
+            animationDuration: onlineFile?.name ? '1s' : '0s',
+          }}
         >
-          {onlineFile?.name}
-          {scoreMap.get(onlineFile?.name || '')}
+          <span className={styles.nameBig}>{onlineFile?.name}</span>
+          <span className={styles.scoreBig}>
+            {scoreMap.get(onlineFile?.name || '')}
+          </span>
         </button>
       </main>
       <Link className={styles.back} to={routes.WELCOME}>

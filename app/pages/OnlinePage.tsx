@@ -18,7 +18,7 @@ const userInfoScript = `
 window.userNameCache = new Set();
 const targetNode = document.querySelector('.resume-content');
 const style = document.createElement('style');
-style.appendChild(document.createTextNode('.transform-resume-modal { opacity: 0 }')); 
+style.appendChild(document.createTextNode('.transform-resume-modal { opacity: 0.05 }')); 
 document.querySelector('head').appendChild(style);
 async function printUserInfo() {
   const userName = targetNode.querySelector('.p-name')?.textContent.trim();
@@ -27,7 +27,7 @@ async function printUserInfo() {
       document.querySelector('body').classList.add('inject');
       await new Promise((resolve) => setTimeout(resolve, 10));
       document.querySelector("div.opera-bar > div.opera-content > div.btn-wrapper-left > div:nth-child(2) > button")?.click();
-      await new Promise((resolve) => setTimeout(resolve, 10));
+      await new Promise((resolve) => setTimeout(resolve, 50));
       const link = document.querySelector(".transform-resume-modal .input-wrapper > input")?.value;
       const userInfo = {
         path: link || userName,
@@ -65,33 +65,35 @@ export default function OnlinePage(): JSX.Element {
   // config 更改后，重新计算
   const updateOne = React.useCallback(
     (f: ScoreFile) => {
-      updateMap.set(f.path, 0);
-      setUpdating(true);
-      (remote.app as MyApp).parseResumeText(
-        f.path,
-        config,
-        (r) => {
-          dispatch(
-            updateNameScore({
-              name: f.name,
-              path: f.path,
-              score: r.score,
-              keywords: cloneDeep(r.keywords),
-              text: r.text,
-              phone: r.phone,
-              workAge: r.workAge || f.workAge,
-              links: r.links,
-              sentiment: r.sentiment,
-            })
-          );
-          updateMap.set(f.path, Date.now());
-          scoreMap.set(f.name, r.score.toFixed(1));
-          if (Array.from(updateMap.values()).every((time) => !!time)) {
-            delay(() => setUpdating(false), 500);
-          }
-        },
-        f.text
-      );
+      if (!updateMap.has(f.path)) {
+        updateMap.set(f.path, 0);
+        setUpdating(true);
+        (remote.app as MyApp).parseResumeText(
+          f.path,
+          config,
+          (r) => {
+            dispatch(
+              updateNameScore({
+                name: f.name,
+                path: f.path,
+                score: r.score,
+                keywords: cloneDeep(r.keywords),
+                text: r.text,
+                phone: r.phone,
+                workAge: r.workAge || f.workAge,
+                links: r.links,
+                sentiment: r.sentiment,
+              })
+            );
+            updateMap.set(f.path, Date.now());
+            scoreMap.set(f.name, r.score.toFixed(1));
+            if (Array.from(updateMap.values()).every((time) => !!time)) {
+              delay(() => setUpdating(false), 500);
+            }
+          },
+          f.text
+        );
+      }
     },
     [config, dispatch, updateMap, scoreMap]
   );

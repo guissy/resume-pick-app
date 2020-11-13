@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import cloneDeep from 'lodash/cloneDeep';
 import delay from 'lodash/delay';
 import dayjs from 'dayjs';
+import { usePrevious } from 'react-use';
 import routes from '../constants/routes.json';
 import styles from './SingleFilePage.css';
 import DropZone from '../features/DropZone';
@@ -27,6 +28,7 @@ export default function SingleFilePage(): JSX.Element {
   const [updateMap] = React.useState(new Map<string, number>());
   // config 更改后，重新计算
   const nameScoreRef = useNameScore();
+  const configPrev = usePrevious(config);
   const updateOne = React.useCallback(
     (f: ScoreFile | DocFile) => {
       updateMap.set(f.path, 0);
@@ -54,11 +56,13 @@ export default function SingleFilePage(): JSX.Element {
     [config, dispatch, updateMap]
   );
   React.useEffect(() => {
-    const ns = nameScoreRef.current;
-    if (ns) {
-      ns.forEach(updateOne);
+    if (!!configPrev && config !== configPrev) {
+      const ns = nameScoreRef.current;
+      if (ns) {
+        ns.forEach(updateOne);
+      }
     }
-  }, [updateOne, nameScoreRef]);
+  }, [config, configPrev, updateOne, nameScoreRef]);
   const onDrop = React.useCallback(
     (_files: DocFile[]) => {
       if (_files.length > 0) {

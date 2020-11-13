@@ -6,11 +6,7 @@ import { remote, shell } from 'electron';
 import dayjs from 'dayjs';
 import styles from './ScoreList.css';
 import { selectNameScore } from './scoreSlice';
-import trackWorkAge, {
-  getBlogByLink,
-  getGithubByLink,
-  trackPhone,
-} from './tractWorkAge';
+import { getBlogByLink, getGithubByLink } from './tractWorkAge';
 import { selectConfig, updateConfig } from './configSlice';
 import Image from './image';
 import GithubView from './GithubView';
@@ -431,7 +427,7 @@ const ScoreList: React.FC<unknown> = () => {
               return a.score * a.sentiment > b.score * b.sentiment ? -1 : 1;
             })
             .map((v, i) => (
-              <tr key={v.name}>
+              <tr key={v.path}>
                 <td className={styles.td}>{i + 1}</td>
                 <td className={styles.td}>
                   <button
@@ -446,7 +442,7 @@ const ScoreList: React.FC<unknown> = () => {
                       <>
                         {v.name}
                         <br />
-                        {trackPhone(v.text)}
+                        {v.phone}
                         <br />
                       </>
                     )}
@@ -475,7 +471,7 @@ const ScoreList: React.FC<unknown> = () => {
                     </ul>
                   </button>
                 </td>
-                <td className={styles.td}>{trackWorkAge(v.text)}</td>
+                <td className={styles.td}>{v.workAge}</td>
                 <td className={styles.score}>{v.score?.toFixed(2)}</td>
                 <td className={styles.score}>
                   {(v.sentiment * 100).toFixed(2)}

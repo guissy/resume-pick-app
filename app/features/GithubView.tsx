@@ -1,9 +1,9 @@
 import React from 'react';
 import { remote } from 'electron';
-import { exec } from 'child_process';
-import fs from 'fs';
+import path from 'path';
 import { GhOpt, HTMLWebview } from './type';
 import styles from './ScoreList.css';
+import parseRepo from './parseRepo';
 
 type Props = {
   url: string;
@@ -16,9 +16,10 @@ const GithubView: React.FC<Props> = ({ url }) => {
   const [contrib, setContrib] = React.useState(NaN);
   const [followers, setFollowers] = React.useState(NaN);
   const tail = url.split('://').pop();
-  const [host, path] = tail?.split('/') || [];
-  const urlOk = `https://${host}/${path.split('?').shift()}`;
+  const [host, pathname] = tail?.split('/') || [];
+  const urlOk = `https://${host}/${pathname.split('?').shift()}`;
   const [status, setStatus] = React.useState('prepare...');
+  const [repoInfo, setRepoInfo] = React.useState('');
   React.useEffect(() => {
     webviewRef.current?.addEventListener('dom-ready', async () => {
       if (status === 'prepare...') {
@@ -46,7 +47,7 @@ const GithubView: React.FC<Props> = ({ url }) => {
               `document.querySelector('a[href$="?tab=repositories"]')?.click()`,
               false
             );
-            await new Promise((resolve) => setTimeout(resolve, 2500));
+            await new Promise((resolve) => setTimeout(resolve, 3000));
             const json = await webviewRef.current?.executeJavaScript(
               `JSON.stringify(Array.from(document
               .querySelectorAll("#user-repositories-list > ul > li"))
@@ -69,32 +70,18 @@ const GithubView: React.FC<Props> = ({ url }) => {
               );
               const dir = remote.app.getPath('temp');
               const name = `repo_${Date.now()}`;
-              const cloneCli = `(cd ${dir} && git clone ${repo} ${name})`;
-              setStatus(`git clone ${first.split('/').pop()}`);
-              exec(cloneCli, (err) => {
-                if (err) {
-                  setStatus(`git error ${err}`);
-                } else {
-                  const src = [
-                    'src',
-                    'app',
-                    'App',
-                    'front',
-                    'web',
-                    'server',
-                  ].find((folder) => fs.existsSync(`${dir}${name}/${folder}`));
-                  const inspectCli =
-                    'PYTHONIOENCODING=utf-8 npx gitinspector -lmrTw -fjs,ts,jsx,tsx ' +
-                    ` && npx cloc ${src} && eslintcc -r=all -sr -a -nlc ${src}/**/*.* && jscpd ${src} `;
-                  exec(inspectCli, (er, stdout) => {
-                    if (er) {
-                      setStatus(`inspect error ${er}`);
-                    } else {
-                      setStatus(stdout);
-                    }
-                  });
-                }
-              });
+              const {
+                commits,
+                commentRate,
+                linesInFile,
+                linesInCommit,
+              } = await parseRepo(repo, path.join(dir, name), setStatus);
+              setRepoInfo(`logs ${commits.length}
+comments ${(commentRate * 100).toFixed(2)}%
+file ${linesInFile}
+commit ${linesInCommit}
+`);
+              setStatus('');
             }
           } else {
             setStatus('');
@@ -114,9 +101,9 @@ const GithubView: React.FC<Props> = ({ url }) => {
           opacity: 0.5,
           position: 'absolute',
           zIndex: -1,
+          display: 'none',
         }}
       />
-      <span style={{ color: '#444444', display: 'block' }}>{status}</span>
       {repos >= 0 && (
         <>
           <span className={styles.subName}>repo</span>
@@ -137,7 +124,9 @@ const GithubView: React.FC<Props> = ({ url }) => {
           <span className={styles.gained}>{contrib}</span>
         </>
       )}
-      {/* <br /> */}
+      <br />
+      <span style={{ color: '#444444', display: 'block' }}>{status}</span>
+      <span style={{ color: '#eeeeee', display: 'block' }}>{repoInfo}</span>
       {/* <span dangerouslySetInnerHTML={{ __html: calendar }} /> */}
     </div>
   ) : (

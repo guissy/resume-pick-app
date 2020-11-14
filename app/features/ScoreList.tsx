@@ -268,7 +268,13 @@ const ScoreList: React.FC<unknown> = () => {
     <div role="presentation" className={styles.tableWrap}>
       <dialog
         open={showDialog}
-        style={{ padding: 0, zIndex: 100, width: '80vw', top: 10 }}
+        style={{
+          padding: 0,
+          zIndex: 100,
+          width: '80vw',
+          top: 10,
+          display: 'none',
+        }}
       >
         <ResumeView resume={resumeActive} onClose={onCloseResume} />
       </dialog>

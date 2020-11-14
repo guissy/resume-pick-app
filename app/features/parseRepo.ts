@@ -5,7 +5,8 @@ import http from 'isomorphic-git/http/node';
 // import cloc from 'node-cloc';
 import path from 'path';
 import fs from 'fs';
-import execa from 'execa';
+import { promisify } from 'util';
+import { exec } from 'child_process';
 import { remote } from 'electron';
 
 export const resourcesPath = remote.app.isPackaged
@@ -13,16 +14,10 @@ export const resourcesPath = remote.app.isPackaged
   : path.resolve('resources');
 
 async function cloc(folder: string) {
-  const { stdout, stderr, failed, killed, timedOut } = await execa(
-    path.join(resourcesPath, '.bin/cloc'),
-    ['--json', folder]
+  const { stdout } = await promisify(exec)(
+    [path.join(resourcesPath, '.bin/cloc'), '--json', folder].join(' ')
   );
-  if (stderr !== '') throw new Error(stderr.trim());
-  if (failed !== false) throw new Error('Failure');
-  if (killed !== false) throw new Error('Program was killed');
-  if (timedOut !== false) throw new Error('Timeout');
-
-  return JSON.parse(stdout);
+  return JSON.parse(stdout || '');
 }
 
 // type GitCommit = { commit: { message: string } };

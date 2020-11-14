@@ -33,6 +33,7 @@ async function printUserInfo() {
         path: link || userName,
         name: userName,
         workAge: targetNode.querySelector('.basic-info > p:nth-child(4)')?.textContent.trim(),
+        basic: targetNode.querySelector('.basic-info')?.textContent.trim(),
         text: targetNode.querySelector('.resume-info')?.textContent.trim(),
       }
       console.log(JSON.stringify(userInfo));
@@ -111,9 +112,9 @@ export default function OnlinePage(): JSX.Element {
       webviewRef.current?.addEventListener('console-message', (evt) => {
         const e = evt as Event & { sourceId: string; message: string };
         if (e.sourceId === '') {
-          const file = JSON.parse(e.message) as ScoreFile;
+          const file = JSON.parse(e.message) as ScoreFile & { basic: string };
           if (file.path) {
-            file.text?.replace('Created with Sketch.', '');
+            (file.text + file.basic).replace('Created with Sketch.', '');
             setOnlineFile(file);
             updateOne(file);
           } else {

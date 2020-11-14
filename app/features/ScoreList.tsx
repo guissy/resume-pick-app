@@ -273,7 +273,6 @@ const ScoreList: React.FC<unknown> = () => {
           zIndex: 100,
           width: '80vw',
           top: 10,
-          display: 'none',
         }}
       >
         <ResumeView resume={resumeActive} onClose={onCloseResume} />

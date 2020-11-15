@@ -27,6 +27,7 @@ const images = [
   'vue.png',
   'wxapp.png',
   'gayhub.png',
+  'electron.png',
   'gitee.png',
   'lint.png',
   'test.png',

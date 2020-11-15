@@ -91,26 +91,28 @@ const TreeMap: React.FC<Props> = ({ scoreFile, index }) => {
         .attr('font-size', (d) => {
           // eslint-disable-next-line no-control-regex
           const isZh = d.data.name.match(/[^\x00-\xff]/);
-          const len = Math.max(d.data.name.length, 3.5);
+          const len = Math.max(d.data.name.length, 2.5);
           const w0 = d.x1 - d.x0;
-          const w = (w0 / len) * 1.4;
+          const w = (w0 / len) * 1.45;
           const h = d.y1 - d.y0;
-          return Math.min(isZh ? w * 0.6 : w, h * 1.1);
+          return Math.min(Math.min(isZh ? w * 0.6 : w, h), 36).toFixed(1);
         })
-        .attr('dx', 5)
-        .attr('dy', (d) => {
-          // eslint-disable-next-line no-control-regex
-          const isZh = d.data.name.match(/[^\x00-\xff]/);
-          const len = Math.max(d.data.name.length, 3.5);
+        .attr('dx', function getDx(d) {
+          // eslint-disable-next-line react/no-this-in-sfc
+          const fontSize = parseFloat(this.getAttribute('font-size') || '12');
           const w0 = d.x1 - d.x0;
-          const w = (w0 / len) * 1.4 * 0.1;
+          return (w0 - fontSize * 0.72 * d.data.name.length ** 0.88) / 2;
+        })
+        .attr('dy', function getDy(d) {
           const h = d.y1 - d.y0;
-          const y = (h - w) / 2 + (isZh ? 20 : 10);
-          return `${y}px`;
+          // eslint-disable-next-line react/no-this-in-sfc
+          const fontSize = parseFloat(this.getAttribute('font-size') || '12');
+          const y = h - Math.max((h - fontSize) / 2, 0) - fontSize / 10;
+          return y.toFixed(1);
         })
         .text((d) => {
           const { name } = d.data;
-          return name.length > 3 ? capitalize(name) : name;
+          return name.length > 3 ? capitalize(name) : name.toUpperCase();
         });
     }
   }, [ref, scoreFile?.keywords, index, search]);

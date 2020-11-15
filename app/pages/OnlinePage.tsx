@@ -126,14 +126,18 @@ export default function OnlinePage(): JSX.Element {
       webviewRef.current?.addEventListener('console-message', (evt) => {
         const e = evt as Event & { sourceId: string; message: string };
         if (e.sourceId === '') {
-          const file = JSON.parse(e.message) as ScoreFile & { basic: string };
-          if (file.path) {
-            (file.text + file.basic).replace('Created with Sketch.', '');
+          const json = JSON.parse(e.message) as ScoreFile & { basic: string };
+          if (json.path) {
+            const text = (json.text + json.basic).replace(
+              /Created with Sketch./g,
+              ''
+            );
+            const file = { ...json, text };
             setOnlineFile(file);
             updateOne(file);
           } else {
             // eslint-disable-next-line no-console
-            console.warn(file);
+            console.warn(json);
           }
         }
       });

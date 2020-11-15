@@ -27,13 +27,20 @@ export type ParsedResume = {
   text: string;
   links: string[];
   sentiment: number;
+  search: string;
 };
 export type ParseResumeFn = (resume: ParsedResume) => void;
 export type MyApp = Electron.App & {
-  parseResume: (path: string, config: Config, fn: ParseResumeFn) => void;
+  parseResume: (
+    path: string,
+    config: Config,
+    search: string,
+    fn: ParseResumeFn
+  ) => void;
   parseResumeText: (
     path: string,
     config: Config,
+    search: string,
     callback: ParseResumeFn,
     text: string
   ) => void;

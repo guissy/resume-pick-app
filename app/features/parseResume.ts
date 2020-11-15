@@ -34,17 +34,43 @@ const cache = new Map<
 export function parseResumeText(
   path: string,
   config: Config,
+  search: string,
   callback: ParseResumeFn,
   text: string
 ) {
   const phone = trackPhone(text);
   const workAge = trackWorkAge(text);
   const links = trackLinks(text);
-  const sentiment = calcSentiment(text, config);
+  const configPure = config.filter((v) => v.name !== 'search');
+  const searchs = search
+    .trim()
+    .split(' ')
+    .map((n) => ({
+      name: n,
+      score: 2,
+      alias: [],
+      works: [],
+      gained: 0,
+      children: [],
+    }));
+  const configOk = search?.trim()
+    ? [
+        ...configPure,
+        {
+          name: 'search',
+          children: searchs,
+          score: 2,
+          gained: 0,
+          alias: [],
+          works: [],
+        } as Keyword,
+      ]
+    : configPure;
+  const sentiment = calcSentiment(text, configOk);
   if (text && text.length > 0) {
     const { score, keywords: kw } = timeContent.calcTotal(
       text,
-      config
+      configOk
     ) as KeywordCalcResult;
     // cache.set(path, { keywords: kw, text, workAge, phone });
     const kws = kw.items.map((k: Keyword) => ({
@@ -69,6 +95,7 @@ export function parseResumeText(
       links,
       phone,
       sentiment,
+      search,
     });
   } else {
     callback({
@@ -80,6 +107,7 @@ export function parseResumeText(
       links,
       phone,
       sentiment,
+      search,
     });
   }
 }
@@ -90,6 +118,7 @@ export default function parseResume(
   this: unknown,
   path: string,
   config: Config,
+  search: string,
   callback: ParseResumeFn
 ) {
   const kwUtil = cache.get(path);
@@ -98,10 +127,10 @@ export default function parseResume(
       fs.readFile(path, (_e, buffer) => {
         pdf(buffer)
           .then((data: PdfItem) => {
-            return parseResumeText(path, config, callback, data.text);
+            return parseResumeText(path, config, search, callback, data.text);
           })
           .catch(() => {
-            parseResumeText(path, config, callback, '');
+            parseResumeText(path, config, search, callback, '');
           });
       });
     } else {
@@ -109,7 +138,7 @@ export default function parseResume(
         path,
         { preserveLineBreaks: true },
         (_err: unknown, docText: string) => {
-          parseResumeText(path, config, callback, docText);
+          parseResumeText(path, config, search, callback, docText);
         }
       );
     }
@@ -127,6 +156,6 @@ export default function parseResume(
       ...k,
       children: k.children.filter((w) => w.gained !== 0),
     }));
-    callback({ ...kwUtil, path, score, keywords: kws });
+    callback({ ...kwUtil, path, score, search, keywords: kws });
   }
 }

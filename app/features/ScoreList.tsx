@@ -4,6 +4,7 @@ import fs from 'fs';
 import ExcelJS, { Column } from 'exceljs';
 import { remote, shell } from 'electron';
 import dayjs from 'dayjs';
+import { useDebounce } from 'react-use';
 import styles from './ScoreList.css';
 import { selectNameScore } from './scoreSlice';
 import { getBlogByLink, getGithubByLink } from './tractWorkAge';
@@ -45,8 +46,12 @@ const images = [
 const imgKey = images.map((img) => img.split('.').shift() || '');
 
 type File = ScoreFile | undefined;
+type Props = {
+  search: string;
+  setSearch: (kw: string) => void;
+};
 
-const ScoreList: React.FC<unknown> = () => {
+const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
   const scores = useSelector(selectNameScore);
   const config = useSelector(selectConfig);
   const dispatch = useDispatch();
@@ -266,6 +271,8 @@ const ScoreList: React.FC<unknown> = () => {
     setShowDialog(false);
     setResumeActive(undefined);
   }, []);
+  const [searchTxt, setSearchTxt] = React.useState(search);
+  useDebounce(() => setSearch(searchTxt), 2000, [searchTxt]);
   return scores.length > 0 ? (
     <div role="presentation" className={styles.tableWrap}>
       <dialog
@@ -298,6 +305,19 @@ const ScoreList: React.FC<unknown> = () => {
             checked={gitRepo}
           />
           Git Repo
+        </label>
+        <label htmlFor="search" className={styles.searchWrap}>
+          <i className="fa fa-search" />
+          <input
+            className={styles.search}
+            id="search"
+            type="search"
+            value={searchTxt}
+            placeholder="输入关键字搜索简历"
+            onChange={(e) => {
+              setSearchTxt(e.target.value);
+            }}
+          />
         </label>
         <div className={styles.opts}>
           <label htmlFor="optCheckbox">

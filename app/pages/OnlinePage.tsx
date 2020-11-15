@@ -6,13 +6,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import cloneDeep from 'lodash/cloneDeep';
 import delay from 'lodash/delay';
 import dayjs from 'dayjs';
-import { useFirstMountState } from 'react-use';
+import { useFirstMountState, usePrevious } from 'react-use';
 import routes from '../constants/routes.json';
 import styles from './SingleFilePage.css';
 import { HTMLWebview, MyApp, ScoreFile } from '../features/type';
-import { updateNameScore } from '../features/scoreSlice';
+import {
+  selectSearch,
+  updateNameScore,
+  updateSearch,
+} from '../features/scoreSlice';
 import { selectConfig } from '../features/configSlice';
 import ScoreList from '../features/ScoreList';
+import { useNameScore } from './SingleFilePage';
 
 const userInfoScript = `
 window.userNameCache = new Set();
@@ -63,6 +68,13 @@ export default function OnlinePage(): JSX.Element {
   const [updating, setUpdating] = React.useState(false);
   const [updateMap] = React.useState(new Map<string, number>());
   const [scoreMap] = React.useState(new Map<string, string>());
+  const search = useSelector(selectSearch);
+  const onUpdateSearch = React.useCallback(
+    (kw: string) => {
+      dispatch(updateSearch(kw));
+    },
+    [dispatch]
+  );
   // config 更改后，重新计算
   const updateOne = React.useCallback(
     (f: ScoreFile) => {
@@ -72,6 +84,7 @@ export default function OnlinePage(): JSX.Element {
         (remote.app as MyApp).parseResumeText(
           f.path,
           config,
+          search,
           (r) => {
             dispatch(
               updateNameScore({
@@ -84,6 +97,7 @@ export default function OnlinePage(): JSX.Element {
                 workAge: r.workAge || f.workAge,
                 links: r.links,
                 sentiment: r.sentiment,
+                search: r.search,
               })
             );
             updateMap.set(f.path, Date.now());
@@ -96,7 +110,7 @@ export default function OnlinePage(): JSX.Element {
         );
       }
     },
-    [config, dispatch, updateMap, scoreMap]
+    [config, dispatch, updateMap, scoreMap, search]
   );
   const webviewRef = React.useRef<
     (HTMLWebview & { getURL: () => string }) | null
@@ -134,6 +148,29 @@ export default function OnlinePage(): JSX.Element {
       });
     }
   }, [webviewRef, isFirstMount, updateOne]);
+  const nameScoreRef = useNameScore();
+  const configPrev = usePrevious(config);
+  const searchPrev = usePrevious(search);
+  React.useEffect(() => {
+    if (
+      (!!configPrev && config !== configPrev) ||
+      ((!!searchPrev || !!search) && search !== searchPrev)
+    ) {
+      const ns = nameScoreRef.current;
+      updateMap.clear();
+      if (ns) {
+        ns.forEach(updateOne);
+      }
+    }
+  }, [
+    search,
+    searchPrev,
+    config,
+    configPrev,
+    updateOne,
+    nameScoreRef,
+    updateMap,
+  ]);
   const [showDialog, setShowDialog] = React.useState(false);
   const onClickShow = React.useCallback(() => {
     setShowDialog(true);
@@ -170,7 +207,7 @@ export default function OnlinePage(): JSX.Element {
         <button className={styles.close} type="button" onClick={onClickClose}>
           <i className="fa fa-times fa-2x" />
         </button>
-        <ScoreList />
+        <ScoreList search={search} setSearch={onUpdateSearch} />
       </dialog>
       <main className={styles.main}>
         <webview

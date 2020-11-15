@@ -5,7 +5,7 @@ import { ScoreFile } from './type';
 
 const scoreSlice = createSlice({
   name: 'score',
-  initialState: { nameScore: [] as ScoreFile[] },
+  initialState: { nameScore: [] as ScoreFile[], search: '' },
   reducers: {
     updateNameScore: (state, action) => {
       const nameScore = action.payload;
@@ -19,11 +19,15 @@ const scoreSlice = createSlice({
       }
       state.nameScore.sort((a, b) => b.score - a.score);
     },
+    updateSearch: (state, action) => {
+      state.search = action.payload;
+    },
   },
 });
 
-export const { updateNameScore } = scoreSlice.actions;
+export const { updateNameScore, updateSearch } = scoreSlice.actions;
 
 export default scoreSlice.reducer;
 
 export const selectNameScore = (state: RootState) => state.score.nameScore;
+export const selectSearch = (state: RootState) => state.score.search;

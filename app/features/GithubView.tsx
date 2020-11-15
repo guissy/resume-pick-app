@@ -91,7 +91,7 @@ commit ${linesInCommit}
     });
   }, [webviewRef, status]);
 
-  return url.includes('github') ? (
+  return url.includes('github.com') || url.includes('gitee.com') ? (
     <div>
       <webview
         ref={webviewRef}

@@ -26,6 +26,7 @@ const images = [
   'vue.png',
   'wxapp.png',
   'gayhub.png',
+  'gitee.png',
   'lint.png',
   'test.png',
   'es6.png',
@@ -184,7 +185,8 @@ const ScoreList: React.FC<unknown> = () => {
     );
   }, [config]);
   const [cacheScore] = React.useState(new Map<string, number>()); // 缓存大于0
-  const [checked, setChecked] = React.useState(true);
+  const [showFull, setShowFull] = React.useState(true);
+  const [gitRepo, setGitRepo] = React.useState(false);
   const [option, setOption] = React.useState(
     new Map(optionDefault.map((opt) => [opt, true]))
   );
@@ -269,6 +271,7 @@ const ScoreList: React.FC<unknown> = () => {
       <dialog
         open={showDialog}
         style={{
+          position: 'fixed',
           padding: 0,
           zIndex: 100,
           width: '80vw',
@@ -282,10 +285,19 @@ const ScoreList: React.FC<unknown> = () => {
           <input
             id="showFull"
             type="checkbox"
-            onChange={() => setChecked(!checked)}
-            checked={checked}
+            onChange={() => setShowFull(!showFull)}
+            checked={showFull}
           />
           Show Full
+        </label>
+        <label htmlFor="gitRepo">
+          <input
+            id="gitRepo"
+            type="checkbox"
+            onChange={() => setGitRepo(!gitRepo)}
+            checked={gitRepo}
+          />
+          Git Repo
         </label>
         <div className={styles.opts}>
           <label htmlFor="optCheckbox">
@@ -443,7 +455,7 @@ const ScoreList: React.FC<unknown> = () => {
                       onOpenResume(v);
                     }}
                   >
-                    {checked && (
+                    {showFull && (
                       <>
                         {v.name}
                         <br />
@@ -482,9 +494,10 @@ const ScoreList: React.FC<unknown> = () => {
                   {(v.sentiment * 100).toFixed(2)}
                 </td>
                 <td className={styles.td}>
-                  {getGithubByLink(v.links).map((link) => (
-                    <GithubView key={link} url={link} />
-                  ))}
+                  {gitRepo &&
+                    getGithubByLink(v.links).map((link) => (
+                      <GithubView key={link} url={link} />
+                    ))}
                   {v.links.map((link) => (
                     <a
                       key={link}

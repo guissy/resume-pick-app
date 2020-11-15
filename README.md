@@ -27,3 +27,11 @@ extractors = [
   require('./extractors/text'),
 ];
 ```
+
+### features:
+
+[ ] boss
+[ ] pk
+[ ] review
+[ ] java / go
+[ ] search fuzzy

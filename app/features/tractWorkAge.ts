@@ -85,6 +85,7 @@ export function getBlogByLink(link: string) {
   const aliyun = /yq\.aliyun\.com\/users\/[A-z0-9_-]+/;
   const gitbooks = /jiayili\.gitbooks\.io\/[A-z0-9_-]+/;
   const github = /github\.com\/[A-z0-9_-]+/;
+  const gitee = /gitee\.com\/[A-z0-9_-]+/;
   const n = [
     csdn,
     cnblogs,
@@ -100,15 +101,16 @@ export function getBlogByLink(link: string) {
     aliyun,
     gitbooks,
     github,
+    gitee,
   ].findIndex((regexp) => regexp.test(link));
-  const names = 'csdn,cnblogs,juejin,zhihu,zhihu,jianshu,segmentfault,oschina,imooc,51cto,tencent,aliyun,gitbooks,github'.split(
+  const names = 'csdn,cnblogs,juejin,zhihu,zhihu,jianshu,segmentfault,oschina,imooc,51cto,tencent,aliyun,gitbooks,github,gitee'.split(
     ','
   );
   return n >= 0 ? names[n] : '';
 }
 
 export function getGithubByLink(links: string[]) {
-  const github = /github\.com\/[A-z0-9_-]+/g;
+  const github = /(github|giteeee)\.com\/[A-z0-9_-]+/g;
   return Array.from(
     new Set(
       links

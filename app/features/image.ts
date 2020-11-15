@@ -6,6 +6,7 @@ import docker_png from '../images/docker.png';
 import es6_png from '../images/es6.png';
 import flutter_png from '../images/flutter.png';
 import gayhub_png from '../images/gayhub.png';
+import gitee_png from '../images/gitee.png';
 import git_png from '../images/git.png';
 import go_png from '../images/go.png';
 import graphql_png from '../images/graphql.png';
@@ -69,4 +70,5 @@ export default {
   oschina_png,
   imooc_png,
   cto_png,
+  gitee_png,
 };

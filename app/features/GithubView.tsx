@@ -55,7 +55,7 @@ const GithubView: React.FC<Props> = ({ url }) => {
                 const href = li.querySelector('[itemprop*="codeRepository"]')?.href;
                 const commits = Array.from(li.querySelector('svg polyline')?.points || [])
                 .map(p => p.y)
-                .reduce((s, v) => s += v - 1, 0);
+                .reduce((s, v) => s + v - 1, 0);
                 return [href, commits];
               })
               .sort((a, b)=> a[1] - b[1] > 0 ? -1 : 1))`,
@@ -72,14 +72,16 @@ const GithubView: React.FC<Props> = ({ url }) => {
               const name = `repo_${Date.now()}`;
               const {
                 commits,
+                nCode,
                 commentRate,
                 linesInFile,
                 linesInCommit,
               } = await parseRepo(repo, path.join(dir, name), setStatus);
-              setRepoInfo(`logs ${commits.length}
-comments ${(commentRate * 100).toFixed(2)}%
-file ${linesInFile}
-commit ${linesInCommit}
+              setRepoInfo(`file ${linesInFile}
+commits ${commits.length}
+lines ${nCode}
+comments ${(commentRate * 100).toFixed(1)}%
+commit/line ${linesInCommit}
 `);
               setStatus('');
             }
@@ -125,8 +127,14 @@ commit ${linesInCommit}
         </>
       )}
       <br />
-      <span style={{ color: '#444444', display: 'block' }}>{status}</span>
-      <span style={{ color: '#eeeeee', display: 'block' }}>{repoInfo}</span>
+      <span style={{ color: '#444444', display: 'block', fontSize: '0.8rem' }}>
+        {status}
+      </span>
+      {repoInfo?.split('\n').map((s) => (
+        <span key={s} style={{ color: '#eeeeee', display: 'block' }}>
+          {s}
+        </span>
+      ))}
       {/* <span dangerouslySetInnerHTML={{ __html: calendar }} /> */}
     </div>
   ) : (

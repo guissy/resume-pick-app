@@ -32,9 +32,8 @@ export default async function parseRepo(
     http,
     dir,
     url: repoUrl,
-    ref: 'master',
-    singleBranch: true,
-    depth: 1,
+    singleBranch: false,
+    depth: 99,
   });
   const commits = await git.log({ fs, dir });
   const logs = commits
@@ -72,6 +71,7 @@ export default async function parseRepo(
   setStatus(`linesInCommit ${linesInCommit}`);
   return {
     commits,
+    nCode,
     commentRate,
     linesInFile,
     linesInCommit,

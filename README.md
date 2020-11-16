@@ -30,8 +30,9 @@ extractors = [
 
 ### features:
 
-[ ] boss
-[ ] pk
-[ ] review
-[ ] java / go
-[ ] search fuzzy
+- [ ] boss
+- [ ] pk
+- [ ] review
+- [ ] java / go
+- [ ] search fuzzy
+- [ ] remove

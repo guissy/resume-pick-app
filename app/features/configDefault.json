@@ -22,13 +22,14 @@
           "ionic",
           "apicloud",
           "mobile",
-          "hybird"
+          "hybird",
+          "移动端"
         ],
         "score": 1.5
       },
       {
         "name": "react",
-        "alias": ["redux", "antd", "ant design"],
+        "alias": ["reactjs", "redux", "antd", "ant design"],
         "score": 1.5
       },
       {
@@ -45,6 +46,7 @@
         "alias": [
           "ng",
           "ng2",
+          "angularjs",
           "angular2",
           "angular4",
           "angular5",
@@ -61,7 +63,7 @@
       },
       {
         "name": "node",
-        "alias": ["nodejs", "express", "keo", "egg", "next", "typeorm", "pm2"],
+        "alias": ["nodejs", "express", "keo", "egg", "next", "pm2"],
         "score": 1.5
       },
       {
@@ -75,7 +77,8 @@
           "dva",
           "事件总线",
           "eventBus",
-          "event bus"
+          "event bus",
+          "mvvm"
         ],
         "score": 1
       },
@@ -83,6 +86,7 @@
         "name": "es6",
         "alias": [
           "es5",
+          "es6",
           "es6+",
           "es2015",
           "es2016",
@@ -90,9 +94,11 @@
           "es7",
           "es8",
           "es9",
-          "ecmascript"
+          "ecmascript",
+          "原生JS",
+          "原生 JS"
         ],
-        "score": 0.5
+        "score": 0.8
       },
       {
         "name": "w3c",
@@ -108,12 +114,15 @@
           "rem",
           "less",
           "sass",
+          "scss",
           "css-modules",
           "css in js",
           "css-in-js",
           "styled-components",
           "jss",
-          "emotion"
+          "emotion",
+          "tailwind",
+          "纯CSS"
         ],
         "score": 0.5
       }
@@ -125,6 +134,11 @@
       {
         "name": "typescript",
         "alias": ["ts"],
+        "score": 1.5
+      },
+      {
+        "name": "hooks",
+        "alias": ["hook"],
         "score": 1.5
       },
       {
@@ -194,7 +208,18 @@
         "score": 1
       },
       {
+        "name": "sql",
+        "alias": ["sqlite3", "sqlite", "mysql", "postgre"],
+        "score": 1
+      },
+      {
+        "name": "electron",
+        "alias": ["nwjs"],
+        "score": 1
+      },
+      {
         "name": "mock",
+        "alias": ["mockjs", "rap", "模拟", "抓取", "爬虫"],
         "score": 0.5
       },
       {
@@ -212,6 +237,7 @@
       },
       {
         "name": "微服务",
+        "alias": ["monorepo", "submodule"],
         "score": 0.5
       },
       {
@@ -230,11 +256,32 @@
         "score": 0.5
       },
       {
+        "name": "性能调优",
+        "alias": ["毫秒", "攻克"],
+        "score": 0.5
+      },
+      {
+        "name": "component",
+        "alias": ["基础组件", "公共组件", "通用组件", "业务组件", "组件化"],
+        "score": 0.5
+      },
+      {
         "name": "python",
         "score": 0.5
       },
       {
         "name": "java",
+        "alias": ["springcloud", "springboot", "springmvc", "mybatis"],
+        "score": 0.5
+      },
+      {
+        "name": "middleware",
+        "alias": ["nacos", "eureka", "hystrix", "gateway", "zuul", "feign"],
+        "score": 0.5
+      },
+      {
+        "name": "queue",
+        "alias": ["rocketmq", "rabbitmq"],
         "score": 0.5
       },
       {
@@ -262,17 +309,9 @@
         "score": 0.5
       },
       {
-        "name": "mysql",
-        "score": 0.5
-      },
-      {
         "name": "mongodb",
+        "alias": ["sequelize", "typeorm", "orm"],
         "score": 0.5
-      },
-      {
-        "name": "electron",
-        "alias": ["nwjs"],
-        "score": 1
       },
       {
         "name": "devops",
@@ -281,6 +320,10 @@
       },
       {
         "name": "vim",
+        "score": 0.5
+      },
+      {
+        "name": "markdown",
         "score": 0.5
       },
       {

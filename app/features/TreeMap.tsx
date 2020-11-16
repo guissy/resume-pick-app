@@ -101,7 +101,12 @@ const TreeMap: React.FC<Props> = ({ scoreFile, index }) => {
           // eslint-disable-next-line react/no-this-in-sfc
           const fontSize = parseFloat(this.getAttribute('font-size') || '12');
           const w0 = d.x1 - d.x0;
-          return (w0 - fontSize * 0.72 * d.data.name.length ** 0.88) / 2;
+          // eslint-disable-next-line no-control-regex
+          const isZh = d.data.name.match(/[^\x00-\xff]/);
+          return (
+            ((w0 - fontSize * 0.72 * d.data.name.length ** 0.88) / 2) *
+            (isZh ? 0.5 : 1)
+          );
         })
         .attr('dy', function getDy(d) {
           const h = d.y1 - d.y0;

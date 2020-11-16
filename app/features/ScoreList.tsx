@@ -168,20 +168,6 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
       return '';
     });
   }, []);
-  const onClickSentiment = React.useCallback(() => {
-    setSort((wa) => {
-      if (wa !== 'sentimentUp' && wa !== 'sentimentDown') {
-        return 'sentimentDown';
-      }
-      if (wa === 'sentimentUp') {
-        return '';
-      }
-      if (wa === 'sentimentDown') {
-        return 'sentimentUp';
-      }
-      return '';
-    });
-  }, []);
   const optionDefault = React.useMemo(() => {
     return imgKey.filter((img) =>
       (config || [])
@@ -411,28 +397,7 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
                 </div>
               </button>
             </td>
-            <td className={`${styles.td} ${styles.sort}`} style={{ width: 60 }}>
-              <button
-                className={styles.sortBtn}
-                type="button"
-                onClick={onClickSentiment}
-              >
-                <span>分数+</span>
-                <div className={styles.caretInit}>
-                  <i
-                    className={`fa fa-caret-up ${
-                      sort === 'sentimentUp' ? styles.active : ''
-                    }`}
-                  />
-                  <i
-                    className={`fa fa-caret-down ${
-                      sort === 'sentimentDown' ? styles.active : ''
-                    }`}
-                  />
-                </div>
-              </button>
-            </td>
-            <td colSpan={1} className={styles.td} style={{ width: 120 }}>
+            <td colSpan={1} className={styles.td} style={{ width: 150 }}>
               github
             </td>
             <td colSpan={1} className={styles.td} style={{ width: 'auto' }}>
@@ -511,9 +476,6 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
                 </td>
                 <td className={styles.td}>{v.workAge}</td>
                 <td className={styles.score}>{v.score?.toFixed(2)}</td>
-                <td className={styles.score}>
-                  {(v.sentiment * 100).toFixed(2)}
-                </td>
                 <td className={styles.td}>
                   {gitRepo &&
                     getGithubByLink(v.links).map((link) => (

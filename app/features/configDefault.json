@@ -9,7 +9,7 @@
       },
       {
         "name": "flutter",
-        "alias": ["flutter", "dart"],
+        "alias": ["flutter1", "flutter2", "dart"],
         "score": 1.5
       },
       {
@@ -19,6 +19,7 @@
           "uni-app",
           "uniapp",
           "umi-app",
+          "umijs",
           "ionic",
           "apicloud",
           "mobile",
@@ -63,7 +64,7 @@
       },
       {
         "name": "node",
-        "alias": ["nodejs", "express", "keo", "egg", "next", "pm2"],
+        "alias": ["nodejs", "express", "koa", "koa2", "egg", "next", "pm2"],
         "score": 1.5
       },
       {
@@ -122,8 +123,15 @@
           "jss",
           "emotion",
           "tailwind",
-          "纯CSS"
+          "纯CSS",
+          "vw",
+          "vh"
         ],
+        "score": 0.5
+      },
+      {
+        "name": "keyframes",
+        "alias": ["animate.css", "wow.js"],
         "score": 0.5
       }
     ]
@@ -138,7 +146,7 @@
       },
       {
         "name": "hooks",
-        "alias": ["hook"],
+        "alias": ["hook", "hoc"],
         "score": 1.5
       },
       {
@@ -223,6 +231,11 @@
         "score": 0.5
       },
       {
+        "name": "ejs",
+        "alias": ["hygen", "swagger"],
+        "score": 0.5
+      },
+      {
         "name": "git",
         "score": 0.5
       },
@@ -242,17 +255,44 @@
       },
       {
         "name": "加密",
-        "alias": ["密文", "支付", "md5", "sha1", "签名", "白名单"],
+        "alias": [
+          "密文",
+          "支付",
+          "md5",
+          "sha1",
+          "签名",
+          "白名单",
+          "jwt",
+          "x-token",
+          "crypto"
+        ],
         "score": 0.5
       },
       {
         "name": "重构",
-        "alias": ["防抖", "去抖", "节流", "虚拟化", "懒加载"],
+        "alias": [
+          "防抖",
+          "去抖",
+          "节流",
+          "虚拟化",
+          "懒加载",
+          "debounce",
+          "throttle",
+          "代码分割",
+          "分包",
+          "错误收集",
+          "埋点"
+        ],
+        "score": 0.5
+      },
+      {
+        "name": "Promise",
+        "alias": ["async", "await", "generator"],
         "score": 0.5
       },
       {
         "name": "自定义",
-        "alias": ["封装", "公共组件", "二次封装"],
+        "alias": ["封装", "公共方法", "二次封装"],
         "score": 0.5
       },
       {
@@ -333,7 +373,7 @@
       {
         "name": "bi",
         "score": 0.5,
-        "alias": ["可视化", "大屏", "echarts", "d3"]
+        "alias": ["可视化", "大屏", "echarts", "d3", "antv"]
       },
       {
         "name": "three.js",
@@ -359,9 +399,18 @@
         "alias": ["web assembly"]
       },
       {
+        "name": "代表作",
+        "score": 0.5,
+        "alias": ["项目链接", "作品链接"]
+      },
+      {
         "name": "iframe",
         "alias": ["flash", "dreamweaver", "div+css", "v-for", "v-if"],
         "score": -1.5
+      },
+      {
+        "name": "mvc",
+        "score": -0.5
       },
       {
         "name": "ajax",

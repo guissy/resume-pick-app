@@ -17,6 +17,7 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 import parseResume, { parseResumeText } from './features/parseResume';
 import { MyApp } from './features/type';
+import userAgent from './utils/userAgent';
 
 export default class AppUpdater {
   constructor() {
@@ -85,7 +86,9 @@ const createWindow = async () => {
           },
   });
 
-  mainWindow.loadURL(`file://${__dirname}/app.html`);
+  mainWindow.loadURL(`file://${__dirname}/app.html`, {
+    userAgent: userAgent(),
+  });
 
   mainWindow.webContents.on('did-finish-load', () => {
     if (!mainWindow) {

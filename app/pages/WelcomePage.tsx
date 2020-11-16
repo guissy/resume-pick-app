@@ -41,8 +41,7 @@ export default function WelcomePage(): JSX.Element {
               to={{
                 pathname: routes.ONLINE,
                 state: {
-                  url:
-                    'https://easy.lagou.com/talent/search/list.htm?positionName=web前端开发',
+                  url: 'https://www.baidu.com',
                 },
               }}
             >

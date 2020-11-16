@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { shell } from 'electron';
+import { useKey } from 'react-use';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import Highlighter from 'react-highlight-words';
@@ -52,6 +53,7 @@ const ResumeView: React.FC<Props> = ({ resume, onClose }) => {
       ).reduce((s, v) => ({ ...s, ...v }), {}),
     [resume]
   );
+  useKey('Escape', onClose);
   return (
     <div className={styles.wrap}>
       <header style={{ textAlign: 'right' }}>

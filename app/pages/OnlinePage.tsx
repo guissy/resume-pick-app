@@ -18,8 +18,16 @@ import {
 import { selectConfig } from '../features/configSlice';
 import ScoreList from '../features/ScoreList';
 import { useNameScore } from './SingleFilePage';
+import userAgent from '../utils/userAgent';
 
 const userInfoScript = `
+console.log(JSON.stringify({
+  appName: navigator.appName,
+  appVersion: navigator.appVersion,
+  platform: navigator.platform,
+  product: navigator.product,
+  userAgent: navigator.userAgent,
+}));
 window.userNameCache = new Set();
 const targetNode = document.querySelector('.resume-content');
 const style = document.createElement('style');
@@ -58,7 +66,8 @@ export default function OnlinePage(): JSX.Element {
   const {
     state: { url } = {
       url:
-        'https://easy.lagou.com/talent/search/list.htm?positionName=web前端开发',
+        // 'https://easy.lagou.com/talent/search/list.htm?positionName=web前端开发',
+        'https://www.baidu.com',
     },
   } = useLocation<{
     url: string;
@@ -126,18 +135,23 @@ export default function OnlinePage(): JSX.Element {
       webviewRef.current?.addEventListener('console-message', (evt) => {
         const e = evt as Event & { sourceId: string; message: string };
         if (e.sourceId === '') {
-          const json = JSON.parse(e.message) as ScoreFile & { basic: string };
-          if (json.path) {
-            const text = (json.text + json.basic).replace(
-              /Created with Sketch./g,
-              ''
-            );
-            const file = { ...json, text };
-            setOnlineFile(file);
-            updateOne(file);
-          } else {
+          try {
+            const json = JSON.parse(e.message) as ScoreFile & { basic: string };
+            if (json.path) {
+              const text = (json.text + json.basic).replace(
+                /Created with Sketch./g,
+                ''
+              );
+              const file = { ...json, text };
+              setOnlineFile(file);
+              updateOne(file);
+            } else {
+              // eslint-disable-next-line no-console
+              console.warn(json);
+            }
+          } catch {
             // eslint-disable-next-line no-console
-            console.warn(json);
+            console.warn('parse json error: ', e.message);
           }
         }
       });
@@ -218,6 +232,7 @@ export default function OnlinePage(): JSX.Element {
           ref={webviewRef}
           src={url}
           style={{ width: '100%', height: '100vh' }}
+          useragent={userAgent()}
         />
         <button
           key={onlineFile?.name}

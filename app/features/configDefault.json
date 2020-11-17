@@ -306,6 +306,22 @@
         "score": 0.5
       },
       {
+        "name": "技术博客",
+        "alias": [
+          "极客",
+          "掘金",
+          "知乎",
+          "思否",
+          "stackoverflow",
+          "mdn",
+          "w3school",
+          "博客园",
+          "简书",
+          "CSDN"
+        ],
+        "score": 0.5
+      },
+      {
         "name": "python",
         "score": 0.5
       },

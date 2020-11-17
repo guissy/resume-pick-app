@@ -2,20 +2,17 @@ import React from 'react';
 import * as d3 from 'd3';
 import { HierarchyRectangularNode } from 'd3';
 import capitalize from 'lodash/capitalize';
-import { useSelector } from 'react-redux';
 import { Keyword, ScoreFile } from './type';
-import { selectSearch } from './scoreSlice';
 
 type Props = {
   scoreFile: ScoreFile;
-  index: number;
+  search: string;
 };
 const width = 360;
 const height = 120;
 
-const TreeMap: React.FC<Props> = ({ scoreFile, index }) => {
+const TreeMap: React.FC<Props> = ({ scoreFile, search }) => {
   const ref = React.useRef(null);
-  const search = useSelector(selectSearch);
   const key = React.useMemo(() => {
     if (scoreFile?.keywords?.length > 0) {
       return (Date.now() / 5000).toFixed(0);
@@ -24,8 +21,16 @@ const TreeMap: React.FC<Props> = ({ scoreFile, index }) => {
   }, [scoreFile?.keywords]);
   React.useEffect(() => {
     if (ref.current) {
-      // setTimeout(() => {
-      const totalGained = scoreFile.keywords
+      const searchs = (search || '').trim().split(' ');
+      const keywords = scoreFile?.keywords
+        .filter((k) => !!k.children.length)
+        .map((k) => ({
+          ...k,
+          children: k.children.filter(
+            (w) => k.name === 'search' || !searchs.includes(w.name)
+          ),
+        }));
+      const totalGained = keywords
         .map((v) => v.gained)
         .reduce((s, v) => s + v, 0);
       const widthOk = Math.max(Math.min((width * totalGained) / 20, 360), 80);
@@ -38,17 +43,15 @@ const TreeMap: React.FC<Props> = ({ scoreFile, index }) => {
         .paddingInner(1);
       const data = {
         name: '',
-        children: scoreFile.keywords
-          .filter((k) => !!k.children.length)
-          .map((k) => ({
-            name: k.name,
-            children: k.children
-              .filter((w) => w.gained > 0)
-              .map((w) => ({
-                name: w.name,
-                gained: w.gained,
-              })),
-          })),
+        children: keywords.map((k) => ({
+          name: k.name,
+          children: k.children
+            .filter((w) => w.gained > 0)
+            .map((w) => ({
+              name: w.name,
+              gained: w.gained,
+            })),
+        })),
         gained: NaN,
       };
       const hi = d3
@@ -120,7 +123,7 @@ const TreeMap: React.FC<Props> = ({ scoreFile, index }) => {
           return name.length > 3 ? capitalize(name) : name.toUpperCase();
         });
     }
-  }, [ref, scoreFile?.keywords, index, search]);
+  }, [ref, scoreFile?.keywords, search]);
   return (
     <div>
       <svg key={key} ref={ref} width={width} height={height} />

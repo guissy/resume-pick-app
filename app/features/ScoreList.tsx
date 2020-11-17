@@ -5,6 +5,7 @@ import ExcelJS, { Column } from 'exceljs';
 import { remote, shell } from 'electron';
 import dayjs from 'dayjs';
 import { useDebounce } from 'react-use';
+import uniqBy from 'lodash/uniqBy';
 import styles from './ScoreList.css';
 import { selectNameScore } from './scoreSlice';
 import { getBlogByLink, getGithubByLink } from './tractWorkAge';
@@ -450,27 +451,29 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
                       </>
                     )}
                     <ul className={styles.icons}>
-                      {v.keywords
-                        .map((k) => k.children.map((w) => w))
-                        .flat()
-                        .filter((w) =>
-                          Array.from(option.entries())
-                            .filter(([_k, b]) => _k && b)
-                            .map(([k]) => k)
-                            .includes(w.name)
-                        )
-                        .map((w) => (
-                          <li
-                            key={w.name}
+                      {uniqBy(
+                        v.keywords
+                          .map((k) => k.children.map((w) => w))
+                          .flat()
+                          .filter((w) =>
+                            Array.from(option.entries())
+                              .filter(([_k, b]) => _k && b)
+                              .map(([k]) => k)
+                              .includes(w.name)
+                          ),
+                        'name'
+                      ).map((w) => (
+                        <li
+                          key={w.name}
+                          style={{ opacity: w.gained / w.score }}
+                        >
+                          <img
+                            src={Image[`${w.name}_png` as keyof typeof Image]}
                             style={{ opacity: w.gained / w.score }}
-                          >
-                            <img
-                              src={Image[`${w.name}_png` as keyof typeof Image]}
-                              style={{ opacity: w.gained / w.score }}
-                              alt={w.name}
-                            />
-                          </li>
-                        ))}
+                            alt={w.name}
+                          />
+                        </li>
+                      ))}
                     </ul>
                   </button>
                 </td>
@@ -505,7 +508,7 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
                   ))}
                 </td>
                 <td className={styles.td}>
-                  <TreeMap scoreFile={v} index={i} />
+                  <TreeMap scoreFile={v} search={search} />
                 </td>
               </tr>
             ))}

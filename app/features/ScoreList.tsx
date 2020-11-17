@@ -339,7 +339,7 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
                 <li
                   key={w}
                   style={{
-                    backgroundColor: option.get(w) ? '#eeeeee' : '#aaaaaa',
+                    backgroundColor: option.get(w) ? '#333' : '#aaa',
                   }}
                 >
                   <button
@@ -488,7 +488,11 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
                       ).map((w) => (
                         <li
                           key={w.name}
-                          style={{ opacity: w.gained / w.score }}
+                          style={{
+                            backgroundColor: `rgba(235, 235, 235, ${
+                              w.gained / w.score + 0.2
+                            })`,
+                          }}
                         >
                           <img
                             src={Image[`${w.name}_png` as keyof typeof Image]}

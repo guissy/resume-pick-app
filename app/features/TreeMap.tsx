@@ -89,7 +89,7 @@ const TreeMap: React.FC<Props> = ({ scoreFile, search }) => {
         .attr('fill', (d) => {
           const r = Math.min(((d.x1 - d.x0) * (d.y1 - d.y0)) / 1200, 1);
           const alpha = Math.round(r * 255).toString(16);
-          return `#ffffff${alpha}`;
+          return `#dddddd${alpha}`;
         })
         .attr('font-size', (d) => {
           // eslint-disable-next-line no-control-regex

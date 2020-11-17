@@ -1,6 +1,6 @@
 .tableWrap {
   padding: 0 20px 30px 20px;
-  color: #eee;
+  color: #aaa;
 }
 
 .header {
@@ -12,21 +12,25 @@
   width: 100%;
   text-align: center;
   border-spacing: 0;
-  border-top: 1px solid #ddd;
-  border-left: 1px solid #ddd;
+  border-top: 1px solid #666;
+  border-left: 1px solid #666;
   box-sizing: border-box;
+}
+
+.table > thead {
+  color: #aaa;
 }
 
 .td {
   padding: 5px;
-  border-right: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #666;
+  border-bottom: 1px solid #666;
 }
 
 .score {
   padding: 5px 10px 5px 5px;
-  border-right: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #666;
+  border-bottom: 1px solid #666;
   text-align: right;
   width: 50px;
 }
@@ -58,7 +62,7 @@
   padding: 0;
   background: none;
   font-size: 14px;
-  color: #fff;
+  color: #aaa;
   cursor: pointer;
 }
 
@@ -91,8 +95,13 @@
 .exportExcel {
   background: none;
   font-size: 14px;
-  color: #ddd;
+  color: #666;
+  border-color: #666;
   cursor: pointer;
+}
+.exportExcel:hover {
+  border-color: #ddd;
+  color: #ddd;
 }
 
 .sort {
@@ -103,7 +112,7 @@
 .sortBtn {
   display: block;
   background: none;
-  color: #fff;
+  color: #aaa;
   border: 0;
   font-size: unset;
   cursor: pointer;

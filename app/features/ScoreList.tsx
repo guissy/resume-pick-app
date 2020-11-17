@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import { useDebounce } from 'react-use';
 import uniqBy from 'lodash/uniqBy';
 import styles from './ScoreList.css';
-import { selectNameScore } from './scoreSlice';
+import { selectNameScore, removeNameScore, clearNameScore } from './scoreSlice';
 import { getBlogByLink, getGithubByLink } from './tractWorkAge';
 import { selectConfig, updateConfig } from './configSlice';
 import Image from './image';
@@ -261,6 +261,15 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
   }, []);
   const [searchTxt, setSearchTxt] = React.useState(search);
   useDebounce(() => setSearch(searchTxt), 2000, [searchTxt]);
+  const onClear = React.useCallback(() => {
+    dispatch(clearNameScore());
+  }, [dispatch]);
+  const onRemove = React.useCallback(
+    (path) => {
+      dispatch(removeNameScore(path));
+    },
+    [dispatch]
+  );
   return scores.length > 0 ? (
     <div role="presentation" className={styles.tableWrap}>
       <dialog
@@ -294,6 +303,10 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
           />
           Git Repo
         </label>
+        <button className={styles.trash} onClick={onClear} type="button">
+          <span>清空</span>
+          <i className="fa fa-trash" />
+        </button>
         <label htmlFor="search" className={styles.searchWrap}>
           <i className="fa fa-search" />
           <input
@@ -432,7 +445,17 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
             })
             .map((v, i) => (
               <tr key={v.path}>
-                <td className={styles.td}>{i + 1}</td>
+                <td className={styles.td}>
+                  {i + 1}
+                  <br />
+                  <button
+                    className={styles.trash}
+                    onClick={() => onRemove(v.path)}
+                    type="button"
+                  >
+                    <i className="fa fa-trash" />
+                  </button>
+                </td>
                 <td className={styles.td}>
                   <button
                     type="button"

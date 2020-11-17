@@ -154,7 +154,8 @@ ul.icons {
 .searchWrap {
   display: inline-flex;
   align-items: center;
-  margin-left: 20px;
+
+  /* margin-left: 20px; */
 }
 .search {
   text-indent: 20px;
@@ -171,15 +172,17 @@ ul.icons {
   align-items: center;
 }
 header > label {
+  cursor: pointer;
+  margin-right: 10px;
   color: #999;
 }
 .opts > label {
   color: #999;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 header > label > input,
 .opts > label > input {
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 .opt {
@@ -191,4 +194,19 @@ header > label > input,
   padding: 0;
   margin: 0;
   text-align: center;
+}
+
+.trash {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: #666;
+  cursor: pointer;
+  font-size: 12px;
+}
+.trash:hover {
+  color: #f00;
+}
+.trash > span {
+  padding-right: 5px;
 }

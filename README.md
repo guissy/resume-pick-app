@@ -34,5 +34,5 @@ extractors = [
 - [ ] pk
 - [ ] review
 - [ ] java / go
-- [ ] search fuzzy
-- [ ] remove
+- [x] search
+- [x] remove

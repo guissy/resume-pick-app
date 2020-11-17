@@ -19,13 +19,25 @@ const scoreSlice = createSlice({
       }
       state.nameScore.sort((a, b) => b.score - a.score);
     },
+    removeNameScore: (state, action) => {
+      const n = state.nameScore.findIndex((ns) => ns.path === action.payload);
+      state.nameScore.splice(n, 1);
+    },
+    clearNameScore: (state) => {
+      state.nameScore = [];
+    },
     updateSearch: (state, action) => {
       state.search = action.payload;
     },
   },
 });
 
-export const { updateNameScore, updateSearch } = scoreSlice.actions;
+export const {
+  updateNameScore,
+  updateSearch,
+  removeNameScore,
+  clearNameScore,
+} = scoreSlice.actions;
 
 export default scoreSlice.reducer;
 

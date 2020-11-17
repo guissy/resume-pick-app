@@ -25,6 +25,9 @@ mark {
 :global(.kw2) {
     background: #00e100;
 }
+:global(.kws) {
+    background: #ff00ff;
+}
 :global(.kw0.pos_2_0),
 :global(.kw0.pos_1_9),
 :global(.kw0.pos_1_8),
@@ -129,4 +132,19 @@ mark {
 :global(.kw2.neg_0_2),
 :global(.kw2.neg_0_1) {
     background: rgba(160, 160, 160, 0.2);
+}
+
+.searchWrap {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 20px;
+}
+.search {
+    text-indent: 20px;
+    color: #fff;
+    width: 200px;
+    font-size: 16px;
+}
+.searchWrap i {
+    transform: translateX(140%) scale(0.8);
 }

@@ -27,36 +27,50 @@ const ResumeView: React.FC<Props> = ({ resume, onClose }) => {
       }
     }
   }, [resume]);
+  const [searchTxt, setSearchTxt] = React.useState('2020');
   const keywords = React.useMemo(
     () =>
-      resume?.keywords
+      (resume?.keywords || [])
         .map((k) => k.children.map((w) => [w.name, ...(w.alias || [])]))
-        .flat(2) || [],
-    [resume]
+        .flat(2)
+        .concat(searchTxt.split(' ')),
+    [resume, searchTxt]
   );
   const keywordClassName = React.useMemo(
     () =>
-      (
-        resume?.keywords
-          .map((k, i) =>
-            k.children.map((w) =>
-              [w.name, ...(w.alias || [])].map((n) => ({
-                [n]: `kw${i} ${w.score > 0 ? 'pos' : 'neg'}_${(
-                  w.gained / w.score
-                )
-                  .toFixed(1)
-                  .replace('.', '_')}`,
-              }))
-            )
+      (resume?.keywords || [])
+        .map((k, i) =>
+          k.children.map((w) =>
+            [w.name, ...(w.alias || [])].map((n) => ({
+              [n]: `kw${i} ${w.score > 0 ? 'pos' : 'neg'}_${(w.gained / w.score)
+                .toFixed(1)
+                .replace('.', '_')}`,
+            }))
           )
-          .flat(2) || []
-      ).reduce((s, v) => ({ ...s, ...v }), {}),
-    [resume]
+        )
+        .flat(2)
+        .concat(searchTxt.split(' ').map((s) => ({ [s]: 'kws' })))
+        .reduce((s, v) => ({ ...s, ...v }), {}),
+    [resume, searchTxt]
   );
   useKey('Escape', onClose);
+
   return (
     <div className={styles.wrap}>
       <header style={{ textAlign: 'right' }}>
+        <label htmlFor="search" className={styles.searchWrap}>
+          <i className="fa fa-search" />
+          <input
+            className={styles.search}
+            id="search"
+            type="search"
+            value={searchTxt}
+            placeholder="输入关键字搜索简历"
+            onChange={(e) => {
+              setSearchTxt(e.target.value);
+            }}
+          />
+        </label>
         <button
           type="button"
           onClick={clickOpenNative}
@@ -74,7 +88,7 @@ const ResumeView: React.FC<Props> = ({ resume, onClose }) => {
           <i className="fa fa-times fa-2x" />
         </button>
       </header>
-      <article className={styles.article}>
+      <article className={styles.article} key={searchTxt}>
         {(resume?.text || '').split('\n').map((content, i) => (
           <p
             key={String(i)}

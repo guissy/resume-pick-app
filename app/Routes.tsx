@@ -3,18 +3,19 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import routes from './constants/routes.json';
 import App from './containers/App';
-import WelcomePage from './pages/WelcomePage';
+import WelcomePage from './pages/welcome/WelcomePage';
 
 // Lazily load routes and code split with webpack
 const LazySingleFilePage = React.lazy(
   () =>
-    import(/* webpackChunkName: "SingleFilePage" */ './pages/SingleFilePage')
+    import(/* webpackChunkName: "DesktopPage" */ './pages/desktop/DesktopPage')
 );
 const LazySettingPage = React.lazy(
-  () => import(/* webpackChunkName: "SettingPage" */ './pages/SettingPage')
+  () =>
+    import(/* webpackChunkName: "SettingPage" */ './pages/setting/SettingPage')
 );
 const LazyOnlinePage = React.lazy(
-  () => import(/* webpackChunkName: "OnlinePage" */ './pages/OnlinePage')
+  () => import(/* webpackChunkName: "OnlinePage" */ './pages/online/OnlinePage')
 );
 
 const Loading = () => (

@@ -8,9 +8,9 @@ import {
   updateConfig,
   saveConfig,
   resetConfigAsync,
-} from '../features/configSlice';
+} from '../../features/configSlice';
 import styles from './SettingPage.css';
-import routes from '../constants/routes.json';
+import routes from '../../constants/routes.json';
 // import settingPageStyle from './SettingPage.style';
 // import { Config } from '../features/type';
 

@@ -6,27 +6,20 @@ import cloneDeep from 'lodash/cloneDeep';
 import delay from 'lodash/delay';
 import dayjs from 'dayjs';
 import { usePrevious } from 'react-use';
-import routes from '../constants/routes.json';
-import styles from './SingleFilePage.css';
-import DropZone from '../features/DropZone';
-import ScoreList from '../features/ScoreList';
-import { DocFile, MyApp, ScoreFile } from '../features/type';
+import routes from '../../constants/routes.json';
+import styles from './DesktopPage.css';
+import DropZone from '../../features/DropZone';
+import ScoreList from '../../features/ScoreList';
+import { DocFile, MyApp, ScoreFile } from '../../features/type';
 import {
-  selectNameScore,
   selectSearch,
   updateNameScore,
   updateSearch,
-} from '../features/scoreSlice';
-import { selectConfig } from '../features/configSlice';
+} from '../../features/scoreSlice';
+import { selectConfig } from '../../features/configSlice';
+import useNameScore from '../../utils/useNameScore';
 
-export function useNameScore() {
-  const nameScore = useSelector(selectNameScore);
-  const nameScoreRef = React.useRef<ScoreFile[] | null>(null);
-  nameScoreRef.current = React.useMemo(() => nameScore, [nameScore]);
-  return nameScoreRef;
-}
-
-export default function SingleFilePage(): JSX.Element {
+export default function DesktopPage(): JSX.Element {
   const dispatch = useDispatch();
   const config = useSelector(selectConfig);
   const [updating, setUpdating] = React.useState(false);

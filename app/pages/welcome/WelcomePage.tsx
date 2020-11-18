@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import routes from '../constants/routes.json';
+import routes from '../../constants/routes.json';
 import styles from './WelcomePage.css';
-import packageJson from '../package.json';
+import packageJson from '../../package.json';
 
 export default function WelcomePage(): JSX.Element {
   const ver = packageJson.version;

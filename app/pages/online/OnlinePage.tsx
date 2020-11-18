@@ -7,18 +7,18 @@ import cloneDeep from 'lodash/cloneDeep';
 import delay from 'lodash/delay';
 import dayjs from 'dayjs';
 import { useFirstMountState, usePrevious } from 'react-use';
-import routes from '../constants/routes.json';
-import styles from './SingleFilePage.css';
-import { HTMLWebview, MyApp, ScoreFile } from '../features/type';
+import routes from '../../constants/routes.json';
+import styles from '../desktop/DesktopPage.css';
+import { HTMLWebview, MyApp, ScoreFile } from '../../features/type';
 import {
   selectSearch,
   updateNameScore,
   updateSearch,
-} from '../features/scoreSlice';
-import { selectConfig } from '../features/configSlice';
-import ScoreList from '../features/ScoreList';
-import { useNameScore } from './SingleFilePage';
-import userAgent from '../utils/userAgent';
+} from '../../features/scoreSlice';
+import { selectConfig } from '../../features/configSlice';
+import ScoreList from '../../features/ScoreList';
+import userAgent from '../../utils/userAgent';
+import useNameScore from '../../utils/useNameScore';
 
 const userInfoScript = `
 console.log(JSON.stringify({

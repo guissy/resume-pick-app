@@ -16,7 +16,7 @@ import {
   updateSearch,
 } from '../../features/scoreSlice';
 import { selectConfig } from '../../features/configSlice';
-import ScoreList from '../../features/ScoreList';
+import ScoreList from '../../features/explorer/ScoreList';
 import userAgent from '../../utils/userAgent';
 import useNameScore from '../../utils/useNameScore';
 

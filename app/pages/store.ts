@@ -6,7 +6,7 @@ import { ThunkAction } from 'redux-thunk';
 // eslint-disable-next-line import/no-cycle
 import createRootReducer from './rootReducer';
 // eslint-disable-next-line import/no-cycle
-import { initConfigAsync } from './features/configSlice';
+import { initConfigAsync } from '../features/configSlice';
 
 export const history = createHashHistory();
 const rootReducer = createRootReducer(history);

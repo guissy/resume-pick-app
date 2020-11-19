@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
-import { RootState } from '../store';
+import { RootState } from '../pages/store';
 import { ScoreFile } from './type';
 
 const scoreSlice = createSlice({

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 // eslint-disable-next-line import/no-cycle
-import { AppThunk, RootState } from '../store';
+import { AppThunk, RootState } from '../pages/store';
 import { ConfigFile } from './type';
 import initFile, { initDefaultFile, saveFile } from './configUtil';
 

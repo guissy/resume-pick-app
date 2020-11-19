@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import storage from 'electron-storage';
-import configDefault from './configDefault.json';
+import configDefault from '../constants/configDefault.json';
 import { Config } from './type';
 
 function initFile(): Promise<Record<string, Config>> {

@@ -8,8 +8,8 @@ import dayjs from 'dayjs';
 import { usePrevious } from 'react-use';
 import routes from '../../constants/routes.json';
 import styles from './DesktopPage.css';
-import DropZone from '../../features/DropZone';
-import ScoreList from '../../features/ScoreList';
+import DropZone from './DropZone';
+import ScoreList from '../../features/explorer/ScoreList';
 import { DocFile, MyApp, ScoreFile } from '../../features/type';
 import {
   selectSearch,

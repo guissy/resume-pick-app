@@ -1,21 +1,18 @@
 /* eslint react/jsx-props-no-spreading: off */
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import routes from './constants/routes.json';
-import App from './containers/App';
-import WelcomePage from './pages/welcome/WelcomePage';
+import routes from '../constants/routes.json';
+import WelcomePage from './welcome/WelcomePage';
 
 // Lazily load routes and code split with webpack
 const LazySingleFilePage = React.lazy(
-  () =>
-    import(/* webpackChunkName: "DesktopPage" */ './pages/desktop/DesktopPage')
+  () => import(/* webpackChunkName: "DesktopPage" */ './desktop/DesktopPage')
 );
 const LazySettingPage = React.lazy(
-  () =>
-    import(/* webpackChunkName: "SettingPage" */ './pages/setting/SettingPage')
+  () => import(/* webpackChunkName: "SettingPage" */ './setting/SettingPage')
 );
 const LazyOnlinePage = React.lazy(
-  () => import(/* webpackChunkName: "OnlinePage" */ './pages/online/OnlinePage')
+  () => import(/* webpackChunkName: "OnlinePage" */ './online/OnlinePage')
 );
 
 const Loading = () => (
@@ -52,13 +49,11 @@ const OnlinePage = (props: Record<string, unknown>) => (
 
 export default function Routes() {
   return (
-    <App>
-      <Switch>
-        <Route path={routes.SINGLE} component={SingleFilePage} />
-        <Route path={routes.SETTING} component={SettingPage} />
-        <Route path={routes.ONLINE} component={OnlinePage} />
-        <Route path={routes.WELCOME} component={WelcomePage} />
-      </Switch>
-    </App>
+    <Switch>
+      <Route path={routes.SINGLE} component={SingleFilePage} />
+      <Route path={routes.SETTING} component={SettingPage} />
+      <Route path={routes.ONLINE} component={OnlinePage} />
+      <Route path={routes.WELCOME} component={WelcomePage} />
+    </Switch>
   );
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 import { remote } from 'electron';
 import path from 'path';
-import { GhOpt, HTMLWebview } from './type';
+import { GhOpt, HTMLWebview } from '../type';
 import styles from './ScoreList.css';
-import parseRepo from './parseRepo';
+import parseRepo from '../parser/parseRepo';
 
 type Props = {
   url: string;

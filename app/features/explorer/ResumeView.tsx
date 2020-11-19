@@ -4,7 +4,7 @@ import { useKey } from 'react-use';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import Highlighter from 'react-highlight-words';
-import { ScoreFile } from './type';
+import { ScoreFile } from '../type';
 import styles from './ResumeView.css';
 
 type Props = {

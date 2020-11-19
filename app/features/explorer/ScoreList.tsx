@@ -7,12 +7,16 @@ import dayjs from 'dayjs';
 import { useDebounce } from 'react-use';
 import uniqBy from 'lodash/uniqBy';
 import styles from './ScoreList.css';
-import { selectNameScore, removeNameScore, clearNameScore } from './scoreSlice';
-import { getBlogByLink, getGithubByLink } from './tractWorkAge';
-import { selectConfig, updateConfig } from './configSlice';
-import Image from './image';
+import {
+  selectNameScore,
+  removeNameScore,
+  clearNameScore,
+} from '../scoreSlice';
+import { getBlogByLink, getGithubByLink } from '../parser/tractWorkAge';
+import { selectConfig, updateConfig } from '../configSlice';
+import Image from '../icon/image';
 import GithubView from './GithubView';
-import { ScoreFile } from './type';
+import { ScoreFile } from '../type';
 import TreeMap from './TreeMap';
 import ResumeView from './ResumeView';
 

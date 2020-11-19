@@ -12,7 +12,7 @@ import {
   KeywordCalcResult,
   KeywordUtil,
   ParseResumeFn,
-} from './type';
+} from '../type';
 import trackWorkAge, {
   calcSentiment,
   trackLinks,

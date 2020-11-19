@@ -1,5 +1,5 @@
 import Sentiment from 'sentiment';
-import { Config } from './type';
+import { Config } from '../type';
 
 export default function trackWorkAge(text: string) {
   // 工作年限：3年

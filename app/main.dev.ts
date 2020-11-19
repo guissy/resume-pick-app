@@ -15,7 +15,7 @@ import { app, BrowserWindow } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
-import parseResume, { parseResumeText } from './features/parseResume';
+import parseResume, { parseResumeText } from './features/parser/parseResume';
 import { MyApp } from './features/type';
 import userAgent from './utils/userAgent';
 

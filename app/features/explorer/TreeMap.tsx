@@ -2,7 +2,7 @@ import React from 'react';
 import * as d3 from 'd3';
 import { HierarchyRectangularNode } from 'd3';
 import capitalize from 'lodash/capitalize';
-import { Keyword, ScoreFile } from './type';
+import { Keyword, ScoreFile } from '../type';
 
 type Props = {
   scoreFile: ScoreFile;

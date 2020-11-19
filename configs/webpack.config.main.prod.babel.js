@@ -42,6 +42,7 @@ export default merge(baseConfig, {
             parallel: true,
             sourceMap: true,
             cache: true,
+            extractComments: false,
           }),
         ],
   },

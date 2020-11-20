@@ -28,3 +28,5 @@ if (!fs.existsSync(rendererPath)) {
     )
   );
 }
+
+jest.mock('electron-storage', () => jest.fn());

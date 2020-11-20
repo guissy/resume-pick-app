@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`reducers counter should handle initConfigAsync 1`] = `
+Object {
+  "configs": Object {
+    "default": Array [],
+  },
+}
+`;
+
+exports[`reducers counter should handle initial state 1`] = `
+Object {
+  "configs": Object {},
+}
+`;
+
+exports[`reducers counter should handle resetConfigAsync 1`] = `
+Object {
+  "configs": Object {
+    "default": Array [],
+  },
+}
+`;

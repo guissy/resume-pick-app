@@ -9,12 +9,14 @@ export const configSlice = createSlice({
   initialState: { configs: {} as ConfigFile },
   reducers: {
     buildConfig: (state, action) => {
-      if (Object.keys(state.configs).length === 0) {
+      if (Object.keys(state.configs).length === 0 && !!action.payload) {
         state.configs = action.payload;
       }
     },
     updateConfig: (state, action) => {
-      Object.assign(state.configs, action.payload);
+      if (!!action.payload && typeof action.payload === 'object') {
+        Object.assign(state.configs, action.payload);
+      }
     },
     saveConfig: (state) => {
       saveFile(state.configs);

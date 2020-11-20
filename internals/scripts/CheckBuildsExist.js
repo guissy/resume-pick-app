@@ -29,4 +29,17 @@ if (!fs.existsSync(rendererPath)) {
   );
 }
 
-jest.mock('electron-storage', () => jest.fn());
+jest.mock('electron-storage', () => {
+  const files = {};
+  return {
+    default: {
+      get(fileName) {
+        return Promise.resolve(files[fileName]);
+      },
+      set(fileName, items) {
+        files[fileName] = items;
+        return Promise.resolve(items);
+      },
+    },
+  };
+});

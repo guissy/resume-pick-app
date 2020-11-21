@@ -131,8 +131,15 @@
       },
       {
         "name": "keyframes",
-        "alias": ["animate.css", "wow.js"],
-        "score": 0.5
+        "alias": [
+          "animate.css",
+          "wow.js",
+          "gsap",
+          "pixijs",
+          "svga",
+          "createjs"
+        ],
+        "score": 0.8
       }
     ]
   },
@@ -173,19 +180,29 @@
         "score": 1.5
       },
       {
+        "name": "gayhub",
+        "alias": ["github.com", "gitee.com"],
+        "score": 1.5
+      },
+      {
         "name": "lint",
-        "alias": ["tslint", "eslint", "jslint", "命名规范", "代码规范"],
-        "score": 0.5
+        "alias": [
+          "tslint",
+          "eslint",
+          "jslint",
+          "husky",
+          "prettier",
+          "命名规范",
+          "代码规范",
+          "commit规范",
+          "接口规范"
+        ],
+        "score": 1
       },
       {
         "name": "review",
         "alias": ["pr", "git flow", "代码审查"],
         "score": 0.5
-      },
-      {
-        "name": "gayhub",
-        "alias": ["github.com", "gitee.com"],
-        "score": 1.5
       },
       {
         "name": "blog",
@@ -211,23 +228,62 @@
     "name": "其他",
     "children": [
       {
+        "name": "大厂背景",
+        "alias": [
+          "\\b阿里巴巴\\b",
+          "腾讯公司",
+          "百度公司",
+          "\\b美团点评\\b",
+          "\\b字节跳动\\b"
+        ],
+        "score": 2.5
+      },
+      {
         "name": "leader",
-        "alias": ["组长", "负责人"],
-        "score": 1
+        "alias": ["组长", "负责人", "选型", "架构"],
+        "score": 2
+      },
+      {
+        "name": "manager",
+        "alias": ["主持会议", "分配工作", "招聘"],
+        "score": 2
+      },
+      {
+        "name": "流量",
+        "alias": ["([0-9一二三四五六七八九几十百千]+)\\s*(万|亿)"],
+        "score": 2
+      },
+      {
+        "name": "百分点",
+        "alias": ["(减少|降低|提升|提高)(\\D{0,2})\\d+(\\.\\d+)?%"],
+        "score": 2
+      },
+      {
+        "name": "游戏引擎",
+        "alias": ["白鹭", "p2", "pomelo", "cocos2d", "egret", "重力", "粒子"],
+        "score": 1.5
       },
       {
         "name": "sql",
-        "alias": ["sqlite3", "sqlite", "mysql", "postgre"],
+        "alias": [
+          "sqlite3",
+          "sqlite",
+          "mysql",
+          "postgre",
+          "mariadb",
+          "hive",
+          "redis"
+        ],
         "score": 1
       },
       {
         "name": "electron",
         "alias": ["nwjs"],
-        "score": 1
+        "score": 1.2
       },
       {
         "name": "mock",
-        "alias": ["mockjs", "rap", "模拟", "抓取", "爬虫"],
+        "alias": ["mockjs", "rap", "模拟", "抓取"],
         "score": 0.5
       },
       {
@@ -250,7 +306,7 @@
       },
       {
         "name": "微服务",
-        "alias": ["monorepo", "submodule"],
+        "alias": ["monorepo", "submodule", "无服务器", "severless"],
         "score": 0.5
       },
       {
@@ -281,7 +337,8 @@
           "代码分割",
           "分包",
           "错误收集",
-          "埋点"
+          "埋点",
+          "preact"
         ],
         "score": 0.5
       },
@@ -292,7 +349,15 @@
       },
       {
         "name": "自定义",
-        "alias": ["封装", "公共方法", "二次封装"],
+        "alias": [
+          "封装",
+          "公共方法",
+          "二次封装",
+          "造轮子",
+          "简化",
+          "可复用",
+          "自动化"
+        ],
         "score": 0.5
       },
       {
@@ -303,6 +368,11 @@
       {
         "name": "component",
         "alias": ["基础组件", "公共组件", "通用组件", "业务组件", "组件化"],
+        "score": 0.5
+      },
+      {
+        "name": "编程范式",
+        "alias": ["函数式", "haskell", "f#"],
         "score": 0.5
       },
       {
@@ -417,7 +487,7 @@
       {
         "name": "代表作",
         "score": 0.5,
-        "alias": ["项目链接", "作品链接"]
+        "alias": ["项目链接", "作品链接", "(由|从)(0|零)到(1|一)"]
       },
       {
         "name": "iframe",
@@ -435,12 +505,33 @@
       },
       {
         "name": "jquery",
-        "alias": ["jq", "zepto"],
+        "alias": [
+          "jq",
+          "zepto",
+          "knockout",
+          "knockoutjs",
+          "extjs",
+          "backbone",
+          "dojo",
+          "mootools",
+          "emberjs",
+          "yui3",
+          "prototype.js"
+        ],
         "score": -0.5
       },
       {
         "name": "svn",
-        "alias": ["requirejs", "gulp", "grunt", "svn"],
+        "alias": [
+          "requirejs",
+          "gulp",
+          "grunt",
+          "yeo",
+          "yeoman",
+          "seajs",
+          "phonegap",
+          "jasmine"
+        ],
         "score": -1
       },
       {

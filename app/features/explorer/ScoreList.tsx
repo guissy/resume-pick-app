@@ -428,10 +428,10 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
             .map((s) => ({ ...s, age: parseInt(s.workAge, 10) || 0 }))
             .sort((a, b) => {
               if (sort === 'workAgeDown') {
-                return a.workAge > b.workAge ? -1 : 1;
+                return a.age > b.age ? -1 : 1;
               }
               if (sort === 'workAgeUp') {
-                return a.workAge < b.workAge ? -1 : 1;
+                return a.age < b.age ? -1 : 1;
               }
               if (sort === 'scoreDown') {
                 return a.score > b.score ? -1 : 1;

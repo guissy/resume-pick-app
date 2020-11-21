@@ -14,14 +14,16 @@ export type ScoreFile = DocFile & {
   keywords: Keyword[];
   text: string;
   phone: string;
-  workAge: string;
+  workAge: number;
+  level: string;
   sentiment: number;
   links: string[];
 };
 export type ParsedResume = {
   path: string;
   score: number;
-  workAge: string;
+  workAge: number;
+  level: string;
   phone: string;
   keywords: Keyword[];
   text: string;
@@ -35,12 +37,14 @@ export type MyApp = Electron.App & {
     path: string,
     config: Config,
     search: string,
+    // level: number,
     fn: ParseResumeFn
   ) => void;
   parseResumeText: (
     path: string,
     config: Config,
     search: string,
+    // level: number,
     callback: ParseResumeFn,
     text: string
   ) => void;

@@ -1,9 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import fs from 'fs';
-import ExcelJS, { Column } from 'exceljs';
-import { remote, shell } from 'electron';
-import dayjs from 'dayjs';
+import { shell } from 'electron';
 import { useDebounce } from 'react-use';
 import uniqBy from 'lodash/uniqBy';
 import styles from './ScoreList.css';
@@ -19,6 +16,7 @@ import GithubView from './GithubView';
 import { ScoreFile } from '../type';
 import TreeMap from './TreeMap';
 import ResumeView from './ResumeView';
+import exportExcel from '../parser/exportExcel';
 
 const images = [
   'angular.png',
@@ -57,84 +55,28 @@ type Props = {
   setSearch: (kw: string) => void;
 };
 
+function getLevelStyle(level: string) {
+  if (level.includes('7')) {
+    return `${styles.level} ${styles.level7}`;
+  }
+  if (level.includes('6')) {
+    return `${styles.level} ${styles.level6}`;
+  }
+  if (level.includes('5')) {
+    return `${styles.level} ${styles.level5}`;
+  }
+  if (level.includes('4')) {
+    return `${styles.level} ${styles.level4}`;
+  }
+  return '';
+}
+
 const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
   const scores = useSelector(selectNameScore);
   const config = useSelector(selectConfig);
   const dispatch = useDispatch();
-  const onClickExport = React.useCallback(async () => {
-    const conf = {
-      cols: [
-        ['文件', 42],
-        ['电话', 20],
-        ['经验', 10],
-        ['分数', 10],
-        ...config[0].children.map((w) => [
-          w.name,
-          Math.max(w.name.length * 1.6, 10),
-        ]),
-      ],
-      rows: scores.map((s) => [
-        s.name,
-        s.phone,
-        s.workAge,
-        parseFloat(s.score.toFixed(1)),
-        ...config[0].children.map((w) => {
-          const found = s.keywords[0].children.find((w2) => w.name === w2.name);
-          return found ? parseFloat(found.gained.toFixed(1)) : 0;
-        }),
-      ]),
-    };
-    const workbook = new ExcelJS.Workbook();
-    const worksheet = workbook.addWorksheet('Resume Pick');
-    worksheet.columns = conf.cols.map(
-      ([header, width]) => ({ header, width } as Column)
-    );
-    worksheet.addRows(conf.rows);
-    const row = worksheet.getRow(1);
-    row.eachCell((cell) => {
-      cell.alignment = { vertical: 'middle', horizontal: 'center' };
-      cell.font = { name: 'Arial Black', bold: true, size: 14 };
-    });
-    conf.cols.forEach((_r, i) => {
-      const col = worksheet.getColumn(i + 1);
-      col.eachCell({ includeEmpty: true }, (cell) => {
-        cell.font = { name: 'Arial', size: 14 };
-      });
-    });
-    conf.rows
-      .map((_r, i) => 'ABC'.split('').map((c) => `${c}${i + 2}`))
-      .flat()
-      .forEach((pos) => {
-        const cell = worksheet.getCell(pos);
-        cell.alignment = { vertical: 'middle', horizontal: 'center' };
-        cell.font = { name: 'Arial', size: 14 };
-      });
-    const day = dayjs().format('YYYY-MM-DD');
-    const filePath = await remote.dialog
-      .showSaveDialog({
-        defaultPath: `简历评估 ${day}.xlsx`,
-        filters: [{ name: 'xls Files', extensions: ['xlsx'] }],
-        properties: [],
-      })
-      .then((file) => {
-        if (!file.canceled && file.filePath) {
-          return file.filePath.toString();
-        }
-        return '';
-      })
-      .catch(() => {
-        // console.log(err);
-      });
-    if (filePath) {
-      workbook.xlsx
-        .writeBuffer()
-        .then((buf) => {
-          return fs.writeFileSync(filePath, buf, 'binary');
-        })
-        .catch(() => {
-          // console.log(err);
-        });
-    }
+  const onClickExport = React.useCallback(() => {
+    exportExcel(config, scores);
   }, [config, scores]);
   const [sort, setSort] = React.useState<
     | ''
@@ -425,13 +367,13 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
         </thead>
         <tbody>
           {scores
-            .map((s) => ({ ...s, age: parseInt(s.workAge, 10) || 0 }))
+            .map((s) => ({ ...s }))
             .sort((a, b) => {
               if (sort === 'workAgeDown') {
-                return a.age > b.age ? -1 : 1;
+                return a.workAge > b.workAge ? -1 : 1;
               }
               if (sort === 'workAgeUp') {
-                return a.age < b.age ? -1 : 1;
+                return a.workAge < b.workAge ? -1 : 1;
               }
               if (sort === 'scoreDown') {
                 return a.score > b.score ? -1 : 1;
@@ -508,9 +450,12 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
                     </ul>
                   </button>
                 </td>
-                <td className={styles.td}>{v.workAge}</td>
+                <td className={styles.td}>
+                  {v.workAge > 0 ? `${v.workAge}年` : '-'}
+                </td>
                 <td className={styles.score}>{v.score?.toFixed(2)}</td>
                 <td className={styles.td}>
+                  <span className={getLevelStyle(v.level)}>{v.level}</span>
                   {gitRepo &&
                     getGithubByLink(v.links).map((link) => (
                       <GithubView key={link} url={link} />

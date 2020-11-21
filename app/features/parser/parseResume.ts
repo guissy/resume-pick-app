@@ -18,12 +18,13 @@ import trackWorkAge, {
   trackLinks,
   trackPhone,
 } from './tractWorkAge';
+import buildLevel from './buildLevel';
 
 const cache = new Map<
   string,
   {
     text: string;
-    workAge: string;
+    workAge: number;
     phone: string;
     keywords: KeywordUtil;
     links: string[];
@@ -92,6 +93,7 @@ export function parseResumeText(
       keywords: kws,
       text,
       workAge,
+      level: buildLevel(workAge, score, text),
       links,
       phone,
       sentiment,
@@ -104,6 +106,7 @@ export function parseResumeText(
       keywords: [],
       text,
       workAge,
+      level: buildLevel(workAge, 0, text),
       links,
       phone,
       sentiment,
@@ -156,6 +159,6 @@ export default function parseResume(
       ...k,
       children: k.children.filter((w) => w.gained !== 0),
     }));
-    callback({ ...kwUtil, path, score, search, keywords: kws });
+    callback({ ...kwUtil, path, score, search, level: '', keywords: kws });
   }
 }

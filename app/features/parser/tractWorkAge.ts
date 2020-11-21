@@ -20,7 +20,7 @@ export default function trackWorkAge(text: string) {
     const match2 = text.match(/\\b([0-9一二三四五六七八九十]{1,2})\s*年/);
     years = match2 ? String(match2[1]) : '';
   }
-  return years ? `${years}年` : '-';
+  return parseInt(years, 10);
 }
 
 export function trackPhone(text: string) {

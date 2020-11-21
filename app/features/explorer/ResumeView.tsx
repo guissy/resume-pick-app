@@ -27,7 +27,7 @@ const ResumeView: React.FC<Props> = ({ resume, onClose }) => {
       }
     }
   }, [resume]);
-  const [searchTxt, setSearchTxt] = React.useState('2020');
+  const [searchTxt, setSearchTxt] = React.useState('');
   const keywords = React.useMemo(
     () =>
       (resume?.keywords || [])

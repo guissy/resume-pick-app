@@ -57,6 +57,41 @@
   flex: 2;
 }
 
+.level {
+  /* position: absolute; */
+  display: block;
+  margin: 0 auto;
+  height: 42px;
+  width: 42px;
+  top: 5px;
+  line-height: 42px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bolder;
+  color: #fffab8;
+  text-shadow: 0 0 3px rgba(255, 215, 0, 1);
+  background-color: rgba(33, 33, 33, 0.6);
+  border: 1px solid #8e8410;
+}
+
+.level7 {
+  color: #fffab8;
+}
+.level6 {
+  color: #d8d49f;
+}
+.level5 {
+  color: #a8a57c;
+  text-shadow: unset;
+  border: 1px solid #5c560b;
+}
+.level4 {
+  color: #78765a;
+  text-shadow: unset;
+  border: 1px solid #302d06;
+}
+
 .link {
   border: 0;
   padding: 0;

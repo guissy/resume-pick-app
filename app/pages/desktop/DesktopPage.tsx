@@ -45,6 +45,7 @@ export default function DesktopPage(): JSX.Element {
             name: f.name,
             path: f.path,
             score: r.score,
+            level: r.level,
             keywords: cloneDeep(r.keywords),
             text: r.text,
             phone: r.phone,

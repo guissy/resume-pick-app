@@ -101,6 +101,8 @@ export default function OnlinePage(): JSX.Element {
                 path: f.path,
                 score: r.score,
                 level: r.level,
+                levelValue: r.levelValue,
+                school: r.school,
                 keywords: cloneDeep(r.keywords),
                 text: r.text,
                 phone: r.phone,

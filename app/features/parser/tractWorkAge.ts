@@ -1,30 +1,53 @@
 import Sentiment from 'sentiment';
-import { Config } from '../type';
+import { Config, KeywordUtil } from '../type';
 
 export default function trackWorkAge(text: string) {
   // 工作年限：3年
   let years = '';
   if (text) {
     const match1 = text.match(
-      /(工作)?(年限|经验|开发)(\s\n)*([0-9一二三四五六七八九十]{1,2})\s*年/
+      // 8年前端生涯, 3年react, 3年ts, 1年RN移动端、小程序、Node服务端丰富项目经验掌握 nodejs，gql，
+      /(工作)?(年限|经验|开发)[\s\t\-：:]*(([0-9一二三四五六七八九十]){1,2})\s*年/
     );
     years = match1 ? String(match1.pop()) : '';
   }
   if (!years && text) {
+    // 12年工作经验 | 其他 | 38岁 | 男
     const match2 = text.match(
-      /([0-9一二三四五六七八九十]{1,2})\s*年(工作)?(年限|经验|开发)/
+      /(([0-9一二三四五六七八九十]){1,2})\s*年(工作)?(年限|经验|开发)/
     );
     years = match2 ? String(match2[1]) : '';
   }
   if (!years && text) {
-    const match2 = text.match(/\\b([0-9一二三四五六七八九十]{1,2})\s*年/);
+    const match2 = text.match(/\\b(([0-9一二三四五六七八九十]){1,2})\s*年/);
     years = match2 ? String(match2[1]) : '';
   }
   return parseInt(years, 10);
 }
 
+export function trackWorkYear(kw: KeywordUtil) {
+  const msInYear = 31536000000;
+  return (
+    kw.calcMonth(
+      kw.items.map((k) => k.children.map((w) => w.works || [])).flat(2)
+    ) / msInYear
+  );
+}
+
 export function trackPhone(text: string) {
   return (text || '').match(/1\d{10}/g)?.[0] || '';
+}
+
+export function trackSchool(text: string) {
+  // eslint-disable-next-line no-control-regex
+  const regExp = /((?<![是的不在有这个来到时着和年就那要出也得里后自以会可下而过去能对由])[^\x00-\xff：，]){2,8}(学院|大学|职院|师范|职中|高中|中学|一中|职业技术学校)/;
+  return (text || '').match(regExp)?.[0] || '';
+}
+
+export function trackDegree(text: string) {
+  // eslint-disable-next-line no-control-regex
+  const regExp = /(博士|硕士|本科|一本|二本|大专|高中|初中)/;
+  return (text || '').match(regExp)?.[0] || '';
 }
 
 export function trackLinks(text: string) {
@@ -55,6 +78,7 @@ export function getScoreMap(configs: Config) {
 }
 
 const sentiment = new Sentiment();
+
 export function calcSentiment(text: string, config: Config) {
   const textOk = (text || '').replace(/(\b[\w-]+\b)/g, ' $1 ');
   const result = sentiment.analyze(textOk, { extras: getScoreMap(config) });

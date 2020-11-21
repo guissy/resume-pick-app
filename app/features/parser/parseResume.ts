@@ -13,10 +13,13 @@ import {
   KeywordUtil,
   ParseResumeFn,
 } from '../type';
-import trackWorkAge, {
+import {
   calcSentiment,
+  trackDegree,
   trackLinks,
   trackPhone,
+  trackSchool,
+  trackWorkYear,
 } from './tractWorkAge';
 import buildLevel from './buildLevel';
 
@@ -40,8 +43,9 @@ export function parseResumeText(
   text: string
 ) {
   const phone = trackPhone(text);
-  const workAge = trackWorkAge(text);
   const links = trackLinks(text);
+  const school = trackSchool(text);
+  const degree = trackDegree(text);
   const configPure = config.filter((v) => v.name !== 'search');
   const searchs = search
     .trim()
@@ -73,7 +77,8 @@ export function parseResumeText(
       text,
       configOk
     ) as KeywordCalcResult;
-    // cache.set(path, { keywords: kw, text, workAge, phone });
+    const workAge = trackWorkYear(kw);
+    const { level, levelValue } = buildLevel(workAge, score, text);
     const kws = kw.items.map((k: Keyword) => ({
       ...k,
       children: k.children
@@ -93,7 +98,10 @@ export function parseResumeText(
       keywords: kws,
       text,
       workAge,
-      level: buildLevel(workAge, score, text),
+      level,
+      levelValue,
+      school,
+      degree,
       links,
       phone,
       sentiment,
@@ -105,8 +113,11 @@ export function parseResumeText(
       score: 0,
       keywords: [],
       text,
-      workAge,
-      level: buildLevel(workAge, 0, text),
+      workAge: 0,
+      level: '-',
+      levelValue: 0,
+      school,
+      degree: '',
       links,
       phone,
       sentiment,
@@ -159,6 +170,16 @@ export default function parseResume(
       ...k,
       children: k.children.filter((w) => w.gained !== 0),
     }));
-    callback({ ...kwUtil, path, score, search, level: '', keywords: kws });
+    callback({
+      ...kwUtil,
+      path,
+      score,
+      search,
+      level: '',
+      levelValue: 0,
+      school: '',
+      degree: '',
+      keywords: kws,
+    });
   }
 }

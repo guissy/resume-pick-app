@@ -67,7 +67,7 @@
   line-height: 42px;
   border-radius: 50%;
   text-align: center;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bolder;
   color: #fffab8;
   text-shadow: 0 0 3px rgba(255, 215, 0, 1);
@@ -77,19 +77,38 @@
 
 .level7 {
   color: #fffab8;
+  font-size: 19px;
 }
 .level6 {
-  color: #d8d49f;
+  color: #ded99f;
+  text-shadow: 0 0 2px rgba(255, 215, 0, 1);
+  font-size: 17px;
 }
 .level5 {
-  color: #a8a57c;
+  color: #bab789;
   text-shadow: unset;
   border: 1px solid #5c560b;
 }
 .level4 {
-  color: #78765a;
+  color: #9f9c83;
   text-shadow: unset;
   border: 1px solid #302d06;
+}
+
+.level3 {
+  color: #7b7b7a;
+  text-shadow: unset;
+  border: 1px solid #272705;
+}
+.level2 {
+  color: #636363;
+  text-shadow: unset;
+  border: 1px solid #272705;
+}
+.level1 {
+  color: #545454;
+  text-shadow: unset;
+  border: 1px solid #272705;
 }
 
 .link {
@@ -103,6 +122,10 @@
 
 .link:hover {
   color: #8989ff;
+}
+
+.namePhone {
+  display: block;
 }
 
 .alink {

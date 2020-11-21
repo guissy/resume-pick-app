@@ -11,43 +11,12 @@ import {
 } from '../scoreSlice';
 import { getBlogByLink, getGithubByLink } from '../parser/tractWorkAge';
 import { selectConfig, updateConfig } from '../configSlice';
-import Image from '../icon/image';
+import Image, { imgKey } from '../icon/image';
 import GithubView from './GithubView';
-import { ScoreFile } from '../type';
+import { ScoreFile, SortKey } from '../type';
 import TreeMap from './TreeMap';
 import ResumeView from './ResumeView';
 import exportExcel from '../parser/exportExcel';
-
-const images = [
-  'angular.png',
-  'css3.png',
-  'graphql.png',
-  'hybird.png',
-  'node.png',
-  'RN.png',
-  'react.png',
-  'typescript.png',
-  'vue.png',
-  'wxapp.png',
-  'gayhub.png',
-  'electron.png',
-  'gitee.png',
-  'lint.png',
-  'test.png',
-  'es6.png',
-  'java.png',
-  'go.png',
-  'mysql.png',
-  'kotlin.png',
-  'flutter.png',
-  'docker.png',
-  'python.png',
-  'git.png',
-  'linux.png',
-  'nginx.png',
-  'mongodb.png',
-];
-const imgKey = images.map((img) => img.split('.').shift() || '');
 
 type File = ScoreFile | undefined;
 type Props = {
@@ -56,17 +25,19 @@ type Props = {
 };
 
 function getLevelStyle(level: string) {
-  if (level.includes('7')) {
-    return `${styles.level} ${styles.level7}`;
-  }
-  if (level.includes('6')) {
-    return `${styles.level} ${styles.level6}`;
-  }
-  if (level.includes('5')) {
-    return `${styles.level} ${styles.level5}`;
-  }
-  if (level.includes('4')) {
-    return `${styles.level} ${styles.level4}`;
+  const classNames = [
+    styles.level1,
+    styles.level2,
+    styles.level3,
+    styles.level4,
+    styles.level5,
+    styles.level6,
+    styles.level7,
+  ];
+  const [n] = level?.match(/\d/g) || ['1'];
+  const index = parseInt(n, 10);
+  if (index > 0 && index <= classNames.length) {
+    return `${styles.level} ${classNames[index - 1]}`;
   }
   return '';
 }
@@ -78,15 +49,7 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
   const onClickExport = React.useCallback(() => {
     exportExcel(config, scores);
   }, [config, scores]);
-  const [sort, setSort] = React.useState<
-    | ''
-    | 'workAgeUp'
-    | 'workAgeDown'
-    | 'scoreUp'
-    | 'scoreDown'
-    | 'sentimentUp'
-    | 'sentimentDown'
-  >('');
+  const [sort, setSort] = React.useState<SortKey>('');
   const onClickWorkAge = React.useCallback(() => {
     setSort((wa) => {
       if (wa !== 'workAgeUp' && wa !== 'workAgeDown') {
@@ -387,7 +350,7 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
               if (sort === 'sentimentUp') {
                 return a.sentiment < b.sentiment ? -1 : 1;
               }
-              return a.score * a.sentiment > b.score * b.sentiment ? -1 : 1;
+              return a.levelValue > b.levelValue ? -1 : 1;
             })
             .map((v, i) => (
               <tr key={v.path}>
@@ -413,10 +376,9 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
                   >
                     {showFull && (
                       <>
-                        {v.name}
-                        <br />
-                        {v.phone}
-                        <br />
+                        <span className={styles.namePhone}>{v.name}</span>
+                        <span className={styles.namePhone}>{v.phone}</span>
+                        <span className={styles.namePhone}>{v.school}</span>
                       </>
                     )}
                     <ul className={styles.icons}>
@@ -451,11 +413,16 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
                   </button>
                 </td>
                 <td className={styles.td}>
-                  {v.workAge > 0 ? `${v.workAge}年` : '-'}
+                  {v.workAge > 0 ? `${Math.round(v.workAge * 2) / 2}年` : '-'}
                 </td>
                 <td className={styles.score}>{v.score?.toFixed(2)}</td>
                 <td className={styles.td}>
-                  <span className={getLevelStyle(v.level)}>{v.level}</span>
+                  <span
+                    className={getLevelStyle(v.level)}
+                    title={String(v.levelValue)}
+                  >
+                    {v.level}
+                  </span>
                   {gitRepo &&
                     getGithubByLink(v.links).map((link) => (
                       <GithubView key={link} url={link} />

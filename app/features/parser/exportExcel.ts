@@ -9,6 +9,8 @@ export default async function exportExcel(config: Config, scores: ScoreFile[]) {
     cols: [
       ['文件', 42],
       ['电话', 20],
+      ['毕业院校', 25],
+      ['学历', 10],
       ['经验', 10],
       ['分数', 10],
       ['评级', 10],
@@ -21,9 +23,11 @@ export default async function exportExcel(config: Config, scores: ScoreFile[]) {
     rows: scores.map((s) => [
       s.name,
       s.phone,
-      s.workAge,
-      s.level,
+      s.school,
+      s.degree,
+      Math.round(s.workAge * 2) / 2,
       parseFloat(s.score.toFixed(1)),
+      s.level,
       ...config[0].children.map((w) => {
         const found = s.keywords[0].children.find((w2) => w.name === w2.name);
         return found ? parseFloat(found.gained.toFixed(1)) : 0;
@@ -49,7 +53,7 @@ export default async function exportExcel(config: Config, scores: ScoreFile[]) {
     });
   });
   conf.rows
-    .map((_r, i) => 'ABC'.split('').map((c) => `${c}${i + 2}`))
+    .map((_r, i) => 'ABCDEFG'.split('').map((c) => `${c}${i + 2}`))
     .flat()
     .forEach((pos) => {
       const cell = worksheet.getCell(pos);

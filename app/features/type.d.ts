@@ -1,12 +1,17 @@
 import * as Electron from 'electron';
 
 export type DocFile = { name: string; path: string };
+export type WorkDate = {
+  startDate: string;
+  endDate: string;
+  workContent: string;
+};
 export type Keyword = {
   name: string;
   score: number;
   alias: string[] | string | undefined;
   children: Keyword[];
-  works: { startDate: string; endDate: string; workContent: string }[];
+  works: WorkDate[];
   gained: number;
 };
 export type ScoreFile = DocFile & {
@@ -16,6 +21,9 @@ export type ScoreFile = DocFile & {
   phone: string;
   workAge: number;
   level: string;
+  levelValue: number;
+  school: string;
+  degree: string;
   sentiment: number;
   links: string[];
 };
@@ -24,6 +32,9 @@ export type ParsedResume = {
   score: number;
   workAge: number;
   level: string;
+  levelValue: number;
+  school: string;
+  degree: string;
   phone: string;
   keywords: Keyword[];
   text: string;
@@ -54,6 +65,7 @@ export type Config = Keyword[];
 export type ConfigFile = Record<string, Config>;
 export type KeywordUtil = {
   calc: (items: Keyword[]) => number;
+  calcMonth: (items: WorkDate[]) => number;
   walk: (items: Keyword[]) => void;
   items: Keyword[];
   walked: Keyword[];
@@ -75,3 +87,12 @@ export type HTMLWebview = HTMLWebViewElement & {
     fn?: (opt: unknown) => void
   ) => Promise<string>;
 };
+
+export type SortKey =
+  | ''
+  | 'workAgeUp'
+  | 'workAgeDown'
+  | 'scoreUp'
+  | 'scoreDown'
+  | 'sentimentUp'
+  | 'sentimentDown';

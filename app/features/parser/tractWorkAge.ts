@@ -1,5 +1,5 @@
 import Sentiment from 'sentiment';
-import { Config, KeywordUtil } from '../type';
+import { Config } from '../type';
 
 export default function trackWorkAge(text: string) {
   // 工作年限：3年
@@ -25,29 +25,30 @@ export default function trackWorkAge(text: string) {
   return parseInt(years, 10);
 }
 
-export function trackWorkYear(kw: KeywordUtil) {
-  const msInYear = 31536000000;
-  return (
-    kw.calcMonth(
-      kw.items.map((k) => k.children.map((w) => w.works || [])).flat(2)
-    ) / msInYear
-  );
-}
-
 export function trackPhone(text: string) {
   return (text || '').match(/1\d{10}/g)?.[0] || '';
 }
 
 export function trackSchool(text: string) {
   // eslint-disable-next-line no-control-regex
-  const regExp = /((?<![是的不在有这个来到时着和年就那要出也得里后自以会可下而过去能对由])[^\x00-\xff：，]){2,8}(学院|大学|职院|师范|职中|高中|中学|一中|职业技术学校)/;
+  const regExp = /((?<![是的不在有这个来到时着和年就那要出也得里后自以会可下而过去能对由负责])[^\x00-\xff：，。经历]){2,8}(学院|大学|职院|师范|职中|高中|中学|一中|职业技术学校)/;
   return (text || '').match(regExp)?.[0] || '';
 }
 
 export function trackDegree(text: string) {
-  // eslint-disable-next-line no-control-regex
   const regExp = /(博士|硕士|本科|一本|二本|大专|高中|初中)/;
   return (text || '').match(regExp)?.[0] || '';
+}
+
+export function trackSalary(text: string) {
+  let regExp = /(?<=期望(薪水|薪资|工资|月薪)[:：\s]*)([0-9]+(k|K)([—–\-~至])+[0-9]+(k|K))/;
+  let salary = (text || '').match(regExp)?.[0] || '';
+  if (!salary) {
+    // 15k-25k
+    regExp = /\b([0-9]+(k|K)([—–\-~至])+[0-9]+(k|K))/;
+    salary = (text || '').match(regExp)?.[0] || '';
+  }
+  return salary;
 }
 
 export function trackLinks(text: string) {

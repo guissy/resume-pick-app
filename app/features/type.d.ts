@@ -24,6 +24,7 @@ export type ScoreFile = DocFile & {
   levelValue: number;
   school: string;
   degree: string;
+  salary: string;
   sentiment: number;
   links: string[];
 };
@@ -35,6 +36,7 @@ export type ParsedResume = {
   levelValue: number;
   school: string;
   degree: string;
+  salary: string;
   phone: string;
   keywords: Keyword[];
   text: string;
@@ -65,13 +67,15 @@ export type Config = Keyword[];
 export type ConfigFile = Record<string, Config>;
 export type KeywordUtil = {
   calc: (items: Keyword[]) => number;
-  calcMonth: (items: WorkDate[]) => number;
   walk: (items: Keyword[]) => void;
   items: Keyword[];
   walked: Keyword[];
 };
 export type KeywordCalcResult = {
   score: number;
+  level: string;
+  levelValue: number;
+  workAge: number;
   keywords: KeywordUtil;
 };
 export type GhOpt = {

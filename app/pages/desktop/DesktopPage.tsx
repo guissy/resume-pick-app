@@ -49,6 +49,7 @@ export default function DesktopPage(): JSX.Element {
             levelValue: r.levelValue,
             school: r.school,
             degree: r.degree,
+            salary: r.salary,
             keywords: cloneDeep(r.keywords),
             text: r.text,
             phone: r.phone,

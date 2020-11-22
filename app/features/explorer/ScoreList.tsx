@@ -381,6 +381,7 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
                         <span className={styles.namePhone}>{v.school}</span>
                       </>
                     )}
+                    <span className={styles.namePhone}>{v.salary}</span>
                     <ul className={styles.icons}>
                       {uniqBy(
                         v.keywords
@@ -423,32 +424,34 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
                   >
                     {v.level}
                   </span>
-                  {gitRepo &&
+                  {showFull &&
+                    gitRepo &&
                     getGithubByLink(v.links).map((link) => (
                       <GithubView key={link} url={link} />
                     ))}
-                  {v.links.map((link) => (
-                    <a
-                      key={link}
-                      href={link}
-                      className={styles.alink}
-                      style={{
-                        color: getBlogByLink(link) ? '#f1f1f1' : '#999999',
-                      }}
-                      onClick={(e) => onClickLink(e, link)}
-                    >
-                      <img
-                        className={styles.blogIcon}
-                        src={
-                          Image[
-                            `${getBlogByLink(link)}_png` as keyof typeof Image
-                          ]
-                        }
-                        alt={getBlogByLink(link)}
-                      />
-                      {link.replace(/(https?:\/\/|www\.)/, '')}
-                    </a>
-                  ))}
+                  {showFull &&
+                    v.links.map((link) => (
+                      <a
+                        key={link}
+                        href={link}
+                        className={styles.alink}
+                        style={{
+                          color: getBlogByLink(link) ? '#f1f1f1' : '#999999',
+                        }}
+                        onClick={(e) => onClickLink(e, link)}
+                      >
+                        <img
+                          className={styles.blogIcon}
+                          src={
+                            Image[
+                              `${getBlogByLink(link)}_png` as keyof typeof Image
+                            ]
+                          }
+                          alt={getBlogByLink(link)}
+                        />
+                        {link.replace(/(https?:\/\/|www\.)/, '')}
+                      </a>
+                    ))}
                 </td>
                 <td className={styles.td}>
                   <TreeMap scoreFile={v} search={search} />

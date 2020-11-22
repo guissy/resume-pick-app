@@ -18,10 +18,9 @@ import {
   trackDegree,
   trackLinks,
   trackPhone,
+  trackSalary,
   trackSchool,
-  trackWorkYear,
 } from './tractWorkAge';
-import buildLevel from './buildLevel';
 
 const cache = new Map<
   string,
@@ -46,6 +45,7 @@ export function parseResumeText(
   const links = trackLinks(text);
   const school = trackSchool(text);
   const degree = trackDegree(text);
+  const salary = trackSalary(text);
   const configPure = config.filter((v) => v.name !== 'search');
   const searchs = search
     .trim()
@@ -73,12 +73,13 @@ export function parseResumeText(
     : configPure;
   const sentiment = calcSentiment(text, configOk);
   if (text && text.length > 0) {
-    const { score, keywords: kw } = timeContent.calcTotal(
-      text,
-      configOk
-    ) as KeywordCalcResult;
-    const workAge = trackWorkYear(kw);
-    const { level, levelValue } = buildLevel(workAge, score, text);
+    const {
+      score,
+      workAge,
+      level,
+      levelValue,
+      keywords: kw,
+    } = timeContent.calcTotal(text, configOk) as KeywordCalcResult;
     const kws = kw.items.map((k: Keyword) => ({
       ...k,
       children: k.children
@@ -102,6 +103,7 @@ export function parseResumeText(
       levelValue,
       school,
       degree,
+      salary,
       links,
       phone,
       sentiment,
@@ -118,6 +120,7 @@ export function parseResumeText(
       levelValue: 0,
       school,
       degree: '',
+      salary: '',
       links,
       phone,
       sentiment,
@@ -179,6 +182,7 @@ export default function parseResume(
       levelValue: 0,
       school: '',
       degree: '',
+      salary: '',
       keywords: kws,
     });
   }

@@ -15,16 +15,26 @@
       {
         "name": "h5",
         "alias": [
-          "webview",
           "uni-app",
           "uniapp",
           "umi-app",
           "umijs",
           "ionic",
-          "apicloud",
           "mobile",
-          "hybird",
-          "移动端"
+          "移动端",
+          "webapp"
+        ],
+        "score": 1.5
+      },
+      {
+        "name": "h5",
+        "alias": [
+          "webview",
+          "混生",
+          "hybrid",
+          "hybridapp",
+          "jsbridge",
+          "apicloud"
         ],
         "score": 1.5
       },
@@ -64,7 +74,18 @@
       },
       {
         "name": "node",
-        "alias": ["nodejs", "express", "koa", "koa2", "egg", "next", "pm2"],
+        "alias": [
+          "nodejs",
+          "express",
+          "koa",
+          "koa2",
+          "egg",
+          "next",
+          "nextjs",
+          "pm2",
+          "hapi",
+          "nuxt"
+        ],
         "score": 1.5
       },
       {
@@ -116,6 +137,9 @@
           "less",
           "sass",
           "scss",
+          "bem",
+          "stylus",
+          "cssmodules",
           "css-modules",
           "css in js",
           "css-in-js",
@@ -135,9 +159,13 @@
           "animate.css",
           "wow.js",
           "gsap",
+          "pixi",
           "pixijs",
           "svga",
-          "createjs"
+          "createjs",
+          "canvas",
+          "gpu",
+          "webgl"
         ],
         "score": 0.8
       }
@@ -153,7 +181,7 @@
       },
       {
         "name": "hooks",
-        "alias": ["hook", "hoc"],
+        "alias": ["hook", "hoc", "高阶"],
         "score": 1.5
       },
       {
@@ -163,7 +191,7 @@
       },
       {
         "name": "graphql",
-        "alias": ["gql"],
+        "alias": ["gql", "relay"],
         "score": 1.5
       },
       {
@@ -190,6 +218,8 @@
           "tslint",
           "eslint",
           "jslint",
+          "stylelint",
+          "githook",
           "husky",
           "prettier",
           "命名规范",
@@ -201,7 +231,19 @@
       },
       {
         "name": "review",
-        "alias": ["pr", "git flow", "代码审查"],
+        "alias": [
+          "pr",
+          "git flow",
+          "git-flow",
+          "gitflow",
+          "代码审查",
+          "codereview"
+        ],
+        "score": 0.5
+      },
+      {
+        "name": "代码分析",
+        "alias": ["代码静态分析", "SonarQube"],
         "score": 0.5
       },
       {
@@ -230,23 +272,45 @@
       {
         "name": "大厂背景",
         "alias": [
-          "\\b阿里巴巴\\b",
-          "\\b腾讯\\b",
+          "\\b阿里巴巴",
+          "\\b腾讯",
           "\\b百度",
-          "\\b京东\\b",
-          "\\b美团点评\\b",
-          "\\b字节跳动\\b"
+          "\\b京东",
+          "\\b美团",
+          "\\b新浪",
+          "\\b网易",
+          "\\b字节跳动"
         ],
         "score": 2.5
       },
       {
         "name": "leader",
-        "alias": ["组长", "负责人", "选型", "架构设计"],
+        "alias": [
+          "组长",
+          "负责人",
+          "选型",
+          "架构设计",
+          "框架开发",
+          "评审",
+          "排期",
+          "细化",
+          "带领",
+          "带队"
+        ],
         "score": 2
       },
       {
         "name": "manager",
-        "alias": ["主持会议", "分配工作", "招聘"],
+        "alias": [
+          "组织分享",
+          "分配工作",
+          "任务分配",
+          "整体进度",
+          "项目进度",
+          "招聘",
+          "多次组织",
+          "技术分享"
+        ],
         "score": 2
       },
       {
@@ -256,7 +320,9 @@
       },
       {
         "name": "百分点",
-        "alias": ["(减少|降低|提升|提高)(\\D{0,2})\\d+(\\.\\d+)?%"],
+        "alias": [
+          "(减少|降低|提升|提高|降至|降到|升至|升到)(\\D{0,2})\\d+(\\.\\d+)?(%|M|s)"
+        ],
         "score": 2
       },
       {
@@ -283,6 +349,21 @@
         "score": 1.2
       },
       {
+        "name": "oc",
+        "alias": ["iOS原生开发", "objective-c"],
+        "score": 1.2
+      },
+      {
+        "name": "webrtc",
+        "alias": ["hls", "直播流", "视频流", "jsmpeg"],
+        "score": 1.2
+      },
+      {
+        "name": "区块链",
+        "alias": ["比特币", "以太坊"],
+        "score": 1.2
+      },
+      {
         "name": "mock",
         "alias": ["mockjs", "rap", "模拟", "抓取"],
         "score": 0.5
@@ -294,20 +375,28 @@
       },
       {
         "name": "git",
+        "alias": ["rebase", "代码分支"],
         "score": 0.5
       },
       {
         "name": "docker",
+        "alias": ["kubernetes", "k8s"],
         "score": 0.5
       },
       {
         "name": "websocket",
-        "alias": ["socket", "canvas", "charles"],
+        "alias": ["socket", "charles", "实时性", "实时通信"],
         "score": 0.5
       },
       {
         "name": "微服务",
-        "alias": ["monorepo", "submodule", "无服务器", "severless"],
+        "alias": [
+          "monorepo",
+          "submodule",
+          "无服务器",
+          "severless",
+          "自动化构建"
+        ],
         "score": 0.5
       },
       {
@@ -332,14 +421,16 @@
           "去抖",
           "节流",
           "虚拟化",
-          "懒加载",
           "debounce",
           "throttle",
           "代码分割",
           "分包",
           "错误收集",
           "埋点",
-          "preact"
+          "可读性",
+          "preact",
+          "类型校验",
+          "类型检测"
         ],
         "score": 0.5
       },
@@ -353,6 +444,10 @@
         "alias": [
           "封装",
           "公共方法",
+          "公共资源",
+          "公共模块",
+          "通用类库",
+          "插件开发",
           "二次封装",
           "造轮子",
           "简化",
@@ -363,12 +458,28 @@
       },
       {
         "name": "性能调优",
-        "alias": ["毫秒", "攻克"],
+        "alias": [
+          "毫秒",
+          "攻克",
+          "攻坚",
+          "首屏",
+          "懒加载",
+          "gzip",
+          "webp",
+          "按需加载"
+        ],
         "score": 0.5
       },
       {
         "name": "component",
-        "alias": ["基础组件", "公共组件", "通用组件", "业务组件", "组件化"],
+        "alias": [
+          "基础组件",
+          "公共组件",
+          "通用组件",
+          "业务组件",
+          "组件化",
+          "模块化"
+        ],
         "score": 0.5
       },
       {
@@ -398,7 +509,19 @@
       },
       {
         "name": "java",
-        "alias": ["springcloud", "springboot", "springmvc", "mybatis"],
+        "alias": [
+          "springcloud",
+          "springboot",
+          "springmvc",
+          "mybatis",
+          "feign",
+          "gateway",
+          "hystrix",
+          "zookeeper",
+          "dubbo",
+          "jpa",
+          "solr"
+        ],
         "score": 0.5
       },
       {
@@ -437,12 +560,21 @@
       },
       {
         "name": "mongodb",
-        "alias": ["sequelize", "typeorm", "orm"],
+        "alias": ["sequelize", "typeorm", "orm", "nosql"],
         "score": 0.5
       },
       {
         "name": "devops",
-        "alias": ["shell", "nginx", "linux", "cicd"],
+        "alias": [
+          "shell",
+          "nginx",
+          "linux",
+          "cicd",
+          "构建速度",
+          "verdaccio",
+          "私有npm",
+          "jenkins"
+        ],
         "score": 0.5
       },
       {
@@ -458,12 +590,22 @@
         "score": 0.5
       },
       {
+        "name": "mdx",
+        "alias": ["stroybook"],
+        "score": 0.5
+      },
+      {
         "name": "bi",
         "score": 0.5,
         "alias": ["可视化", "大屏", "echarts", "d3", "antv"]
       },
       {
         "name": "three.js",
+        "score": 0.5
+      },
+      {
+        "name": "log4js",
+        "alias": ["winston", "chalk"],
         "score": 0.5
       },
       {
@@ -481,14 +623,32 @@
         "score": 0.5
       },
       {
+        "name": "seo",
+        "score": 0.5
+      },
+      {
         "name": "wasm",
         "score": 0.5,
         "alias": ["web assembly"]
       },
       {
+        "name": "逆向",
+        "score": 0.5
+      },
+      {
         "name": "代表作",
         "score": 0.5,
         "alias": ["项目链接", "作品链接", "(由|从)(0|零)到(1|一)"]
+      },
+      {
+        "name": "机器学习",
+        "score": 0.5,
+        "alias": ["数据结构与算法"]
+      },
+      {
+        "name": "coding",
+        "score": 0.1,
+        "alias": ["coder", "coding"]
       },
       {
         "name": "iframe",

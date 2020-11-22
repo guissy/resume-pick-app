@@ -41,7 +41,7 @@ async function printUserInfo() {
       await new Promise((resolve) => setTimeout(resolve, 10));
       document.querySelector("div.opera-bar > div.opera-content > div.btn-wrapper-left > div:nth-child(2) > button")?.click();
       await new Promise((resolve) => setTimeout(resolve, 50));
-      const link = document.querySelector(".transform-resume-modal .input-wrapper > input")?.value;
+      const link = document.querySelector(".transform-resume-modal input")?.value;
       const userInfo = {
         path: link || userName,
         name: userName,
@@ -159,12 +159,12 @@ export default function OnlinePage(): JSX.Element {
         }
       });
       webviewRef.current?.addEventListener('dom-ready', async () => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 2000));
         await webviewRef.current?.executeJavaScript(
           `document.querySelector("#root .talent-item-content .item-user .name")?.click();`,
           false
         );
-        await new Promise((resolve) => setTimeout(resolve, 500));
+        await new Promise((resolve) => setTimeout(resolve, 1500));
         await webviewRef.current?.executeJavaScript(userInfoScript, false);
       });
     }

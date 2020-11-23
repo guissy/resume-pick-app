@@ -33,6 +33,8 @@ function getLevelStyle(level: string) {
     styles.level5,
     styles.level6,
     styles.level7,
+    styles.level8,
+    styles.level9,
   ];
   const [n] = level?.match(/\d/g) || ['1'];
   const index = parseInt(n, 10);
@@ -422,7 +424,17 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
                     className={getLevelStyle(v.level)}
                     title={String(v.levelValue)}
                   >
-                    {v.level}
+                    {v.level?.slice(0, 2)}
+                    {v.level
+                      ?.split('')
+                      .filter((c) => c === '+')
+                      .map((c, n) => (
+                        <i
+                          key={c + String(n)}
+                          className="fa fa-plus fa-1x"
+                          title={c}
+                        />
+                      ))}
                   </span>
                   {showFull &&
                     gitRepo &&

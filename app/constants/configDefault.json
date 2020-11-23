@@ -13,30 +13,29 @@
         "score": 1.5
       },
       {
-        "name": "h5",
+        "name": "hybrid",
         "alias": [
+          "webview",
+          "混生",
+          "hybridapp",
+          "jsbridge",
+          "apicloud",
+          "ionic",
           "uni-app",
           "uniapp",
           "umi-app",
-          "umijs",
-          "ionic",
-          "mobile",
-          "移动端",
-          "webapp"
+          "umijs"
         ],
         "score": 1.5
       },
       {
         "name": "h5",
         "alias": [
-          "webview",
-          "混生",
-          "hybrid",
-          "hybridapp",
-          "jsbridge",
-          "apicloud"
+          "mobile",
+          "移动端",
+          "webapp"
         ],
-        "score": 1.5
+        "score": 0.5
       },
       {
         "name": "react",

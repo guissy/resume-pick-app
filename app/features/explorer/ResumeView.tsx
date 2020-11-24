@@ -36,6 +36,15 @@ const ResumeView: React.FC<Props> = ({ resume, onClose }) => {
         .concat(searchTxt.split(' ')),
     [resume, searchTxt]
   );
+  const count = React.useMemo(() => {
+    const searchs = searchTxt?.split(' ').filter(Boolean);
+    return searchTxt.trim()
+      ? searchs?.reduce((s, v) => {
+          const matches = resume?.text.match(new RegExp(v, 'gi')) || [];
+          return s + matches.length;
+        }, 0)
+      : 0;
+  }, [searchTxt, resume]);
   const keywordClassName = React.useMemo(
     () =>
       (resume?.keywords || [])
@@ -60,6 +69,12 @@ const ResumeView: React.FC<Props> = ({ resume, onClose }) => {
       <header style={{ textAlign: 'right' }}>
         <label htmlFor="search" className={styles.searchWrap}>
           <i className="fa fa-search" />
+          <span
+            className={styles.count}
+            style={{ visibility: count > 0 ? 'visible' : 'hidden' }}
+          >
+            {count}
+          </span>
           <input
             className={styles.search}
             id="search"

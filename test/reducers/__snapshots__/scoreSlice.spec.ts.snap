@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`reducers scoreSlice should handle initial state 1`] = `
+Object {
+  "nameScore": Array [],
+  "search": "",
+}
+`;
+
+exports[`reducers scoreSlice should handle removeNameScore 1`] = `
+Object {
+  "nameScore": Array [],
+  "search": "",
+}
+`;
+
+exports[`reducers scoreSlice should handle updateNameScore 1`] = `
+Object {
+  "nameScore": Array [
+    Object {
+      "degree": "",
+      "keywords": Array [],
+      "level": "",
+      "levelValue": 0,
+      "links": Array [],
+      "name": "name",
+      "path": "path",
+      "phone": "",
+      "salary": "",
+      "school": "",
+      "score": 1,
+      "sentiment": 0,
+      "text": "",
+      "workAge": 0,
+    },
+    Object {
+      "nameScore": Array [
+        Object {
+          "degree": "",
+          "keywords": Array [],
+          "level": "",
+          "levelValue": 0,
+          "links": Array [],
+          "name": "name",
+          "path": "path",
+          "phone": "",
+          "salary": "",
+          "school": "",
+          "score": 1,
+          "sentiment": 0,
+          "text": "",
+          "workAge": 0,
+        },
+      ],
+      "search": "",
+    },
+  ],
+  "search": "",
+}
+`;

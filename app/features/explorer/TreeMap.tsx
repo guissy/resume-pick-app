@@ -6,7 +6,7 @@ import { Keyword, ScoreFile } from '../type';
 
 type Props = {
   scoreFile: ScoreFile;
-  search: string;
+  search?: string;
 };
 const width = 360;
 const height = 120;
@@ -75,7 +75,7 @@ const TreeMap: React.FC<Props> = ({ scoreFile, search }) => {
           const r = Math.min(d.data.gained + 0.5 / 4.5, 0.9);
           const alpha = Math.round(r * 255).toString(16);
           if (
-            search.toLowerCase().split(' ').includes(d.data.name.toLowerCase())
+            search?.toLowerCase().split(' ').includes(d.data.name.toLowerCase())
           ) {
             return `#ff0000${alpha}`;
           }

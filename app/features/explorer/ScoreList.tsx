@@ -20,8 +20,8 @@ import exportExcel from '../parser/exportExcel';
 
 type File = ScoreFile | undefined;
 type Props = {
-  search: string;
-  setSearch: (kw: string) => void;
+  search?: string;
+  setSearch?: (kw: string) => void;
 };
 
 function getLevelStyle(level: string) {
@@ -170,8 +170,8 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
     setShowDialog(false);
     setResumeActive(undefined);
   }, []);
-  const [searchTxt, setSearchTxt] = React.useState(search);
-  useDebounce(() => setSearch(searchTxt), 2000, [searchTxt]);
+  const [searchTxt, setSearchTxt] = React.useState(search || '');
+  useDebounce(() => setSearch?.(searchTxt), 2000, [searchTxt]);
   const onClear = React.useCallback(() => {
     dispatch(clearNameScore());
   }, [dispatch]);

@@ -800,11 +800,13 @@ exports[`ScoreList component should match exact snapshot 1`] = `
             <span
               className="namePhone"
             >
-              1
+              小明
             </span>
             <span
               className="namePhone"
-            />
+            >
+              13812345678
+            </span>
             <span
               className="namePhone"
             >

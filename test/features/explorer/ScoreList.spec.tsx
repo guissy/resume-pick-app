@@ -11,6 +11,8 @@ import * as scoreSlice from '../../../app/features/scoreSlice';
 import ScoreList from '../../../app/features/explorer/ScoreList';
 import * as exportExcelModule from '../../../app/features/parser/exportExcel';
 import configDefault from '../../../app/constants/configDefault.json';
+import mockScoreFile from './mockScoreFile';
+import * as tractWorkAge from '../../../app/features/parser/tractWorkAge';
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.useFakeTimers();
@@ -23,37 +25,7 @@ function setup(
       },
     },
     score: {
-      nameScore: [
-        {
-          name: '1',
-          path: '1.pdf',
-          workAge: 1,
-          level: 'p4',
-          levelValue: 0,
-          school: '测大',
-          score: 0,
-          links: [],
-          keywords: [
-            {
-              name: '',
-              children: [
-                {
-                  name: 'vue',
-                  score: 1,
-                  gained: 1,
-                  works: [
-                    {
-                      startDate: '2020-01-01',
-                      endDate: '2020-11-01',
-                      workContent: 'Vue',
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-      ],
+      nameScore: mockScoreFile,
     },
   }
 ) {
@@ -79,6 +51,9 @@ function setup(
     component,
     exportBtn: component.find('footer > button'),
     trashBtn: component.find('button.trash'),
+    showFull: component.find('#showFull'),
+    gitRepo: component.find('#gitRepo'),
+    table: component.find('table > tbody'),
   };
 }
 
@@ -94,11 +69,10 @@ describe('ScoreList component', () => {
         </Provider>
       )
       .toJSON();
-
     expect(tree).toMatchSnapshot();
   });
 
-  it('should second button should call exportExcel', () => {
+  it('click button should call exportExcel', () => {
     const { exportBtn } = setup();
     const exportExcelSpy = jest.spyOn(exportExcelModule, 'default');
     exportBtn.at(0).simulate('click');
@@ -106,10 +80,28 @@ describe('ScoreList component', () => {
     exportExcelSpy.mockRestore();
   });
 
-  it('should clearNameScore', () => {
+  it('click button should call clearNameScore', () => {
     const { trashBtn } = setup();
     const clearNameScoreSpy = jest.spyOn(scoreSlice, 'clearNameScore');
     trashBtn.at(0).simulate('click');
     expect(clearNameScoreSpy).toBeCalled();
+    clearNameScoreSpy.mockRestore();
+  });
+
+  it('click checkbox should call showFull', () => {
+    const { showFull, table } = setup();
+    const { name, phone } = mockScoreFile[0];
+    expect(table.text()).toContain(name);
+    expect(table.text()).toContain(phone);
+    showFull.simulate('change');
+    expect(table.text()).not.toContain(name);
+    expect(table.text()).not.toContain(phone);
+  });
+
+  it('click checkbox should call gitRepo', () => {
+    const { gitRepo } = setup();
+    const getGithubByLinkSpy = jest.spyOn(tractWorkAge, 'getGithubByLink');
+    gitRepo.simulate('change');
+    expect(getGithubByLinkSpy).toBeCalled();
   });
 });

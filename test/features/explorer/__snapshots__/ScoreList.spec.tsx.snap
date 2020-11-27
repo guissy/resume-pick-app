@@ -1,0 +1,884 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScoreList component should match exact snapshot 1`] = `
+<div
+  className="tableWrap"
+  role="presentation"
+>
+  <dialog
+    open={false}
+    style={
+      Object {
+        "padding": 0,
+        "position": "fixed",
+        "top": 10,
+        "width": "80vw",
+        "zIndex": 100,
+      }
+    }
+  >
+    <div
+      className="wrap"
+    >
+      <header
+        style={
+          Object {
+            "textAlign": "right",
+          }
+        }
+      >
+        <label
+          className="searchWrap"
+          htmlFor="search"
+        >
+          <i
+            className="fa fa-search"
+          />
+          <span
+            className="count"
+            style={
+              Object {
+                "visibility": "hidden",
+              }
+            }
+          >
+            0
+          </span>
+          <input
+            className="search"
+            id="search"
+            onChange={[Function]}
+            placeholder="输入关键字搜索简历"
+            type="search"
+            value=""
+          />
+        </label>
+        <button
+          onClick={[Function]}
+          style={
+            Object {
+              "background": "none",
+              "border": "1px solid #fff",
+              "color": "#fff",
+              "cursor": "pointer",
+              "fontSize": 14,
+            }
+          }
+          type="button"
+        >
+          使用本地软件打开此文件
+        </button>
+        <button
+          onClick={[Function]}
+          type="button"
+        >
+          <i
+            className="fa fa-times fa-2x"
+          />
+        </button>
+      </header>
+      <article
+        className="article"
+      >
+        <p
+          style={
+            Object {
+              "marginBlockEnd": 5,
+              "marginBlockStart": 5,
+            }
+          }
+        >
+          <span />
+        </p>
+      </article>
+    </div>
+  </dialog>
+  <header
+    className="header"
+  >
+    <label
+      htmlFor="showFull"
+    >
+      <input
+        checked={true}
+        id="showFull"
+        onChange={[Function]}
+        type="checkbox"
+      />
+      Show Full
+    </label>
+    <label
+      htmlFor="gitRepo"
+    >
+      <input
+        checked={false}
+        id="gitRepo"
+        onChange={[Function]}
+        type="checkbox"
+      />
+      Git Repo
+    </label>
+    <button
+      className="trash"
+      onClick={[Function]}
+      type="button"
+    >
+      <span>
+        清空
+      </span>
+      <i
+        className="fa fa-trash"
+      />
+    </button>
+    <label
+      className="searchWrap"
+      htmlFor="search"
+    >
+      <i
+        className="fa fa-search"
+      />
+      <input
+        className="search"
+        id="search"
+        onChange={[Function]}
+        placeholder="输入关键字搜索简历"
+        type="search"
+        value=""
+      />
+    </label>
+    <div
+      className="opts"
+    >
+      <label
+        htmlFor="optCheckbox"
+      >
+        <input
+          checked={true}
+          id="optCheckbox"
+          onChange={[Function]}
+          type="checkbox"
+        />
+        全选
+      </label>
+      <ul
+        className="icons"
+      >
+        <li
+          style={
+            Object {
+              "backgroundColor": "#333",
+            }
+          }
+        >
+          <button
+            className="opt"
+            onClick={[Function]}
+            style={
+              Object {
+                "filter": "unset",
+              }
+            }
+            type="button"
+          >
+            <img
+              alt="RN"
+              src="test-file-stub"
+            />
+          </button>
+        </li>
+        <li
+          style={
+            Object {
+              "backgroundColor": "#333",
+            }
+          }
+        >
+          <button
+            className="opt"
+            onClick={[Function]}
+            style={
+              Object {
+                "filter": "unset",
+              }
+            }
+            type="button"
+          >
+            <img
+              alt="flutter"
+              src="test-file-stub"
+            />
+          </button>
+        </li>
+        <li
+          style={
+            Object {
+              "backgroundColor": "#333",
+            }
+          }
+        >
+          <button
+            className="opt"
+            onClick={[Function]}
+            style={
+              Object {
+                "filter": "unset",
+              }
+            }
+            type="button"
+          >
+            <img
+              alt="react"
+              src="test-file-stub"
+            />
+          </button>
+        </li>
+        <li
+          style={
+            Object {
+              "backgroundColor": "#333",
+            }
+          }
+        >
+          <button
+            className="opt"
+            onClick={[Function]}
+            style={
+              Object {
+                "filter": "unset",
+              }
+            }
+            type="button"
+          >
+            <img
+              alt="vue"
+              src="test-file-stub"
+            />
+          </button>
+        </li>
+        <li
+          style={
+            Object {
+              "backgroundColor": "#333",
+            }
+          }
+        >
+          <button
+            className="opt"
+            onClick={[Function]}
+            style={
+              Object {
+                "filter": "unset",
+              }
+            }
+            type="button"
+          >
+            <img
+              alt="angular"
+              src="test-file-stub"
+            />
+          </button>
+        </li>
+        <li
+          style={
+            Object {
+              "backgroundColor": "#333",
+            }
+          }
+        >
+          <button
+            className="opt"
+            onClick={[Function]}
+            style={
+              Object {
+                "filter": "unset",
+              }
+            }
+            type="button"
+          >
+            <img
+              alt="wxapp"
+              src="test-file-stub"
+            />
+          </button>
+        </li>
+        <li
+          style={
+            Object {
+              "backgroundColor": "#333",
+            }
+          }
+        >
+          <button
+            className="opt"
+            onClick={[Function]}
+            style={
+              Object {
+                "filter": "unset",
+              }
+            }
+            type="button"
+          >
+            <img
+              alt="node"
+              src="test-file-stub"
+            />
+          </button>
+        </li>
+        <li
+          style={
+            Object {
+              "backgroundColor": "#333",
+            }
+          }
+        >
+          <button
+            className="opt"
+            onClick={[Function]}
+            style={
+              Object {
+                "filter": "unset",
+              }
+            }
+            type="button"
+          >
+            <img
+              alt="es6"
+              src="test-file-stub"
+            />
+          </button>
+        </li>
+        <li
+          style={
+            Object {
+              "backgroundColor": "#333",
+            }
+          }
+        >
+          <button
+            className="opt"
+            onClick={[Function]}
+            style={
+              Object {
+                "filter": "unset",
+              }
+            }
+            type="button"
+          >
+            <img
+              alt="css3"
+              src="test-file-stub"
+            />
+          </button>
+        </li>
+        <li
+          style={
+            Object {
+              "backgroundColor": "#333",
+            }
+          }
+        >
+          <button
+            className="opt"
+            onClick={[Function]}
+            style={
+              Object {
+                "filter": "unset",
+              }
+            }
+            type="button"
+          >
+            <img
+              alt="typescript"
+              src="test-file-stub"
+            />
+          </button>
+        </li>
+        <li
+          style={
+            Object {
+              "backgroundColor": "#333",
+            }
+          }
+        >
+          <button
+            className="opt"
+            onClick={[Function]}
+            style={
+              Object {
+                "filter": "unset",
+              }
+            }
+            type="button"
+          >
+            <img
+              alt="graphql"
+              src="test-file-stub"
+            />
+          </button>
+        </li>
+        <li
+          style={
+            Object {
+              "backgroundColor": "#333",
+            }
+          }
+        >
+          <button
+            className="opt"
+            onClick={[Function]}
+            style={
+              Object {
+                "filter": "unset",
+              }
+            }
+            type="button"
+          >
+            <img
+              alt="test"
+              src="test-file-stub"
+            />
+          </button>
+        </li>
+        <li
+          style={
+            Object {
+              "backgroundColor": "#333",
+            }
+          }
+        >
+          <button
+            className="opt"
+            onClick={[Function]}
+            style={
+              Object {
+                "filter": "unset",
+              }
+            }
+            type="button"
+          >
+            <img
+              alt="gayhub"
+              src="test-file-stub"
+            />
+          </button>
+        </li>
+        <li
+          style={
+            Object {
+              "backgroundColor": "#333",
+            }
+          }
+        >
+          <button
+            className="opt"
+            onClick={[Function]}
+            style={
+              Object {
+                "filter": "unset",
+              }
+            }
+            type="button"
+          >
+            <img
+              alt="lint"
+              src="test-file-stub"
+            />
+          </button>
+        </li>
+        <li
+          style={
+            Object {
+              "backgroundColor": "#333",
+            }
+          }
+        >
+          <button
+            className="opt"
+            onClick={[Function]}
+            style={
+              Object {
+                "filter": "unset",
+              }
+            }
+            type="button"
+          >
+            <img
+              alt="electron"
+              src="test-file-stub"
+            />
+          </button>
+        </li>
+        <li
+          style={
+            Object {
+              "backgroundColor": "#333",
+            }
+          }
+        >
+          <button
+            className="opt"
+            onClick={[Function]}
+            style={
+              Object {
+                "filter": "unset",
+              }
+            }
+            type="button"
+          >
+            <img
+              alt="git"
+              src="test-file-stub"
+            />
+          </button>
+        </li>
+        <li
+          style={
+            Object {
+              "backgroundColor": "#333",
+            }
+          }
+        >
+          <button
+            className="opt"
+            onClick={[Function]}
+            style={
+              Object {
+                "filter": "unset",
+              }
+            }
+            type="button"
+          >
+            <img
+              alt="docker"
+              src="test-file-stub"
+            />
+          </button>
+        </li>
+        <li
+          style={
+            Object {
+              "backgroundColor": "#333",
+            }
+          }
+        >
+          <button
+            className="opt"
+            onClick={[Function]}
+            style={
+              Object {
+                "filter": "unset",
+              }
+            }
+            type="button"
+          >
+            <img
+              alt="python"
+              src="test-file-stub"
+            />
+          </button>
+        </li>
+        <li
+          style={
+            Object {
+              "backgroundColor": "#333",
+            }
+          }
+        >
+          <button
+            className="opt"
+            onClick={[Function]}
+            style={
+              Object {
+                "filter": "unset",
+              }
+            }
+            type="button"
+          >
+            <img
+              alt="java"
+              src="test-file-stub"
+            />
+          </button>
+        </li>
+        <li
+          style={
+            Object {
+              "backgroundColor": "#333",
+            }
+          }
+        >
+          <button
+            className="opt"
+            onClick={[Function]}
+            style={
+              Object {
+                "filter": "unset",
+              }
+            }
+            type="button"
+          >
+            <img
+              alt="go"
+              src="test-file-stub"
+            />
+          </button>
+        </li>
+        <li
+          style={
+            Object {
+              "backgroundColor": "#333",
+            }
+          }
+        >
+          <button
+            className="opt"
+            onClick={[Function]}
+            style={
+              Object {
+                "filter": "unset",
+              }
+            }
+            type="button"
+          >
+            <img
+              alt="kotlin"
+              src="test-file-stub"
+            />
+          </button>
+        </li>
+        <li
+          style={
+            Object {
+              "backgroundColor": "#333",
+            }
+          }
+        >
+          <button
+            className="opt"
+            onClick={[Function]}
+            style={
+              Object {
+                "filter": "unset",
+              }
+            }
+            type="button"
+          >
+            <img
+              alt="mongodb"
+              src="test-file-stub"
+            />
+          </button>
+        </li>
+      </ul>
+    </div>
+  </header>
+  <table
+    className="table"
+  >
+    <thead>
+      <tr>
+        <td
+          className="td"
+          style={
+            Object {
+              "width": 32,
+            }
+          }
+        >
+          序号
+        </td>
+        <td
+          className="td"
+          style={
+            Object {
+              "width": 260,
+            }
+          }
+        >
+          文件
+        </td>
+        <td
+          className="td sort"
+          style={
+            Object {
+              "width": 50,
+            }
+          }
+        >
+          <button
+            className="sortBtn"
+            onClick={[Function]}
+            type="button"
+          >
+            <span>
+              经验
+            </span>
+            <div
+              className="caretInit"
+            >
+              <i
+                className="fa fa-caret-up "
+              />
+              <i
+                className="fa fa-caret-down "
+              />
+            </div>
+          </button>
+        </td>
+        <td
+          className="td sort"
+        >
+          <button
+            className="sortBtn"
+            onClick={[Function]}
+            type="button"
+          >
+            <span>
+              分数
+            </span>
+            <div
+              className="caretInit"
+            >
+              <i
+                className="fa fa-caret-up "
+              />
+              <i
+                className="fa fa-caret-down "
+              />
+            </div>
+          </button>
+        </td>
+        <td
+          className="td"
+          colSpan={1}
+          style={
+            Object {
+              "width": 150,
+            }
+          }
+        >
+          github
+        </td>
+        <td
+          className="td"
+          colSpan={1}
+          style={
+            Object {
+              "width": "auto",
+            }
+          }
+        >
+          关键字
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td
+          className="td"
+        >
+          1
+          <br />
+          <button
+            className="trash"
+            onClick={[Function]}
+            type="button"
+          >
+            <i
+              className="fa fa-trash"
+            />
+          </button>
+        </td>
+        <td
+          className="td"
+        >
+          <button
+            className="link"
+            onClick={[Function]}
+            type="button"
+          >
+            <span
+              className="namePhone"
+            >
+              1
+            </span>
+            <span
+              className="namePhone"
+            />
+            <span
+              className="namePhone"
+            >
+              测大
+            </span>
+            <span
+              className="namePhone"
+            />
+            <ul
+              className="icons"
+            >
+              <li
+                style={
+                  Object {
+                    "backgroundColor": "rgba(235, 235, 235, 1.2)",
+                  }
+                }
+              >
+                <img
+                  alt="vue"
+                  src="test-file-stub"
+                  style={
+                    Object {
+                      "opacity": 1,
+                    }
+                  }
+                />
+              </li>
+            </ul>
+          </button>
+        </td>
+        <td
+          className="td"
+        >
+          1年
+        </td>
+        <td
+          className="score"
+        >
+          0.00
+        </td>
+        <td
+          className="td"
+        >
+          <span
+            className="level level4"
+            title="0"
+          >
+            p4
+          </span>
+        </td>
+        <td
+          className="td"
+        >
+          <div>
+            <svg
+              height={120}
+              width={360}
+            />
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <footer
+    className="footer"
+  >
+    <button
+      className="exportExcel"
+      onClick={[Function]}
+      type="button"
+    >
+      导出 Excel
+    </button>
+  </footer>
+</div>
+`;

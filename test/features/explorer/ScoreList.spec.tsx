@@ -9,15 +9,52 @@ import { configureStore } from '@reduxjs/toolkit';
 import * as configSlice from '../../../app/features/configSlice';
 import * as scoreSlice from '../../../app/features/scoreSlice';
 import ScoreList from '../../../app/features/explorer/ScoreList';
-import { ConfigFile } from '../../../app/features/type';
 import * as exportExcelModule from '../../../app/features/parser/exportExcel';
+import configDefault from '../../../app/constants/configDefault.json';
 
 Enzyme.configure({ adapter: new Adapter() });
 jest.useFakeTimers();
 
 function setup(
   preloadedState = {
-    config: {} as ConfigFile,
+    config: {
+      configs: {
+        default: configDefault,
+      },
+    },
+    score: {
+      nameScore: [
+        {
+          name: '1',
+          path: '1.pdf',
+          workAge: 1,
+          level: 'p4',
+          levelValue: 0,
+          school: '测大',
+          score: 0,
+          links: [],
+          keywords: [
+            {
+              name: '',
+              children: [
+                {
+                  name: 'vue',
+                  score: 1,
+                  gained: 1,
+                  works: [
+                    {
+                      startDate: '2020-01-01',
+                      endDate: '2020-11-01',
+                      workContent: 'Vue',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
   }
 ) {
   const store = configureStore({
@@ -41,18 +78,11 @@ function setup(
     store,
     component,
     exportBtn: component.find('footer > button'),
-    p: component.find('.counter'),
+    trashBtn: component.find('button.trash'),
   };
 }
 
 describe('ScoreList component', () => {
-  it('should buildConfig', () => {
-    setup();
-    const buildConfigSpy = jest.spyOn(configSlice, 'buildConfig');
-    expect(buildConfigSpy).toBeCalled();
-    buildConfigSpy.mockRestore();
-  });
-
   it('should match exact snapshot', () => {
     const { store } = setup();
     const tree = renderer
@@ -70,21 +100,16 @@ describe('ScoreList component', () => {
 
   it('should second button should call exportExcel', () => {
     const { exportBtn } = setup();
-    const exportExcelSyp = jest.spyOn(exportExcelModule, 'default');
-    exportBtn.at(1).simulate('click');
-    expect(exportExcelSyp).toBeCalled();
-    exportExcelSyp.mockRestore();
+    const exportExcelSpy = jest.spyOn(exportExcelModule, 'default');
+    exportBtn.at(0).simulate('click');
+    expect(exportExcelSpy).toBeCalled();
+    exportExcelSpy.mockRestore();
+  });
+
+  it('should clearNameScore', () => {
+    const { trashBtn } = setup();
+    const clearNameScoreSpy = jest.spyOn(scoreSlice, 'clearNameScore');
+    trashBtn.at(0).simulate('click');
+    expect(clearNameScoreSpy).toBeCalled();
   });
 });
-
-// describe('Test counter actions', () => {
-//   it('should not call incrementAsync before timer', () => {
-//     const fn = counterSlice.incrementAsync(1000);
-//     expect(fn).toBeInstanceOf(Function);
-//     const dispatch = jest.fn();
-// // @ts-ignore
-//     fn(dispatch);
-//     jest.advanceTimersByTime(500);
-//     expect(dispatch).not.toBeCalled();
-//   });
-// });

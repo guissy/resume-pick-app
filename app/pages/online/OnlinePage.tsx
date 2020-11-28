@@ -77,6 +77,7 @@ export default function OnlinePage(): JSX.Element {
   const [updating, setUpdating] = React.useState(false);
   const [updateMap] = React.useState(new Map<string, number>());
   const [scoreMap] = React.useState(new Map<string, string>());
+  const [levelMap] = React.useState(new Map<string, string>());
   const search = useSelector(selectSearch);
   const onUpdateSearch = React.useCallback(
     (kw: string) => {
@@ -103,6 +104,8 @@ export default function OnlinePage(): JSX.Element {
                 level: r.level,
                 levelValue: r.levelValue,
                 school: r.school,
+                degree: r.degree,
+                salary: r.salary,
                 keywords: cloneDeep(r.keywords),
                 text: r.text,
                 phone: r.phone,
@@ -114,6 +117,7 @@ export default function OnlinePage(): JSX.Element {
             );
             updateMap.set(f.path, Date.now());
             scoreMap.set(f.name, r.score.toFixed(1));
+            levelMap.set(f.name, r.level);
             if (Array.from(updateMap.values()).every((time) => !!time)) {
               delay(() => setUpdating(false), 500);
             }
@@ -122,7 +126,7 @@ export default function OnlinePage(): JSX.Element {
         );
       }
     },
-    [config, dispatch, updateMap, scoreMap, search]
+    [config, dispatch, updateMap, scoreMap, levelMap, search]
   );
   const webviewRef = React.useRef<
     (HTMLWebview & { getURL: () => string }) | null
@@ -250,6 +254,9 @@ export default function OnlinePage(): JSX.Element {
           <span className={styles.nameBig}>{onlineFile?.name}</span>
           <span className={styles.scoreBig}>
             {scoreMap.get(onlineFile?.name || '')}
+          </span>
+          <span className={styles.levelBig}>
+            {levelMap.get(onlineFile?.name || '')}
           </span>
         </button>
       </main>

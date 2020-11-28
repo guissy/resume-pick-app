@@ -36,16 +36,16 @@ export function trackSchool(text: string) {
 }
 
 export function trackDegree(text: string) {
-  const regExp = /(博士|硕士|本科|一本|二本|大专|高中|初中)/;
+  const regExp = /(博士|硕士|本科|一本|二本|大专|高中)/;
   return (text || '').match(regExp)?.[0] || '';
 }
 
 export function trackSalary(text: string) {
-  let regExp = /(?<=期望(薪水|薪资|工资|月薪)[:：\s]*)([0-9]+(k|K)([—–\-~至])+[0-9]+(k|K))/;
+  let regExp = /(?<=期望(薪水|薪资|工资|月薪)[:：\s]*)([0-9]+([kK])([—–\-~至])+[0-9]+([kK]))/;
   let salary = (text || '').match(regExp)?.[0] || '';
   if (!salary) {
     // 15k-25k
-    regExp = /\b([0-9]+(k|K)([—–\-~至])+[0-9]+(k|K))/;
+    regExp = /\b([0-9]+([kK])([—–\-~至])+[0-9]+([kK]))/;
     salary = (text || '').match(regExp)?.[0] || '';
   }
   return salary;

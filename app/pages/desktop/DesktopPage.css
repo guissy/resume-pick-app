@@ -72,6 +72,7 @@
   margin-right: -10px;
   padding: 0 14px;
   height: 30px;
+  width: 64px;
   line-height: 30px;
   color: #fffab8;
   font-size: 16px;
@@ -79,6 +80,23 @@
   letter-spacing: 3px;
   border-top-left-radius: 21px;
   border-bottom-left-radius: 21px;
+  background-color: rgba(33, 33, 33, 1);
+  border: 1px solid #8e8410;
+}
+
+.levelBig {
+  display: block;
+  margin-left: -10px;
+  padding: 0 10px 0 20px;
+  height: 30px;
+  width: 58px;
+  line-height: 30px;
+  color: #fffab8;
+  font-size: 16px;
+  font-weight: bolder;
+  letter-spacing: 3px;
+  border-top-right-radius: 21px;
+  border-bottom-right-radius: 21px;
   background-color: rgba(33, 33, 33, 1);
   border: 1px solid #8e8410;
 }
@@ -94,6 +112,7 @@
   text-shadow: 0 0 3px rgba(255, 215, 0, 1);
   background-color: rgba(33, 33, 33, 1);
   border: 1px solid #8e8410;
+  z-index: 10;
 }
 
 @keyframes fadeIn {

@@ -81,10 +81,10 @@
   width: 10px;
   font-size: 8px;
 }
-.level > .fa:first-child {
+.level > i:first-child {
   right: -1px;
 }
-.level > .fa:nth-child(2) {
+.level > i:nth-child(2) {
   right: -8px;
 }
 

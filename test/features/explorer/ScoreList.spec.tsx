@@ -1,4 +1,5 @@
 import './mockGithubView';
+import './mockExportExcel';
 import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -9,7 +10,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import * as configSlice from '../../../app/features/configSlice';
 import * as scoreSlice from '../../../app/features/scoreSlice';
 import ScoreList from '../../../app/features/explorer/ScoreList';
-import * as exportExcelModule from '../../../app/features/parser/exportExcel';
+import exportExcelModule from '../../../app/features/parser/exportExcel';
 import configDefault from '../../../app/constants/configDefault.json';
 import mockScoreFile from './mockScoreFile';
 import * as tractWorkAge from '../../../app/features/parser/tractWorkAge';
@@ -74,10 +75,8 @@ describe('ScoreList component', () => {
 
   it('click button should call exportExcel', () => {
     const { exportBtn } = setup();
-    const exportExcelSpy = jest.spyOn(exportExcelModule, 'default');
     exportBtn.at(0).simulate('click');
-    expect(exportExcelSpy).toBeCalled();
-    exportExcelSpy.mockRestore();
+    expect(exportExcelModule).toBeCalled();
   });
 
   it('click button should call clearNameScore', () => {

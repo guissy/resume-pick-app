@@ -5,44 +5,26 @@ import { useDebounce } from 'react-use';
 import uniqBy from 'lodash/uniqBy';
 import styles from './ScoreList.css';
 import {
-  selectNameScore,
-  removeNameScore,
   clearNameScore,
+  removeNameScore,
+  selectNameScore,
 } from '../scoreSlice';
 import { getBlogByLink, getGithubByLink } from '../parser/tractWorkAge';
-import { selectConfig, updateConfig } from '../configSlice';
-import Image, { imgKey } from '../icon/image';
+import { selectConfig } from '../configSlice';
+import Image from '../icon/image';
 import GithubView from './GithubView';
-import { ScoreFile, SortKey } from '../type';
+import { ScoreFile } from '../type';
 import TreeMap from './TreeMap';
 import ResumeView from './ResumeView';
 import exportExcel from '../parser/exportExcel';
+import { getLevelStyle, toggleSort } from './scoreListUtil';
+import TechGroup from './TechGroup';
 
 type File = ScoreFile | undefined;
 type Props = {
   search?: string;
   setSearch?: (kw: string) => void;
 };
-
-function getLevelStyle(level: string) {
-  const classNames = [
-    styles.level1,
-    styles.level2,
-    styles.level3,
-    styles.level4,
-    styles.level5,
-    styles.level6,
-    styles.level7,
-    styles.level8,
-    styles.level9,
-  ];
-  const [n] = level?.match(/\d/g) || ['1'];
-  const index = parseInt(n, 10);
-  if (index > 0 && index <= classNames.length) {
-    return `${styles.level} ${classNames[index - 1]}`;
-  }
-  return '';
-}
 
 const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
   const scores = useSelector(selectNameScore);
@@ -51,109 +33,17 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
   const onClickExport = React.useCallback(() => {
     exportExcel(config, scores);
   }, [config, scores]);
-  const [sort, setSort] = React.useState<SortKey>('');
+  const [sort, setSort] = React.useState('');
   const onClickWorkAge = React.useCallback(() => {
-    setSort((wa) => {
-      if (wa !== 'workAgeUp' && wa !== 'workAgeDown') {
-        return 'workAgeDown';
-      }
-      if (wa === 'workAgeUp') {
-        return '';
-      }
-      if (wa === 'workAgeDown') {
-        return 'workAgeUp';
-      }
-      return '';
-    });
+    setSort(toggleSort(['workAgeUp', 'workAgeDown']));
   }, []);
   const onClickScore = React.useCallback(() => {
-    setSort((wa) => {
-      if (wa !== 'scoreUp' && wa !== 'scoreDown') {
-        return 'scoreDown';
-      }
-      if (wa === 'scoreUp') {
-        return '';
-      }
-      if (wa === 'scoreDown') {
-        return 'scoreUp';
-      }
-      return '';
-    });
+    setSort(toggleSort(['scoreUp', 'scoreDown']));
   }, []);
-  const optionDefault = React.useMemo(() => {
-    return imgKey.filter((img) =>
-      (config || [])
-        .map((c) => c.children.map((w) => w.name))
-        .flat()
-        .includes(img)
-    );
-  }, [config]);
-  const [cacheScore] = React.useState(new Map<string, number>()); // 缓存大于0
+
   const [showFull, setShowFull] = React.useState(true);
   const [gitRepo, setGitRepo] = React.useState(false);
-  const [option, setOption] = React.useState(
-    new Map(optionDefault.map((opt) => [opt, true]))
-  );
-  React.useEffect(() => {
-    if (Array.isArray(config)) {
-      setOption((opt) => {
-        config.forEach((k) => {
-          k.children.forEach((w) => {
-            if (optionDefault.includes(w.name)) {
-              opt.set(w.name, w.score !== 0);
-              if (w.score !== 0) {
-                cacheScore.set(w.name, w.score);
-              }
-            }
-          });
-        });
-        return new Map(opt);
-      });
-    }
-  }, [optionDefault, cacheScore, config]);
-  const [checkedAll, setCheckedAll] = React.useState(true);
-  const onClickOpt = React.useCallback(
-    (opt: string) => {
-      option.set(opt, !option.get(opt));
-      setOption(new Map(option));
-      const configOk = config.map((k) => ({
-        ...k,
-        children: k.children.map((w) => {
-          let score = w.score || 0;
-          if (option.has(w.name)) {
-            score = option.get(w.name) ? cacheScore.get(w.name) || score : 0;
-          }
-          return {
-            ...w,
-            score,
-          };
-        }),
-      }));
-      setCheckedAll(false);
-      dispatch(updateConfig({ default: configOk }));
-    },
-    [option, config, cacheScore, dispatch]
-  );
-  const onClickCheckAll = React.useCallback(() => {
-    setCheckedAll(!checkedAll);
-    if (config) {
-      setOption(new Map(optionDefault.map((opt) => [opt, true])));
-      const configOk = config.map((k) => ({
-        ...k,
-        children: k.children.map((w) => {
-          let score = w.score || 0;
-          if (option.has(w.name)) {
-            score = !checkedAll ? cacheScore.get(w.name) || w.score : 0;
-          }
-          return {
-            ...w,
-            score,
-          };
-        }),
-      }));
-      dispatch(updateConfig({ default: configOk }));
-    }
-  }, [checkedAll, config, cacheScore, option, optionDefault, dispatch]);
+
   const onClickLink = React.useCallback((e, url) => {
     e.preventDefault();
     const urlOk = url.startsWith('http') ? url : `http://${url}`;
@@ -181,18 +71,10 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
     },
     [dispatch]
   );
+  const [techNames, setTechNames] = React.useState<string[]>([]);
   return scores.length > 0 ? (
     <div role="presentation" className={styles.tableWrap}>
-      <dialog
-        open={showDialog}
-        style={{
-          position: 'fixed',
-          padding: 0,
-          zIndex: 100,
-          width: '80vw',
-          top: 10,
-        }}
-      >
+      <dialog open={showDialog} className={styles.dialog}>
         <ResumeView resume={resumeActive} onClose={onCloseResume} />
       </dialog>
       <header className={styles.header}>
@@ -231,56 +113,18 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
             }}
           />
         </label>
-        <div className={styles.opts}>
-          <label htmlFor="optCheckbox">
-            <input
-              id="optCheckbox"
-              type="checkbox"
-              onChange={onClickCheckAll}
-              checked={checkedAll}
-            />
-            全选
-          </label>
-          <ul className={styles.icons}>
-            {config
-              .map((k) => k.children.map((w) => w.name))
-              .flat()
-              .filter((w) => option.has(w))
-              .map((w) => (
-                <li
-                  key={w}
-                  style={{
-                    backgroundColor: option.get(w) ? '#333' : '#aaa',
-                  }}
-                >
-                  <button
-                    type="button"
-                    onClick={() => onClickOpt(w)}
-                    className={styles.opt}
-                    style={{
-                      filter: option.get(w) ? 'unset' : 'grayscale(0.9)',
-                    }}
-                  >
-                    <img
-                      src={Image[`${w}_png` as keyof typeof Image]}
-                      alt={w}
-                    />
-                  </button>
-                </li>
-              ))}
-          </ul>
-        </div>
+        <TechGroup config={config} setTechNames={setTechNames} />
       </header>
       <table className={styles.table}>
         <thead>
           <tr>
-            <td className={styles.td} style={{ width: 32 }}>
+            <th className={styles.td} style={{ width: 32 }}>
               序号
-            </td>
-            <td className={styles.td} style={{ width: 260 }}>
+            </th>
+            <th className={styles.td} style={{ width: 260 }}>
               文件
-            </td>
-            <td className={`${styles.td} ${styles.sort}`} style={{ width: 50 }}>
+            </th>
+            <th className={`${styles.td} ${styles.sort}`} style={{ width: 50 }}>
               <button
                 className={styles.sortBtn}
                 type="button"
@@ -300,8 +144,8 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
                   />
                 </div>
               </button>
-            </td>
-            <td className={`${styles.td} ${styles.sort}`}>
+            </th>
+            <th className={`${styles.td} ${styles.sort}`}>
               <button
                 className={styles.sortBtn}
                 type="button"
@@ -321,13 +165,13 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
                   />
                 </div>
               </button>
-            </td>
-            <td colSpan={1} className={styles.td} style={{ width: 150 }}>
+            </th>
+            <th colSpan={1} className={styles.td} style={{ width: 150 }}>
               github
-            </td>
-            <td colSpan={1} className={styles.td} style={{ width: 'auto' }}>
+            </th>
+            <th colSpan={1} className={styles.td} style={{ width: 'auto' }}>
               关键字
-            </td>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -345,12 +189,6 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
               }
               if (sort === 'scoreUp') {
                 return a.score < b.score ? -1 : 1;
-              }
-              if (sort === 'sentimentDown') {
-                return a.sentiment > b.sentiment ? -1 : 1;
-              }
-              if (sort === 'sentimentUp') {
-                return a.sentiment < b.sentiment ? -1 : 1;
               }
               return a.levelValue > b.levelValue ? -1 : 1;
             })
@@ -389,12 +227,7 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
                         v.keywords
                           .map((k) => k.children.map((w) => w))
                           .flat()
-                          .filter((w) =>
-                            Array.from(option.entries())
-                              .filter(([_k, b]) => _k && b)
-                              .map(([k]) => k)
-                              .includes(w.name)
-                          ),
+                          .filter((w) => techNames.includes(w.name)),
                         'name'
                       ).map((w) => (
                         <li

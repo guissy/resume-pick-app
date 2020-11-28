@@ -81,10 +81,10 @@
   width: 10px;
   font-size: 8px;
 }
-.level > i:first-child {
+.level > .fa:first-child {
   right: -1px;
 }
-.level > i:nth-child(2) {
+.level > .fa:nth-child(2) {
   right: -8px;
 }
 
@@ -206,13 +206,14 @@
   color: #666;
 }
 
+.caretInit > i {
+  line-height: 8px;
+}
+
 .active {
   color: #fff;
 }
 
-.caretInit > i {
-  line-height: 8px;
-}
 ul.icons {
   padding-left: 0;
   margin-top: 10px;
@@ -238,17 +239,15 @@ ul.icons {
 .searchWrap {
   display: inline-flex;
   align-items: center;
-
-  /* margin-left: 20px; */
+}
+.searchWrap > i {
+  transform: translateX(140%) scale(0.8);
 }
 .search {
   text-indent: 20px;
   color: #fff;
   width: 200px;
   font-size: 16px;
-}
-.searchWrap i {
-  transform: translateX(140%) scale(0.8);
 }
 
 .opts {
@@ -293,4 +292,12 @@ header > label > input,
 }
 .trash > span {
   padding-right: 5px;
+}
+
+.dialog {
+  position: fixed;
+  padding: 0;
+  z-index: 100;
+  width: 80vw;
+  top: 10px;
 }

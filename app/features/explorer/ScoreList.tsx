@@ -138,7 +138,7 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
         </label>
         <TechFilter config={config} setTechNames={setTechNames} />
       </header>
-      <table className={styles.table}>
+      <table className={styles.tbody}>
         <thead>
           <tr>
             <th className={styles.td} style={{ width: 32 }}>

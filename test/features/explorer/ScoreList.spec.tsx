@@ -57,7 +57,13 @@ function setup(
     showFull: component.find('#showFull'),
     gitRepo: component.find('#gitRepo'),
     searchInput: component.find('#searchTable'),
-    table: component.find('table > tbody'),
+    tbody: component.find('table > tbody'),
+    scoreBtn: component.find('th').findWhere((node) => {
+      return !!node.type() && !!node.name() && node.text() === '分数';
+    }),
+    workAgeBtn: component.find('th').findWhere((node) => {
+      return !!node.type() && !!node.name() && node.text() === '经验';
+    }),
   };
 }
 
@@ -91,13 +97,13 @@ describe('ScoreList component', () => {
   });
 
   it('click checkbox should call showFull', () => {
-    const { showFull, table } = setup();
+    const { showFull, tbody } = setup();
     const { name, phone } = mockScoreFile[0];
-    expect(table.text()).toContain(name);
-    expect(table.text()).toContain(phone);
+    expect(tbody.text()).toContain(name);
+    expect(tbody.text()).toContain(phone);
     showFull.simulate('change');
-    expect(table.text()).not.toContain(name);
-    expect(table.text()).not.toContain(phone);
+    expect(tbody.text()).not.toContain(name);
+    expect(tbody.text()).not.toContain(phone);
   });
 
   it('click checkbox should call gitRepo', () => {
@@ -107,7 +113,7 @@ describe('ScoreList component', () => {
     expect(getGithubByLinkSpy).toBeCalled();
   });
 
-  it('input should call search', async () => {
+  it('input should call search', () => {
     const setSearch = jest.fn();
     const { searchInput } = setup(undefined, { setSearch });
     searchInput.simulate('change', { target: { value: 'react' } });
@@ -116,5 +122,15 @@ describe('ScoreList component', () => {
     searchInput.simulate('change', { target: { value: 'vue' } });
     jest.runTimersToTime(2000);
     expect(setSearch).toBeCalledWith('vue');
+  });
+
+  it('click th should call sort by score', async () => {
+    const { scoreBtn, store, tbody } = setup();
+    const scores = store.getState().score.nameScore;
+    expect(scores[0].score).toBeLessThan(scores[1].score);
+    scoreBtn.at(1).simulate('click');
+    const first = parseInt(tbody.childAt(0).childAt(3).text(), 10);
+    const second = parseInt(tbody.childAt(1).childAt(3).text(), 10);
+    expect(first).toBeGreaterThan(second);
   });
 });

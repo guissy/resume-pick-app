@@ -29,4 +29,34 @@ export default [
       },
     ],
   },
+  {
+    name: '小兰',
+    path: '2.pdf',
+    workAge: 2,
+    level: 'p5',
+    levelValue: 2,
+    school: '测大',
+    score: 4,
+    links: [],
+    phone: '13912345678',
+    keywords: [
+      {
+        name: '',
+        children: [
+          {
+            name: 'react',
+            score: 1,
+            gained: 1,
+            works: [
+              {
+                startDate: '2020-01-01',
+                endDate: '2020-11-01',
+                workContent: 'Vue',
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
 ];

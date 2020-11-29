@@ -36,3 +36,4 @@ extractors = [
 - [ ] java / go
 - [x] search
 - [x] remove
+- [ ] chart

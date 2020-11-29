@@ -28,7 +28,8 @@ function setup(
     score: {
       nameScore: mockScoreFile,
     },
-  }
+  },
+  props = {}
 ) {
   const store = configureStore({
     reducer: {
@@ -42,7 +43,8 @@ function setup(
     mount(
       <Provider store={store}>
         <Router>
-          <ScoreList />
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+          <ScoreList {...props} />
         </Router>
       </Provider>
     );
@@ -54,6 +56,7 @@ function setup(
     trashBtn: component.find('button.trash'),
     showFull: component.find('#showFull'),
     gitRepo: component.find('#gitRepo'),
+    searchInput: component.find('#searchTable'),
     table: component.find('table > tbody'),
   };
 }
@@ -102,5 +105,16 @@ describe('ScoreList component', () => {
     const getGithubByLinkSpy = jest.spyOn(tractWorkAge, 'getGithubByLink');
     gitRepo.simulate('change');
     expect(getGithubByLinkSpy).toBeCalled();
+  });
+
+  it('input should call search', async () => {
+    const setSearch = jest.fn();
+    const { searchInput } = setup(undefined, { setSearch });
+    searchInput.simulate('change', { target: { value: 'react' } });
+    jest.runTimersToTime(1000);
+    expect(setSearch).not.toBeCalled();
+    searchInput.simulate('change', { target: { value: 'vue' } });
+    jest.runTimersToTime(2000);
+    expect(setSearch).toBeCalledWith('vue');
   });
 });

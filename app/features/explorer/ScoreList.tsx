@@ -123,11 +123,11 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
           <span>清空</span>
           <i className="fa fa-trash" />
         </button>
-        <label htmlFor="search" className={styles.searchWrap}>
+        <label htmlFor="searchTable" className={styles.searchWrap}>
           <i className="fa fa-search" />
           <input
             className={styles.search}
-            id="search"
+            id="searchTable"
             type="search"
             value={searchTxt}
             placeholder="输入关键字搜索简历"

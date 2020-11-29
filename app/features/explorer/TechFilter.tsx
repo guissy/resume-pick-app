@@ -9,7 +9,7 @@ type Props = {
   config: Config;
   setTechNames: (names: string[]) => void;
 };
-const TechGroup: React.FC<Props> = ({ config, setTechNames }) => {
+const TechFilter: React.FC<Props> = ({ config, setTechNames }) => {
   const dispatch = useDispatch();
   const optionDefault = React.useMemo(() => {
     return imgKey.filter((img) =>
@@ -130,4 +130,4 @@ const TechGroup: React.FC<Props> = ({ config, setTechNames }) => {
   );
 };
 
-export default TechGroup;
+export default TechFilter;

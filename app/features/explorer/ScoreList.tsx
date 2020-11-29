@@ -2,23 +2,25 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { shell } from 'electron';
 import { useDebounce } from 'react-use';
-import uniqBy from 'lodash/uniqBy';
 import styles from './ScoreList.css';
 import {
   clearNameScore,
   removeNameScore,
   selectNameScore,
 } from '../scoreSlice';
-import { getBlogByLink, getGithubByLink } from '../parser/tractWorkAge';
+import { getGithubByLink } from '../parser/tractWorkAge';
 import { selectConfig } from '../configSlice';
-import Image from '../icon/image';
 import GithubView from './GithubView';
 import { ScoreFile } from '../type';
 import TreeMap from './TreeMap';
 import ResumeView from './ResumeView';
 import exportExcel from '../parser/exportExcel';
-import { getLevelStyle, toggleSort } from './scoreListUtil';
-import TechGroup from './TechGroup';
+import { toggleSort } from './scoreListUtil';
+import TechFilter from './TechFilter';
+import ScoreListSort from './ScoreListSort';
+import ScoreListLevel from './ScoreListLevel';
+import TechRow from './TechRow';
+import ScoreListLink from './ScoreListLink';
 
 type File = ScoreFile | undefined;
 type Props = {
@@ -72,7 +74,28 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
     [dispatch]
   );
   const [techNames, setTechNames] = React.useState<string[]>([]);
-  return scores.length > 0 ? (
+  const scoreTables = React.useMemo(
+    () =>
+      scores
+        .map((s) => ({ ...s }))
+        .sort((a, b) => {
+          if (sort === 'workAgeDown') {
+            return a.workAge > b.workAge ? -1 : 1;
+          }
+          if (sort === 'workAgeUp') {
+            return a.workAge < b.workAge ? -1 : 1;
+          }
+          if (sort === 'scoreDown') {
+            return a.score > b.score ? -1 : 1;
+          }
+          if (sort === 'scoreUp') {
+            return a.score < b.score ? -1 : 1;
+          }
+          return a.levelValue > b.levelValue ? -1 : 1;
+        }),
+    [sort, scores]
+  );
+  return scoreTables.length > 0 ? (
     <div role="presentation" className={styles.tableWrap}>
       <dialog open={showDialog} className={styles.dialog}>
         <ResumeView resume={resumeActive} onClose={onCloseResume} />
@@ -113,7 +136,7 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
             }}
           />
         </label>
-        <TechGroup config={config} setTechNames={setTechNames} />
+        <TechFilter config={config} setTechNames={setTechNames} />
       </header>
       <table className={styles.table}>
         <thead>
@@ -125,46 +148,10 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
               文件
             </th>
             <th className={`${styles.td} ${styles.sort}`} style={{ width: 50 }}>
-              <button
-                className={styles.sortBtn}
-                type="button"
-                onClick={onClickWorkAge}
-              >
-                <span>经验</span>
-                <div className={styles.caretInit}>
-                  <i
-                    className={`fa fa-caret-up ${
-                      sort === 'workAgeUp' ? styles.active : ''
-                    }`}
-                  />
-                  <i
-                    className={`fa fa-caret-down ${
-                      sort === 'workAgeDown' ? styles.active : ''
-                    }`}
-                  />
-                </div>
-              </button>
+              <ScoreListSort name="经验" sort={sort} onClick={onClickWorkAge} />
             </th>
             <th className={`${styles.td} ${styles.sort}`}>
-              <button
-                className={styles.sortBtn}
-                type="button"
-                onClick={onClickScore}
-              >
-                <span>分数</span>
-                <div className={styles.caretInit}>
-                  <i
-                    className={`fa fa-caret-up ${
-                      sort === 'scoreUp' ? styles.active : ''
-                    }`}
-                  />
-                  <i
-                    className={`fa fa-caret-down ${
-                      sort === 'scoreDown' ? styles.active : ''
-                    }`}
-                  />
-                </div>
-              </button>
+              <ScoreListSort name="分数" sort={sort} onClick={onClickScore} />
             </th>
             <th colSpan={1} className={styles.td} style={{ width: 150 }}>
               github
@@ -175,134 +162,60 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
           </tr>
         </thead>
         <tbody>
-          {scores
-            .map((s) => ({ ...s }))
-            .sort((a, b) => {
-              if (sort === 'workAgeDown') {
-                return a.workAge > b.workAge ? -1 : 1;
-              }
-              if (sort === 'workAgeUp') {
-                return a.workAge < b.workAge ? -1 : 1;
-              }
-              if (sort === 'scoreDown') {
-                return a.score > b.score ? -1 : 1;
-              }
-              if (sort === 'scoreUp') {
-                return a.score < b.score ? -1 : 1;
-              }
-              return a.levelValue > b.levelValue ? -1 : 1;
-            })
-            .map((v, i) => (
-              <tr key={v.path}>
-                <td className={styles.td}>
-                  {i + 1}
-                  <br />
-                  <button
-                    className={styles.trash}
-                    onClick={() => onRemove(v.path)}
-                    type="button"
-                  >
-                    <i className="fa fa-trash" />
-                  </button>
-                </td>
-                <td className={styles.td}>
-                  <button
-                    type="button"
-                    className={styles.link}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onOpenResume(v);
-                    }}
-                  >
-                    {showFull && (
-                      <>
-                        <span className={styles.namePhone}>{v.name}</span>
-                        <span className={styles.namePhone}>{v.phone}</span>
-                        <span className={styles.namePhone}>{v.school}</span>
-                      </>
-                    )}
-                    <span className={styles.namePhone}>{v.salary}</span>
-                    <ul className={styles.icons}>
-                      {uniqBy(
-                        v.keywords
-                          .map((k) => k.children.map((w) => w))
-                          .flat()
-                          .filter((w) => techNames.includes(w.name)),
-                        'name'
-                      ).map((w) => (
-                        <li
-                          key={w.name}
-                          style={{
-                            backgroundColor: `rgba(235, 235, 235, ${
-                              w.gained / w.score + 0.2
-                            })`,
-                          }}
-                        >
-                          <img
-                            src={Image[`${w.name}_png` as keyof typeof Image]}
-                            style={{ opacity: w.gained / w.score }}
-                            alt={w.name}
-                          />
-                        </li>
-                      ))}
-                    </ul>
-                  </button>
-                </td>
-                <td className={styles.td}>
-                  {v.workAge > 0 ? `${Math.round(v.workAge * 2) / 2}年` : '-'}
-                </td>
-                <td className={styles.score}>{v.score?.toFixed(2)}</td>
-                <td className={styles.td}>
-                  <span
-                    className={getLevelStyle(v.level)}
-                    title={String(v.levelValue)}
-                  >
-                    {v.level?.slice(0, 2)}
-                    {v.level
-                      ?.split('')
-                      .filter((c) => c === '+')
-                      .map((c, n) => (
-                        <i
-                          key={c + String(n)}
-                          className="fa fa-plus fa-1x"
-                          title={c}
-                        />
-                      ))}
-                  </span>
-                  {showFull &&
-                    gitRepo &&
-                    getGithubByLink(v.links).map((link) => (
-                      <GithubView key={link} url={link} />
-                    ))}
-                  {showFull &&
-                    v.links.map((link) => (
-                      <a
-                        key={link}
-                        href={link}
-                        className={styles.alink}
-                        style={{
-                          color: getBlogByLink(link) ? '#f1f1f1' : '#999999',
-                        }}
-                        onClick={(e) => onClickLink(e, link)}
-                      >
-                        <img
-                          className={styles.blogIcon}
-                          src={
-                            Image[
-                              `${getBlogByLink(link)}_png` as keyof typeof Image
-                            ]
-                          }
-                          alt={getBlogByLink(link)}
-                        />
-                        {link.replace(/(https?:\/\/|www\.)/, '')}
-                      </a>
-                    ))}
-                </td>
-                <td className={styles.td}>
-                  <TreeMap scoreFile={v} search={search} />
-                </td>
-              </tr>
-            ))}
+          {scoreTables.map((v, i) => (
+            <tr key={v.path}>
+              <td className={styles.td}>
+                {i + 1}
+                <br />
+                <button
+                  className={styles.trash}
+                  onClick={() => onRemove(v.path)}
+                  type="button"
+                >
+                  <i className="fa fa-trash" />
+                </button>
+              </td>
+              <td className={styles.td}>
+                <button
+                  type="button"
+                  className={styles.link}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onOpenResume(v);
+                  }}
+                >
+                  {showFull && (
+                    <>
+                      <span className={styles.namePhone}>{v.name}</span>
+                      <span className={styles.namePhone}>{v.phone}</span>
+                      <span className={styles.namePhone}>{v.school}</span>
+                    </>
+                  )}
+                  <span className={styles.namePhone}>{v.salary}</span>
+                  <TechRow keywords={v.keywords} techNames={techNames} />
+                </button>
+              </td>
+              <td className={styles.td}>
+                {v.workAge > 0 ? `${Math.round(v.workAge * 2) / 2}年` : '-'}
+              </td>
+              <td className={styles.score}>{v.score?.toFixed(2)}</td>
+              <td className={styles.td}>
+                <ScoreListLevel level={v.level} levelValue={v.levelValue} />
+                {showFull &&
+                  gitRepo &&
+                  getGithubByLink(v.links).map((link) => (
+                    <GithubView key={link} url={link} />
+                  ))}
+                {showFull &&
+                  v.links.map((url) => (
+                    <ScoreListLink key={url} link={url} onClick={onClickLink} />
+                  ))}
+              </td>
+              <td className={styles.td}>
+                <TreeMap scoreFile={v} search={search} />
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
       <footer className={styles.footer}>

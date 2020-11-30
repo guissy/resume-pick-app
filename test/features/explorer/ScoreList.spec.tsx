@@ -64,6 +64,8 @@ function setup(
     workAgeBtn: component.find('th').findWhere((node) => {
       return !!node.type() && !!node.name() && node.text() === '经验';
     }),
+    name: component.find('tbody>tr>td').childAt(1).find('button'),
+    dialog: component.find('dialog'),
   };
 }
 
@@ -81,13 +83,11 @@ describe('ScoreList component', () => {
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
-
   it('click button should call exportExcel', () => {
     const { exportBtn } = setup();
     exportBtn.at(0).simulate('click');
     expect(exportExcelModule).toBeCalled();
   });
-
   it('click button should call clearNameScore', () => {
     const { trashBtn } = setup();
     const clearNameScoreSpy = jest.spyOn(scoreSlice, 'clearNameScore');
@@ -95,7 +95,6 @@ describe('ScoreList component', () => {
     expect(clearNameScoreSpy).toBeCalled();
     clearNameScoreSpy.mockRestore();
   });
-
   it('click checkbox should call showFull', () => {
     const { showFull, tbody } = setup();
     const { name, phone } = mockScoreFile[0];
@@ -105,14 +104,12 @@ describe('ScoreList component', () => {
     expect(tbody.text()).not.toContain(name);
     expect(tbody.text()).not.toContain(phone);
   });
-
   it('click checkbox should call gitRepo', () => {
     const { gitRepo } = setup();
     const getGithubByLinkSpy = jest.spyOn(tractWorkAge, 'getGithubByLink');
     gitRepo.simulate('change');
     expect(getGithubByLinkSpy).toBeCalled();
   });
-
   it('input should call search', () => {
     const setSearch = jest.fn();
     const { searchInput } = setup(undefined, { setSearch });
@@ -123,7 +120,6 @@ describe('ScoreList component', () => {
     jest.runTimersToTime(2000);
     expect(setSearch).toBeCalledWith('vue');
   });
-
   it('click th should call sort by score', async () => {
     const { scoreBtn, store, tbody } = setup();
     const scores = store.getState().score.nameScore;
@@ -132,5 +128,22 @@ describe('ScoreList component', () => {
     const first = parseInt(tbody.childAt(0).childAt(3).text(), 10);
     const second = parseInt(tbody.childAt(1).childAt(3).text(), 10);
     expect(first).toBeGreaterThan(second);
+  });
+  it('click th should call sort by workAge', async () => {
+    const { workAgeBtn, store, tbody } = setup();
+    const scores = store.getState().score.nameScore;
+    expect(scores[0].score).toBeLessThan(scores[1].workAge);
+    workAgeBtn.at(1).simulate('click');
+    const first = parseInt(tbody.childAt(0).childAt(2).text(), 10);
+    const second = parseInt(tbody.childAt(1).childAt(2).text(), 10);
+    expect(first).toBeGreaterThan(second);
+  });
+  it('click name call show dialog', async () => {
+    const { name, dialog, store } = setup();
+    expect(name.text()).toContain(store.getState().score.nameScore[0].name);
+    expect(name.text()).toContain(store.getState().score.nameScore[0].phone);
+    expect(dialog.props().open).toBeFalsy();
+    name.at(0).simulate('click');
+    expect(dialog.props().open).toBeTruthy();
   });
 });

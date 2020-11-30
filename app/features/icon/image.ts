@@ -7,6 +7,7 @@ import es6_png from './images/es6.png';
 import flutter_png from './images/flutter.png';
 import gayhub_png from './images/gayhub.png';
 import electron_png from './images/electron.png';
+import rxjs_png from './images/rxjs.png';
 import gitee_png from './images/gitee.png';
 import git_png from './images/git.png';
 import go_png from './images/go.png';
@@ -73,6 +74,7 @@ export default {
   cto_png,
   gitee_png,
   electron_png,
+  rxjs_png,
 };
 
 const images = [
@@ -103,5 +105,6 @@ const images = [
   'linux.png',
   'nginx.png',
   'mongodb.png',
+  'rxjs.png',
 ];
 export const imgKey = images.map((img) => img.split('.').shift() || '');

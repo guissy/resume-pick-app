@@ -15,7 +15,7 @@ const ResumeView: React.FC<Props> = ({ resume, onClose }) => {
   const topElmRef = React.useRef<HTMLParagraphElement>(null);
   useEffect(() => {
     if (resume && topElmRef.current) {
-      topElmRef.current.scrollIntoView({ behavior: 'smooth' });
+      topElmRef.current.scrollIntoView?.({ behavior: 'smooth' });
     }
   }, [resume]);
   const clickOpenNative = React.useCallback(() => {

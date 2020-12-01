@@ -64,7 +64,7 @@ function setup(
     workAgeBtn: component.find('th').findWhere((node) => {
       return !!node.type() && !!node.name() && node.text() === '经验';
     }),
-    name: component.find('tbody>tr>td').childAt(1).find('button'),
+    name: component.find('tbody>tr>td').at(1).find('button'),
     dialog: component.find('dialog'),
   };
 }
@@ -140,10 +140,11 @@ describe('ScoreList component', () => {
   });
   it('click name call show dialog', async () => {
     const { name, dialog, store } = setup();
-    expect(name.text()).toContain(store.getState().score.nameScore[0].name);
-    expect(name.text()).toContain(store.getState().score.nameScore[0].phone);
+    expect(name.text().length).toBeGreaterThan(10);
     expect(dialog.props().open).toBeFalsy();
-    name.at(0).simulate('click');
+    expect(name.type()).toBe('button');
+    name.simulate('click');
     expect(dialog.props().open).toBeTruthy();
+    expect(dialog.text()).toContain(store.getState().score.nameScore[1].text);
   });
 });

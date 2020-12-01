@@ -28,6 +28,7 @@ export default [
         ],
       },
     ],
+    text: 'vue good',
   },
   {
     name: '小兰',
@@ -58,5 +59,6 @@ export default [
         ],
       },
     ],
+    text: 'vue good',
   },
 ];

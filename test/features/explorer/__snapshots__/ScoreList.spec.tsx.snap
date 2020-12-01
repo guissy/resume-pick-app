@@ -6,16 +6,8 @@ exports[`ScoreList component should match exact snapshot 1`] = `
   role="presentation"
 >
   <dialog
+    className="dialog"
     open={false}
-    style={
-      Object {
-        "padding": 0,
-        "position": "fixed",
-        "top": 10,
-        "width": "80vw",
-        "zIndex": 100,
-      }
-    }
   >
     <div
       className="wrap"
@@ -132,14 +124,14 @@ exports[`ScoreList component should match exact snapshot 1`] = `
     </button>
     <label
       className="searchWrap"
-      htmlFor="search"
+      htmlFor="searchTable"
     >
       <i
         className="fa fa-search"
       />
       <input
         className="search"
-        id="search"
+        id="searchTable"
         onChange={[Function]}
         placeholder="输入关键字搜索简历"
         type="search"
@@ -389,6 +381,29 @@ exports[`ScoreList component should match exact snapshot 1`] = `
           >
             <img
               alt="typescript"
+              src="test-file-stub"
+            />
+          </button>
+        </li>
+        <li
+          style={
+            Object {
+              "backgroundColor": "#333",
+            }
+          }
+        >
+          <button
+            className="opt"
+            onClick={[Function]}
+            style={
+              Object {
+                "filter": "unset",
+              }
+            }
+            type="button"
+          >
+            <img
+              alt="rxjs"
               src="test-file-stub"
             />
           </button>
@@ -673,11 +688,11 @@ exports[`ScoreList component should match exact snapshot 1`] = `
     </div>
   </header>
   <table
-    className="table"
+    className="tbody"
   >
     <thead>
       <tr>
-        <td
+        <th
           className="td"
           style={
             Object {
@@ -686,8 +701,8 @@ exports[`ScoreList component should match exact snapshot 1`] = `
           }
         >
           序号
-        </td>
-        <td
+        </th>
+        <th
           className="td"
           style={
             Object {
@@ -696,8 +711,8 @@ exports[`ScoreList component should match exact snapshot 1`] = `
           }
         >
           文件
-        </td>
-        <td
+        </th>
+        <th
           className="td sort"
           style={
             Object {
@@ -724,8 +739,8 @@ exports[`ScoreList component should match exact snapshot 1`] = `
               />
             </div>
           </button>
-        </td>
-        <td
+        </th>
+        <th
           className="td sort"
         >
           <button
@@ -747,8 +762,8 @@ exports[`ScoreList component should match exact snapshot 1`] = `
               />
             </div>
           </button>
-        </td>
-        <td
+        </th>
+        <th
           className="td"
           colSpan={1}
           style={
@@ -758,8 +773,8 @@ exports[`ScoreList component should match exact snapshot 1`] = `
           }
         >
           github
-        </td>
-        <td
+        </th>
+        <th
           className="td"
           colSpan={1}
           style={
@@ -769,7 +784,7 @@ exports[`ScoreList component should match exact snapshot 1`] = `
           }
         >
           关键字
-        </td>
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -778,6 +793,84 @@ exports[`ScoreList component should match exact snapshot 1`] = `
           className="td"
         >
           1
+          <br />
+          <button
+            className="trash"
+            onClick={[Function]}
+            type="button"
+          >
+            <i
+              className="fa fa-trash"
+            />
+          </button>
+        </td>
+        <td
+          className="td"
+        >
+          <button
+            className="link"
+            onClick={[Function]}
+            type="button"
+          >
+            <span
+              className="namePhone"
+            >
+              小兰
+            </span>
+            <span
+              className="namePhone"
+            >
+              13912345678
+            </span>
+            <span
+              className="namePhone"
+            >
+              测大
+            </span>
+            <span
+              className="namePhone"
+            />
+            <ul
+              className="icons"
+            />
+          </button>
+        </td>
+        <td
+          className="td"
+        >
+          2年
+        </td>
+        <td
+          className="score"
+        >
+          4.00
+        </td>
+        <td
+          className="td"
+        >
+          <span
+            className="level level5"
+            title="2"
+          >
+            p5
+          </span>
+        </td>
+        <td
+          className="td"
+        >
+          <div>
+            <svg
+              height={120}
+              width={360}
+            />
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td
+          className="td"
+        >
+          2
           <br />
           <button
             className="trash"
@@ -817,25 +910,7 @@ exports[`ScoreList component should match exact snapshot 1`] = `
             />
             <ul
               className="icons"
-            >
-              <li
-                style={
-                  Object {
-                    "backgroundColor": "rgba(235, 235, 235, 1.2)",
-                  }
-                }
-              >
-                <img
-                  alt="vue"
-                  src="test-file-stub"
-                  style={
-                    Object {
-                      "opacity": 1,
-                    }
-                  }
-                />
-              </li>
-            </ul>
+            />
           </button>
         </td>
         <td

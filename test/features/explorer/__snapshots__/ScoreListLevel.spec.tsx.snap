@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScoreListLevel component should match exact snapshot 1`] = `
+<span
+  className="level level6"
+  title="7"
+>
+  p6
+  <i
+    className="fa fa-plus fa-1x"
+    title="+"
+  />
+  <i
+    className="fa fa-plus fa-1x"
+    title="+"
+  />
+</span>
+`;

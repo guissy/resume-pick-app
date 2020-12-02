@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScoreListLink component should match exact snapshot 1`] = `
+<a
+  className="alink"
+  href="http://test.com"
+  onClick={[Function]}
+  style={
+    Object {
+      "color": "#999999",
+    }
+  }
+>
+  <img
+    alt=""
+    className="blogIcon"
+  />
+  test.com
+</a>
+`;

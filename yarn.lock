@@ -13349,8 +13349,8 @@ restore-cursor@^3.1.0:
     signal-exit "^3.0.2"
 
 "resume-pick@https://github.com/guissy/resume-pick.git":
-  version "1.1.10"
-  resolved "https://github.com/guissy/resume-pick.git#8d5301fb92433663e9877720dcf89f7ec63d633e"
+  version "1.1.12"
+  resolved "https://github.com/guissy/resume-pick.git#88364c89742c665474d518555b0ae7f97ebd17af"
   dependencies:
     chalk "^4.1.0"
     glob "^7.1.6"

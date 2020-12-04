@@ -21,6 +21,7 @@ import ScoreListSort from './ScoreListSort';
 import ScoreListLevel from './ScoreListLevel';
 import TechRow from './TechRow';
 import ScoreListLink from './ScoreListLink';
+import ScoreListStar from './ScoreListStar';
 
 type File = ScoreFile | undefined;
 type Props = {
@@ -192,6 +193,10 @@ const ScoreList: React.FC<Props> = ({ search, setSearch }) => {
                     </>
                   )}
                   <span className={styles.namePhone}>{v.salary}</span>
+                  <ScoreListStar
+                    levelSalary={v.levelSalary}
+                    levelValue={v.levelValue}
+                  />
                   <TechRow keywords={v.keywords} techNames={techNames} />
                 </button>
               </td>

@@ -22,6 +22,7 @@ export type ScoreFile = DocFile & {
   workAge: number;
   level: string;
   levelValue: number;
+  levelSalary: number;
   school: string;
   degree: string;
   salary: string;
@@ -34,6 +35,7 @@ export type ParsedResume = {
   workAge: number;
   level: string;
   levelValue: number;
+  levelSalary: number;
   school: string;
   degree: string;
   salary: string;

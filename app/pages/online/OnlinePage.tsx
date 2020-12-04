@@ -19,6 +19,7 @@ import { selectConfig } from '../../features/configSlice';
 import ScoreList from '../../features/explorer/ScoreList';
 import userAgent from '../../utils/userAgent';
 import useNameScore from '../../utils/useNameScore';
+import ScoreListStar from '../../features/explorer/ScoreListStar';
 
 const userInfoScript = `
 console.log(JSON.stringify({
@@ -76,8 +77,7 @@ export default function OnlinePage(): JSX.Element {
   const config = useSelector(selectConfig);
   const [updating, setUpdating] = React.useState(false);
   const [updateMap] = React.useState(new Map<string, number>());
-  const [scoreMap] = React.useState(new Map<string, string>());
-  const [levelMap] = React.useState(new Map<string, string>());
+  const [scoreMap] = React.useState(new Map<string, ScoreFile>());
   const search = useSelector(selectSearch);
   const onUpdateSearch = React.useCallback(
     (kw: string) => {
@@ -103,6 +103,7 @@ export default function OnlinePage(): JSX.Element {
                 score: r.score,
                 level: r.level,
                 levelValue: r.levelValue,
+                levelSalary: r.levelSalary,
                 school: r.school,
                 degree: r.degree,
                 salary: r.salary,
@@ -116,8 +117,7 @@ export default function OnlinePage(): JSX.Element {
               })
             );
             updateMap.set(f.path, Date.now());
-            scoreMap.set(f.name, r.score.toFixed(1));
-            levelMap.set(f.name, r.level);
+            scoreMap.set(f.path, (r as unknown) as ScoreFile);
             if (Array.from(updateMap.values()).every((time) => !!time)) {
               delay(() => setUpdating(false), 500);
             }
@@ -126,7 +126,7 @@ export default function OnlinePage(): JSX.Element {
         );
       }
     },
-    [config, dispatch, updateMap, scoreMap, levelMap, search]
+    [config, dispatch, updateMap, scoreMap, search]
   );
   const webviewRef = React.useRef<
     (HTMLWebview & { getURL: () => string }) | null
@@ -203,6 +203,7 @@ export default function OnlinePage(): JSX.Element {
   const onClickClose = React.useCallback(() => {
     setShowDialog(false);
   }, []);
+  const scoreFile = scoreMap.get(onlineFile?.path || '');
   return (
     <div className={styles.container} data-tid="container">
       <p
@@ -253,10 +254,17 @@ export default function OnlinePage(): JSX.Element {
         >
           <span className={styles.nameBig}>{onlineFile?.name}</span>
           <span className={styles.scoreBig}>
-            {scoreMap.get(onlineFile?.name || '')}
+            {scoreFile?.score?.toFixed(1)}
           </span>
           <span className={styles.levelBig}>
-            {levelMap.get(onlineFile?.name || '')}
+            {scoreFile?.level}
+            <br />
+            <span className={styles.stars}>
+              <ScoreListStar
+                levelSalary={scoreFile?.levelSalary || 0}
+                levelValue={scoreFile?.levelValue || 0}
+              />
+            </span>
           </span>
         </button>
       </main>

@@ -13,8 +13,10 @@ export default async function exportExcel(config: Config, scores: ScoreFile[]) {
       ['学历', 10],
       ['期望薪水', 15],
       ['经验', 10],
-      ['分数', 10],
+      ['关键字分', 10],
+      ['评级分', 10],
       ['评级', 10],
+      ['性价比', 10],
       ...config[0].children.map((w) => [
         w.name,
         Math.max(w.name.length * 1.6, 10),
@@ -27,9 +29,11 @@ export default async function exportExcel(config: Config, scores: ScoreFile[]) {
       s.school,
       s.degree,
       s.salary,
-      Math.round(s.workAge * 2) / 2,
+      Math.round((s.workAge || 0) * 2) / 2,
       parseFloat(s.score.toFixed(1)),
+      parseFloat(s.levelValue.toFixed(1)),
       s.level,
+      parseFloat(s.levelSalary.toFixed(2)),
       ...config[0].children.map((w) => {
         const found = s.keywords[0].children.find((w2) => w.name === w2.name);
         return found ? parseFloat(found.gained.toFixed(1)) : 0;

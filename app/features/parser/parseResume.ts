@@ -14,6 +14,7 @@ import {
   ParseResumeFn,
 } from '../type';
 import {
+  calcLevelSalaryRate,
   calcSentiment,
   trackDegree,
   trackLinks,
@@ -80,6 +81,7 @@ export function parseResumeText(
       levelValue,
       keywords: kw,
     } = timeContent.calcTotal(text, configOk) as KeywordCalcResult;
+    const levelSalary = calcLevelSalaryRate(salary, levelValue);
     const kws = kw.items.map((k: Keyword) => ({
       ...k,
       children: k.children
@@ -101,6 +103,7 @@ export function parseResumeText(
       workAge,
       level,
       levelValue,
+      levelSalary,
       school,
       degree,
       salary,
@@ -118,6 +121,7 @@ export function parseResumeText(
       workAge: 0,
       level: '-',
       levelValue: 0,
+      levelSalary: 0,
       school,
       degree: '',
       salary: '',
@@ -180,6 +184,7 @@ export default function parseResume(
       search,
       level: '',
       levelValue: 0,
+      levelSalary: 0,
       school: '',
       degree: '',
       salary: '',

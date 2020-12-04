@@ -77,6 +77,9 @@
   color: #fffab8;
   font-size: 16px;
   font-weight: bolder;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   letter-spacing: 3px;
   border-top-left-radius: 21px;
   border-bottom-left-radius: 21px;
@@ -90,7 +93,8 @@
   padding: 0 10px 0 20px;
   height: 30px;
   width: 58px;
-  line-height: 30px;
+  line-height: 22px;
+  text-transform: capitalize;
   color: #fffab8;
   font-size: 16px;
   font-weight: bolder;
@@ -99,6 +103,12 @@
   border-bottom-right-radius: 21px;
   background-color: rgba(33, 33, 33, 1);
   border: 1px solid #8e8410;
+}
+
+.stars {
+  font-size: 6px;
+  transform: translateY(-12px);
+  display: inline-block;
 }
 
 .scoreBig {

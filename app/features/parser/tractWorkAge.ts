@@ -151,3 +151,23 @@ export function getGithubByLink(links: string[]) {
     )
   );
 }
+
+export function calcLevelSalaryRate(
+  salary: string,
+  levelValue: number
+): number {
+  const salaryRange = salary.match(/\d+/g) || [];
+  const salaryMid =
+    salaryRange.map((v) => parseInt(v, 10)).reduce((t, v) => t + v, 0) / 2;
+  const rate = salaryMid > 0 && levelValue > 2 ? levelValue / salaryMid : 0;
+  return rate / 0.29;
+}
+
+export function calcLevelSalaryStar(
+  levelSalary: number,
+  levelValue: number
+): number {
+  return (
+    Math.round(Math.log2((levelSalary || 0.4) * 2.5) * levelValue * 0.62) / 2
+  );
+}

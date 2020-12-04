@@ -47,6 +47,7 @@ export default function DesktopPage(): JSX.Element {
             score: r.score,
             level: r.level,
             levelValue: r.levelValue,
+            levelSalary: r.levelSalary,
             school: r.school,
             degree: r.degree,
             salary: r.salary,

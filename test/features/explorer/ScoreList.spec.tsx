@@ -1,5 +1,5 @@
-import './mockGithubView';
-import './mockExportExcel';
+import '../utils/mockGithubView';
+import '../utils/mockExportExcel';
 import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -12,7 +12,7 @@ import * as scoreSlice from '../../../app/features/scoreSlice';
 import ScoreList from '../../../app/features/explorer/ScoreList';
 import exportExcelModule from '../../../app/features/parser/exportExcel';
 import configDefault from '../../../app/constants/configDefault.json';
-import mockScoreFile from './mockScoreFile';
+import mockScoreFile from '../utils/mockScoreFile';
 import * as tractWorkAge from '../../../app/features/parser/tractWorkAge';
 
 Enzyme.configure({ adapter: new Adapter() });

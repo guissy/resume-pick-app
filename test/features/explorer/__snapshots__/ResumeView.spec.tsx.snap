@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResumeView component should match exact snapshot 1`] = `
+<div
+  className="wrap"
+>
+  <header
+    style={
+      Object {
+        "textAlign": "right",
+      }
+    }
+  >
+    <label
+      className="searchWrap"
+      htmlFor="search"
+    >
+      <i
+        className="fa fa-search"
+      />
+      <span
+        className="count"
+        style={
+          Object {
+            "visibility": "hidden",
+          }
+        }
+      >
+        0
+      </span>
+      <input
+        className="search"
+        id="search"
+        onChange={[Function]}
+        placeholder="输入关键字搜索简历"
+        type="search"
+        value=""
+      />
+    </label>
+    <button
+      onClick={[Function]}
+      style={
+        Object {
+          "background": "none",
+          "border": "1px solid #fff",
+          "color": "#fff",
+          "cursor": "pointer",
+          "fontSize": 14,
+        }
+      }
+      type="button"
+    >
+      使用本地软件打开此文件
+    </button>
+    <button
+      onClick={[Function]}
+      type="button"
+    >
+      <i
+        className="fa fa-times fa-2x"
+      />
+    </button>
+  </header>
+  <article
+    className="article"
+  >
+    <p
+      style={
+        Object {
+          "marginBlockEnd": 5,
+          "marginBlockStart": 5,
+        }
+      }
+    >
+      <span>
+        <mark
+          className="kw0 pos_1_0 "
+          style={Object {}}
+        >
+          vue
+        </mark>
+        <span
+          className=""
+        >
+           good
+        </span>
+      </span>
+    </p>
+  </article>
+</div>
+`;

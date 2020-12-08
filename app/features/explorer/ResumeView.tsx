@@ -71,6 +71,7 @@ const ResumeView: React.FC<Props> = ({ resume, onClose }) => {
           <i className="fa fa-search" />
           <span
             className={styles.count}
+            aria-label="search count"
             style={{ visibility: count > 0 ? 'visible' : 'hidden' }}
           >
             {count}
@@ -79,6 +80,7 @@ const ResumeView: React.FC<Props> = ({ resume, onClose }) => {
             className={styles.search}
             id="search"
             type="search"
+            aria-label="search input"
             value={searchTxt}
             placeholder="输入关键字搜索简历"
             onChange={(e) => {

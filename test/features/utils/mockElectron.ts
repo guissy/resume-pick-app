@@ -5,5 +5,9 @@ jest.mock('electron', () => {
         getPath: jest.fn().mockReturnValue(''),
       },
     },
+    shell: {
+      openExternal: jest.fn(),
+      openItem: jest.fn(),
+    },
   };
 });

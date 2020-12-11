@@ -13415,7 +13415,7 @@ restore-cursor@^3.1.0:
 
 "resume-pick@https://github.com/guissy/resume-pick.git":
   version "1.1.12"
-  resolved "https://github.com/guissy/resume-pick.git#88364c89742c665474d518555b0ae7f97ebd17af"
+  resolved "https://github.com/guissy/resume-pick.git#4fb717c6dbae665a96baf90707d717c5fc637f92"
   dependencies:
     chalk "^4.1.0"
     glob "^7.1.6"

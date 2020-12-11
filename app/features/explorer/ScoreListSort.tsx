@@ -2,8 +2,8 @@ import React from 'react';
 import styles from './ScoreList.css';
 
 type Props = {
-  name: string | React.ReactNode;
-  sort: string;
+  name: '分数' | '经验';
+  sort?: string;
   onClick: () => void;
 };
 

@@ -16,28 +16,32 @@ type Props = {
   levelValue: number;
 };
 const ScoreListStar: React.FC<Props> = ({ levelSalary, levelValue }) => {
+  const stars = calcLevelSalaryStar(levelSalary, levelValue);
   const arr = React.useMemo(() => {
-    const n = calcLevelSalaryStar(levelSalary, levelValue);
-    return n > 0
-      ? Array(Math.ceil(n))
+    return stars > 0
+      ? Array(Math.ceil(stars))
           .fill(0)
           .map((_v, i) => i)
       : [];
-  }, [levelSalary, levelValue]);
+  }, [stars]);
   const lastStyle = React.useCallback(
     (i: number) => {
       const isLast = i === arr.length - 1;
-      const isHalf = levelSalary - Math.floor(levelSalary) > 0.4;
+      const isHalf = stars - Math.floor(stars) > 0.4;
       if (isLast && isHalf) {
         return { clipPath: 'inset(0 60% 0 0)' };
       }
       return {};
     },
-    [arr, levelSalary]
+    [arr, stars]
   );
   return (
-    <span className={styles.namePhone} title={levelSalary.toFixed(2)}>
-      {calcLevelSalaryStar(levelSalary, levelValue) > 0
+    <span
+      className={styles.namePhone}
+      title={levelSalary.toFixed(2)}
+      aria-label={stars.toFixed(1)}
+    >
+      {stars > 0
         ? arr.map((v, i) => <Star key={v} style={lastStyle(i)} />)
         : ''}
     </span>

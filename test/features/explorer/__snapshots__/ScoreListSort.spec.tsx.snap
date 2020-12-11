@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScoreListSort component should match exact snapshot 1`] = `
+<button
+  className="sortBtn"
+  onClick={[Function]}
+  type="button"
+>
+  <span>
+    分数
+  </span>
+  <div
+    className="caretInit"
+  >
+    <i
+      className="fa fa-caret-up "
+    />
+    <i
+      className="fa fa-caret-down "
+    />
+  </div>
+</button>
+`;
+
+exports[`ScoreListSort component should match exact snapshot down 1`] = `
+<button
+  className="sortBtn"
+  onClick={[Function]}
+  type="button"
+>
+  <span>
+    分数
+  </span>
+  <div
+    className="caretInit"
+  >
+    <i
+      className="fa fa-caret-up "
+    />
+    <i
+      className="fa fa-caret-down active"
+    />
+  </div>
+</button>
+`;
+
+exports[`ScoreListSort component should match exact snapshot up 1`] = `
+<button
+  className="sortBtn"
+  onClick={[Function]}
+  type="button"
+>
+  <span>
+    分数
+  </span>
+  <div
+    className="caretInit"
+  >
+    <i
+      className="fa fa-caret-up active"
+    />
+    <i
+      className="fa fa-caret-down "
+    />
+  </div>
+</button>
+`;

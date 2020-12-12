@@ -1,0 +1,552 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TechFilter component should match exact snapshot 1`] = `
+<div
+  className="opts"
+>
+  <label
+    htmlFor="optCheckbox"
+  >
+    <input
+      checked={true}
+      id="optCheckbox"
+      onChange={[Function]}
+      type="checkbox"
+    />
+    全选
+  </label>
+  <ul
+    className="icons"
+  >
+    <li
+      style={
+        Object {
+          "backgroundColor": "#333",
+        }
+      }
+    >
+      <button
+        className="opt"
+        onClick={[Function]}
+        style={
+          Object {
+            "filter": "unset",
+          }
+        }
+        type="button"
+      >
+        <img
+          alt="RN"
+          src="test-file-stub"
+        />
+      </button>
+    </li>
+    <li
+      style={
+        Object {
+          "backgroundColor": "#333",
+        }
+      }
+    >
+      <button
+        className="opt"
+        onClick={[Function]}
+        style={
+          Object {
+            "filter": "unset",
+          }
+        }
+        type="button"
+      >
+        <img
+          alt="flutter"
+          src="test-file-stub"
+        />
+      </button>
+    </li>
+    <li
+      style={
+        Object {
+          "backgroundColor": "#333",
+        }
+      }
+    >
+      <button
+        className="opt"
+        onClick={[Function]}
+        style={
+          Object {
+            "filter": "unset",
+          }
+        }
+        type="button"
+      >
+        <img
+          alt="react"
+          src="test-file-stub"
+        />
+      </button>
+    </li>
+    <li
+      style={
+        Object {
+          "backgroundColor": "#333",
+        }
+      }
+    >
+      <button
+        className="opt"
+        onClick={[Function]}
+        style={
+          Object {
+            "filter": "unset",
+          }
+        }
+        type="button"
+      >
+        <img
+          alt="vue"
+          src="test-file-stub"
+        />
+      </button>
+    </li>
+    <li
+      style={
+        Object {
+          "backgroundColor": "#333",
+        }
+      }
+    >
+      <button
+        className="opt"
+        onClick={[Function]}
+        style={
+          Object {
+            "filter": "unset",
+          }
+        }
+        type="button"
+      >
+        <img
+          alt="angular"
+          src="test-file-stub"
+        />
+      </button>
+    </li>
+    <li
+      style={
+        Object {
+          "backgroundColor": "#333",
+        }
+      }
+    >
+      <button
+        className="opt"
+        onClick={[Function]}
+        style={
+          Object {
+            "filter": "unset",
+          }
+        }
+        type="button"
+      >
+        <img
+          alt="wxapp"
+          src="test-file-stub"
+        />
+      </button>
+    </li>
+    <li
+      style={
+        Object {
+          "backgroundColor": "#333",
+        }
+      }
+    >
+      <button
+        className="opt"
+        onClick={[Function]}
+        style={
+          Object {
+            "filter": "unset",
+          }
+        }
+        type="button"
+      >
+        <img
+          alt="node"
+          src="test-file-stub"
+        />
+      </button>
+    </li>
+    <li
+      style={
+        Object {
+          "backgroundColor": "#333",
+        }
+      }
+    >
+      <button
+        className="opt"
+        onClick={[Function]}
+        style={
+          Object {
+            "filter": "unset",
+          }
+        }
+        type="button"
+      >
+        <img
+          alt="es6"
+          src="test-file-stub"
+        />
+      </button>
+    </li>
+    <li
+      style={
+        Object {
+          "backgroundColor": "#333",
+        }
+      }
+    >
+      <button
+        className="opt"
+        onClick={[Function]}
+        style={
+          Object {
+            "filter": "unset",
+          }
+        }
+        type="button"
+      >
+        <img
+          alt="css3"
+          src="test-file-stub"
+        />
+      </button>
+    </li>
+    <li
+      style={
+        Object {
+          "backgroundColor": "#333",
+        }
+      }
+    >
+      <button
+        className="opt"
+        onClick={[Function]}
+        style={
+          Object {
+            "filter": "unset",
+          }
+        }
+        type="button"
+      >
+        <img
+          alt="typescript"
+          src="test-file-stub"
+        />
+      </button>
+    </li>
+    <li
+      style={
+        Object {
+          "backgroundColor": "#333",
+        }
+      }
+    >
+      <button
+        className="opt"
+        onClick={[Function]}
+        style={
+          Object {
+            "filter": "unset",
+          }
+        }
+        type="button"
+      >
+        <img
+          alt="rxjs"
+          src="test-file-stub"
+        />
+      </button>
+    </li>
+    <li
+      style={
+        Object {
+          "backgroundColor": "#333",
+        }
+      }
+    >
+      <button
+        className="opt"
+        onClick={[Function]}
+        style={
+          Object {
+            "filter": "unset",
+          }
+        }
+        type="button"
+      >
+        <img
+          alt="graphql"
+          src="test-file-stub"
+        />
+      </button>
+    </li>
+    <li
+      style={
+        Object {
+          "backgroundColor": "#333",
+        }
+      }
+    >
+      <button
+        className="opt"
+        onClick={[Function]}
+        style={
+          Object {
+            "filter": "unset",
+          }
+        }
+        type="button"
+      >
+        <img
+          alt="test"
+          src="test-file-stub"
+        />
+      </button>
+    </li>
+    <li
+      style={
+        Object {
+          "backgroundColor": "#333",
+        }
+      }
+    >
+      <button
+        className="opt"
+        onClick={[Function]}
+        style={
+          Object {
+            "filter": "unset",
+          }
+        }
+        type="button"
+      >
+        <img
+          alt="gayhub"
+          src="test-file-stub"
+        />
+      </button>
+    </li>
+    <li
+      style={
+        Object {
+          "backgroundColor": "#333",
+        }
+      }
+    >
+      <button
+        className="opt"
+        onClick={[Function]}
+        style={
+          Object {
+            "filter": "unset",
+          }
+        }
+        type="button"
+      >
+        <img
+          alt="lint"
+          src="test-file-stub"
+        />
+      </button>
+    </li>
+    <li
+      style={
+        Object {
+          "backgroundColor": "#333",
+        }
+      }
+    >
+      <button
+        className="opt"
+        onClick={[Function]}
+        style={
+          Object {
+            "filter": "unset",
+          }
+        }
+        type="button"
+      >
+        <img
+          alt="electron"
+          src="test-file-stub"
+        />
+      </button>
+    </li>
+    <li
+      style={
+        Object {
+          "backgroundColor": "#333",
+        }
+      }
+    >
+      <button
+        className="opt"
+        onClick={[Function]}
+        style={
+          Object {
+            "filter": "unset",
+          }
+        }
+        type="button"
+      >
+        <img
+          alt="git"
+          src="test-file-stub"
+        />
+      </button>
+    </li>
+    <li
+      style={
+        Object {
+          "backgroundColor": "#333",
+        }
+      }
+    >
+      <button
+        className="opt"
+        onClick={[Function]}
+        style={
+          Object {
+            "filter": "unset",
+          }
+        }
+        type="button"
+      >
+        <img
+          alt="docker"
+          src="test-file-stub"
+        />
+      </button>
+    </li>
+    <li
+      style={
+        Object {
+          "backgroundColor": "#333",
+        }
+      }
+    >
+      <button
+        className="opt"
+        onClick={[Function]}
+        style={
+          Object {
+            "filter": "unset",
+          }
+        }
+        type="button"
+      >
+        <img
+          alt="python"
+          src="test-file-stub"
+        />
+      </button>
+    </li>
+    <li
+      style={
+        Object {
+          "backgroundColor": "#333",
+        }
+      }
+    >
+      <button
+        className="opt"
+        onClick={[Function]}
+        style={
+          Object {
+            "filter": "unset",
+          }
+        }
+        type="button"
+      >
+        <img
+          alt="java"
+          src="test-file-stub"
+        />
+      </button>
+    </li>
+    <li
+      style={
+        Object {
+          "backgroundColor": "#333",
+        }
+      }
+    >
+      <button
+        className="opt"
+        onClick={[Function]}
+        style={
+          Object {
+            "filter": "unset",
+          }
+        }
+        type="button"
+      >
+        <img
+          alt="go"
+          src="test-file-stub"
+        />
+      </button>
+    </li>
+    <li
+      style={
+        Object {
+          "backgroundColor": "#333",
+        }
+      }
+    >
+      <button
+        className="opt"
+        onClick={[Function]}
+        style={
+          Object {
+            "filter": "unset",
+          }
+        }
+        type="button"
+      >
+        <img
+          alt="kotlin"
+          src="test-file-stub"
+        />
+      </button>
+    </li>
+    <li
+      style={
+        Object {
+          "backgroundColor": "#333",
+        }
+      }
+    >
+      <button
+        className="opt"
+        onClick={[Function]}
+        style={
+          Object {
+            "filter": "unset",
+          }
+        }
+        type="button"
+      >
+        <img
+          alt="mongodb"
+          src="test-file-stub"
+        />
+      </button>
+    </li>
+  </ul>
+</div>
+`;

@@ -49,6 +49,8 @@ function setup(
   return {
     store,
     component,
+    input: component.find('input').at(0),
+    button: component.find('button').at(0),
   };
 }
 
@@ -66,5 +68,21 @@ describe('TechFilter component', () => {
       )
       .toJSON();
     expect(tree).toMatchSnapshot();
+  });
+
+  it('click button should call updateConfig', () => {
+    const { button } = setup();
+    const updateConfigSpy = jest.spyOn(configSlice, 'updateConfig');
+    button.simulate('click');
+    expect(updateConfigSpy).toBeCalledTimes(1);
+    updateConfigSpy.mockRestore();
+  });
+
+  it('check should call updateConfig', () => {
+    const { input } = setup();
+    const updateConfigSpy = jest.spyOn(configSlice, 'updateConfig');
+    input.simulate('change');
+    expect(updateConfigSpy).toBeCalledTimes(1);
+    updateConfigSpy.mockRestore();
   });
 });

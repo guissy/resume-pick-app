@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TechRow component should match exact snapshot 1`] = `
+<ul
+  className="icons"
+>
+  <li
+    style={
+      Object {
+        "backgroundColor": "rgba(235, 235, 235, 1.2)",
+      }
+    }
+  >
+    <img
+      alt="vue"
+      src="test-file-stub"
+      style={
+        Object {
+          "opacity": 1,
+        }
+      }
+    />
+  </li>
+</ul>
+`;

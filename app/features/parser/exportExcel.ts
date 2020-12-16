@@ -83,7 +83,7 @@ export default async function exportExcel(config: Config, scores: ScoreFile[]) {
       // console.log(err);
     });
   if (filePath) {
-    workbook.xlsx
+    return workbook.xlsx
       .writeBuffer()
       .then((buf) => {
         return fs.writeFileSync(filePath, buf, 'binary');
@@ -92,4 +92,5 @@ export default async function exportExcel(config: Config, scores: ScoreFile[]) {
         // console.log(err);
       });
   }
+  throw new Error(`filePath: ${filePath} not found!`);
 }

@@ -40,6 +40,7 @@ export default [
     workAge: 2,
     level: 'p5',
     levelValue: 2,
+    levelSalary: 1,
     school: '测大',
     score: 4,
     links: [],

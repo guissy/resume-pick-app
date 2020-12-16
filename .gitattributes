@@ -5,4 +5,4 @@
 *.jpeg  binary
 *.ico   binary
 *.icns  binary
-resources/.bin/cloc binary
+/resources/.bin/cloc linguist-language=Typescript

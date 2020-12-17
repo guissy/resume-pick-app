@@ -1,8 +1,5 @@
 import git from 'isomorphic-git';
 import http from 'isomorphic-git/http/node';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-// import cloc from 'node-cloc';
 import path from 'path';
 import fs from 'fs';
 import { promisify } from 'util';
@@ -20,7 +17,6 @@ async function cloc(folder: string) {
   return JSON.parse(stdout || '');
 }
 
-// type GitCommit = { commit: { message: string } };
 export default async function parseRepo(
   repoUrl: string,
   dir: string,

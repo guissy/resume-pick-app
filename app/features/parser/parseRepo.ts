@@ -3,7 +3,7 @@ import http from 'isomorphic-git/http/node';
 import path from 'path';
 import fs from 'fs';
 import { promisify } from 'util';
-import { exec } from 'child_process';
+import { execFile } from 'child_process';
 import { remote } from 'electron';
 
 export const resourcesPath = remote.app.isPackaged
@@ -11,8 +11,9 @@ export const resourcesPath = remote.app.isPackaged
   : path.resolve('resources');
 
 async function cloc(folder: string) {
-  const { stdout } = await promisify(exec)(
-    [path.join(resourcesPath, '.bin/cloc'), '--json', folder].join(' ')
+  const { stdout } = await promisify(execFile)(
+    path.join(resourcesPath, '.bin/cloc'),
+    ['--json', folder]
   );
   return JSON.parse(stdout || '');
 }

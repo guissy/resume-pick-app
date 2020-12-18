@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parseResume parseResumeText 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "alias": Array [
+          "reactjs",
+          "redux",
+          "antd",
+          "ant design",
+        ],
+        "gained": 1.3443609377704335,
+        "months": 12,
+        "name": "react",
+        "score": 1.5,
+        "works": Array [
+          Object {
+            "endDate": "Sun Aug 30 2020 08:00:00 GMT+0800 (China Standard Time)",
+            "startDate": "Thu Aug 01 2019 08:00:00 GMT+0800 (China Standard Time)",
+            "workContent": " react",
+          },
+        ],
+      },
+    ],
+    "gained": 1.3443609377704335,
+    "name": "核心项",
+  },
+  Object {
+    "children": Array [],
+    "gained": 0,
+    "name": "进阶",
+  },
+  Object {
+    "children": Array [],
+    "gained": 0,
+    "name": "其他",
+  },
+]
+`;

@@ -93,7 +93,7 @@ commit/line ${linesInCommit}
     });
   }, [webviewRef, status]);
 
-  return url.includes('github.com') || url.includes('gitee.com') ? (
+  return host.includes('github.com') || host.includes('gitee.com') ? (
     <div>
       <webview
         ref={webviewRef}

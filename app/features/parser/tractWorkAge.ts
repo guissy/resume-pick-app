@@ -26,7 +26,13 @@ export default function trackWorkAge(text: string) {
 }
 
 export function trackPhone(text: string) {
-  return (text || '').match(/1\d{10}/g)?.[0] || '';
+  const n11 = (text || '').match(/1\d{10}\D/g)?.[0];
+  const n11s = (text || '').trim().match(/^1\d{10}$/g)?.[0];
+  const n11line = (text || '')
+    .match(/1[\d\s—–-]{11,14}\D/g)?.[0]
+    ?.replace(/[\s—–-]/g, '')
+    .match(/^1\d{10}$/)?.[0];
+  return n11 || n11s || n11line || '';
 }
 
 export function trackSchool(text: string) {

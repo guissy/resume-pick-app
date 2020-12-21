@@ -1,5 +1,5 @@
 import Sentiment from 'sentiment';
-import { Config } from '../type';
+import { Config, Keyword } from '../type';
 
 export default function trackWorkAge(text: string) {
   // 工作年限：3年
@@ -47,11 +47,11 @@ export function trackDegree(text: string) {
 }
 
 export function trackSalary(text: string) {
-  let regExp = /(?<=期望(薪水|薪资|工资|月薪)[:：\s]*)([0-9]+([kK])([—–\-~至])+[0-9]+([kK]))/;
+  let regExp = /(?<=期望(薪水|薪资|工资|月薪)[:：\s]*)([0-9]+([kK])?([—–\-~至])+[0-9]+([kK]))/;
   let salary = (text || '').match(regExp)?.[0] || '';
   if (!salary) {
     // 15k-25k
-    regExp = /\b([0-9]+([kK])([—–\-~至])+[0-9]+([kK]))/;
+    regExp = /\b([0-9]+([kK])?([—–\-~至])+[0-9]+([kK]))/;
     salary = (text || '').match(regExp)?.[0] || '';
   }
   return salary;
@@ -67,7 +67,7 @@ export function trackLinks(text: string) {
   ).map((url) => (url.endsWith('/') ? url.slice(0, url.length - 1) : url));
 }
 
-export function getScoreMap(configs: Config) {
+export function getScoreMap(configs: Keyword[]) {
   return configs
     .map((k) =>
       k.children.map((w) => {

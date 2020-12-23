@@ -2,6 +2,7 @@ import mockScoreFile from '../utils/mockScoreFile';
 import configDefault from '../../../app/constants/configDefault.json';
 import trackWorkAge, {
   calcSentiment,
+  getBlogByLink,
   getScoreMap,
   trackDegree,
   trackLinks,
@@ -55,5 +56,29 @@ describe('trackWorkAge', () => {
     expect(
       calcSentiment(mockScoreFile[0].text, configDefault as Keyword[])
     ).toBeGreaterThan(0);
+  });
+  it('getBlogByLink', () => {
+    expect(getBlogByLink('https://github.com/guissy/cc')).toBe('github');
+    expect(
+      getBlogByLink('https://jiayili.gitbooks.io/fe-study-easier/content/')
+    ).toBe('gitbooks');
+    expect(getBlogByLink('https://blog.51cto.com/12131824')).toBe('51cto');
+    expect(getBlogByLink('https://my.oschina.net/u/267941')).toBe('oschina');
+    expect(getBlogByLink('https://www.imooc.com/u/1215284')).toBe('imooc');
+    expect(getBlogByLink('https://segmentfault.com/u/jmxiao')).toBe(
+      'segmentfault'
+    );
+    expect(getBlogByLink('https://www.jianshu.com/u/c7757daadf27')).toBe(
+      'jianshu'
+    );
+    expect(getBlogByLink('https://www.zhihu.com/people/gui-zi-29/posts')).toBe(
+      'zhihu'
+    );
+    expect(getBlogByLink('https://zhuanlan.zhihu.com/269840126')).toBe('zhihu');
+    expect(getBlogByLink('https://blog.csdn.net/weixin_42134789')).toBe('csdn');
+    expect(getBlogByLink('https://www.cnblogs.com/jiujuan/')).toBe('cnblogs');
+    expect(getBlogByLink('https://juejin.im/user/3403743728515246/')).toBe(
+      'juejin'
+    );
   });
 });

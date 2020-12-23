@@ -92,7 +92,7 @@ export function calcSentiment(text: string, config: Config) {
   return result.comparative;
 }
 
-export function getBlogByLink(link: string) {
+export function getBlogByLink(link: string): string {
   // https://juejin.im/user/3403743728515246/
   // https://www.cnblogs.com/jiujuan/
   // https://blog.csdn.net/weixin_42134789

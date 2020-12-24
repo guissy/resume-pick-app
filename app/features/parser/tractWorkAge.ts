@@ -146,7 +146,7 @@ export function getBlogByLink(link: string): string {
   return n >= 0 ? names[n] : '';
 }
 
-export function getGithubByLink(links: string[]) {
+export function getGithubByLink(links: string[]): string[] {
   const github = /(github|giteeee)\.com\/[A-z0-9_-]+/g;
   return Array.from(
     new Set(

@@ -3,6 +3,7 @@ import configDefault from '../../../app/constants/configDefault.json';
 import trackWorkAge, {
   calcSentiment,
   getBlogByLink,
+  getGithubByLink,
   getScoreMap,
   trackDegree,
   trackLinks,
@@ -80,5 +81,10 @@ describe('trackWorkAge', () => {
     expect(getBlogByLink('https://juejin.im/user/3403743728515246/')).toBe(
       'juejin'
     );
+  });
+  it('getGithubByLink', () => {
+    expect(
+      getGithubByLink(['https://github.com/guissy?tab=repositories'])[0]
+    ).toBe('https://github.com/guissy');
   });
 });

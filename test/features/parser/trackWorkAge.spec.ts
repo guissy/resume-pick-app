@@ -1,6 +1,8 @@
 import mockScoreFile from '../utils/mockScoreFile';
 import configDefault from '../../../app/constants/configDefault.json';
 import trackWorkAge, {
+  calcLevelSalaryRate,
+  calcLevelSalaryStar,
   calcSentiment,
   getBlogByLink,
   getGithubByLink,
@@ -86,5 +88,32 @@ describe('trackWorkAge', () => {
     expect(
       getGithubByLink(['https://github.com/guissy?tab=repositories'])[0]
     ).toBe('https://github.com/guissy');
+  });
+  it('calcLevelSalaryRate', () => {
+    expect(calcLevelSalaryRate('15k-20k', 8)).toBeGreaterThan(1.5);
+    expect(calcLevelSalaryRate('15k-20k', 3)).toBeLessThan(1);
+    expect(
+      [1, 2, 3, 4, 5, 6, 7, 8, 9].reduce(
+        (s, i) => ({
+          ...s,
+          [i]: calcLevelSalaryRate('15k-20k', i),
+        }),
+        {}
+      )
+    ).toMatchSnapshot();
+  });
+  it('calcLevelSalaryStar', () => {
+    expect(calcLevelSalaryStar(0.6, 8)).toBe(1.5);
+    expect(calcLevelSalaryStar(1, 8)).toBe(3.5);
+    expect(calcLevelSalaryStar(1.6, 8)).toBe(5);
+    expect(
+      [0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2].reduce(
+        (s, i) => ({
+          ...s,
+          [i]: calcLevelSalaryStar(i, 8),
+        }),
+        {}
+      )
+    ).toMatchSnapshot();
   });
 });
